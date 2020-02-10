@@ -3,3 +3,21 @@ easy_admin:
     User:
       class: App\Entity\User
       label: 'User'
+    Bill:
+      class: App\Entity\Bill
+      label: 'Bill'
+    Client:
+      class: App\Entity\Client
+      label: 'Client'
+    Company:
+      class: App\Entity\Company
+      label: 'Company'
+    Product:
+      class: App\Entity\Product
+      label: 'Product'
+    SocialNetworks:
+      class: App\Entity\SocialNetworks
+      label: 'SocialNetworks'
+    BillLine:
+      class: App\Entity\BillLine
+      label: 'BillLine'
