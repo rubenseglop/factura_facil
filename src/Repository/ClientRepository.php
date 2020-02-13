@@ -60,4 +60,20 @@ class ClientRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+
+    public function findOneById($value): ?Client
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+
+
+
+
 }
