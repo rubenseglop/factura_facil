@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+    {% endblock %}
+{% block body %}
+
+<main>
+
+    <header>
+
+        <div id="cabecera">
+            <h1>Easy Bill</h1>
+                <img src="img/avatar.png">
+        </div>
+
+    </header>
+
+    <section>
+        <div id="titulo">
+            <h1>Mis Clientes<img src="img/añadir.png" id="añadir"></h1>
+            <form action="index.php" method="POST" id="search">
+                    <input type="search" id="buscador" placeholder=" Buscar...">
+                    <button type="submit">Buscar</button>
+               
+            </form>
+                
+    </div>
+        <div id="empresas">
+            <ul>
+                <li>
+                    <p>Cliente 1 <img src="img/EditarEmpresas.png"><img src="img/borrar.png"></p>
+                    <hr>
+                   
+                </li>
+                <li>
+                    <p>Cliente 2<img src="img/EditarEmpresas.png"><img src="img/borrar.png"></p>
+                    <hr>
+                </li>
+                <li>
+                    <p>Cliente 3 <img src="img/EditarEmpresas.png"><img src="img/borrar.png"></p>
+                   
+                </li>
+            </ul>
+
+
+
+        </div>
+
+    </section>
+
+    <aside>
+        <a href="#"><h2>Mi Empresa</h2></a>
+        <a href="#"><h2>Productos</h2></a>
+        <a href="#"><h2>Facturas</h2></a>
+        <a href="#"><h2>Clientes</h2></a>
+        <a href="#"><h2>Mi Perfil</h2></a>
+    </aside>
+
+    
+</main>
+
+{% endblock %}
