@@ -3,13 +3,116 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    {# <h1>Register</h1>
+    {{ form_start(registration_form) }}
+        {{ form_row(registration_form.email) }}
+        {{ form_row(registration_form.plainPassword) }}
+        {{ form_row(registration_form.agreeTerms) }}
 
         <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    {{ form_end(registration_form) }} #}
+
+    {# <div class="container">
+        <div class="row">
+            <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <br/><br/><br/>
+                        <div class="card rounded shadow shadow-sm">
+                            <div class="card-header">
+                                <h3 class="mb-0">Register</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <form class="form" role="form" name="registration_form" method="post">
+
+                                    <div class="form-group">
+                                        <label for="registration_form_email" class="required">Email</label>
+                                        <input type="text" id="registration_form_email" name="registration_form[email]" class="form-control form-control-lg rounded-0" required="required" maxlength="180" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="registration_form_name" class="required">Name</label>
+                                        <input type="text" id="registration_form_name" name="registration_form[name]" class="form-control form-control-lg rounded-0" required="required" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="registration_form_plainPassword" class="required">Plain password</label>
+                                        <input type="password" id="registration_form_plainPassword" name="registration_form[plainPassword]" class="form-control form-control-lg rounded-0" required="required" />
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="registration_form_agreeTerms" name="registration_form[agreeTerms]" class="form-check-input" required="required" value="1" />
+                                            <label for="registration_form_agreeTerms" class="form-check-label required">Agree terms</label>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-success btn-lg float-right">Register</button>
+                                    
+                                    <input type="hidden" id="registration_form__token" name="registration_form[_token]" value="vntEFLNf5aGAj900V5ocUqYQMkRNArPvp5WMyO7lr2M" />
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <p>¿Ya estás registrado?</p><a href="{{ relative_path('/login') }}">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> #}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <div class="card rounded shadow shadow-sm">
+                            <div class="card-header">
+                                <h3 class="mb-0">Register</h3>
+                            </div>
+                            <div class="card-body">
+                                {{ form_start(registration_form, {'method': 'post', 'attr': {'class': 'form'}}) }}
+                                    <div class="form-group">
+                                        {{ form_widget(registration_form.email, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'placeholder':'Email'} }) }}
+                                        {% for errorItem in registration_form.email.vars.errors %}
+                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(registration_form.name, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'placeholder':'Nombre'} }) }}
+                                        {% for errorItem in registration_form.name.vars.errors %}
+                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(registration_form.plainPassword, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'placeholder':'Password'} }) }}
+                                        {% for errorItem in registration_form.plainPassword.vars.errors %}
+                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            {{ form_widget(registration_form.agreeTerms, { 'attr': {'class': 'form-check-input'} }) }}
+                                            <label for="registration_form_agreeTerms" class="form-check-label required">Agree terms</label>
+                                            {% for errorItem in registration_form.agreeTerms.vars.errors %}
+                                                <span class="help-inline">{{ errorItem.message }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <a class="btn btn-default" href="{{ relative_path('/login') }}">Back to login</a>
+                                        <button type="submit" id="register-submit-btn" class="btn btn-success btn-lg float-right">Registrarse</button>
+                                    </div>
+                                    {{ form_rest(registration_form) }}
+                                {{ form_end(registration_form) }}
+                            </div>
+                            <div class="card-footer">
+                                <p>¿Ya estás registrado?</p><a href="{{ relative_path('/login') }}">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

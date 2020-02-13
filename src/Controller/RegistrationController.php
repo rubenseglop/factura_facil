@@ -32,6 +32,21 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setName(
+                $form->get('name')->getData()
+            );
+
+            $roles[] = "ROL_USER";
+            $user->setRoles($roles);
+
+            $user->setCompanyLimit(0);
+
+            $user->setPhoneNumber("000000000");
+
+            $user->setAvatar("default.jpg");
+
+            $user->setStatusUser(true);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -47,7 +62,7 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registration_form' => $form->createView(),
         ]);
     }
 }
