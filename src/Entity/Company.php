@@ -54,19 +54,19 @@ class Company
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Client;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Product;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Bill", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $BillsCompany;
 
