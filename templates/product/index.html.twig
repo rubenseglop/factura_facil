@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis Productos{% endblock %}
+{% block stylesheets %}
+        <style>
+            .todos-Productos{
+
+            }
+            ul{
+                list-style-type:none;
+            }
+        </style>
+{% endblock %}
+{% block body %}
+<div class="todos-Productos">
+
+    <input type="search" name="buscador">
+    <a href=""><button>Buscar Producto</button></a>
+
+    <h1> Mis Productos</h1>
+    <ul>
+        {% for producto in productos %}
+            <li>{{producto.name}} -- > <button>Eliminar Producto </button><button> Editar Producto</button></li>
+        {% endfor %}
+
+    </ul>
+</div>
+{% endblock %}
