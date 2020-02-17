@@ -12,9 +12,7 @@ class MainController extends AbstractController
      */
     public function index()
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
+        
 
         return $this->render('landing/index.html.twig', [
             'controller_name' => 'MainController',

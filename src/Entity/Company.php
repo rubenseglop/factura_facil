@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,22 +55,28 @@ class Company
     private $SocialNetWorks;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="companies")
+     * @ORM\OneToMany(targetEntity="App\Entity\Client", orphanRemoval=true, mappedBy="Company")
      * @ORM\JoinColumn(nullable=true)
      */
     private $Client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="companies")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", orphanRemoval=true, mappedBy="Company")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $Product;
+    private $products;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Bill", inversedBy="companies")
      * @ORM\JoinColumn(nullable=true)
      */
     private $BillsCompany;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -179,6 +187,37 @@ class Company
     public function setProduct(?Product $Product): self
     {
         $this->Product = $Product;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getCompany() === $this) {
+                $product->setCompany(null);
+            }
+        }
 
         return $this;
     }

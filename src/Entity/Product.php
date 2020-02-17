@@ -39,14 +39,9 @@ class Product
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="Product", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="products")
      */
-    private $companies;
-
-    public function __construct()
-    {
-        $this->companies = new ArrayCollection();
-    }
+    private $company;
 
     public function getId(): ?int
     {
@@ -101,33 +96,14 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Company[]
-     */
-    public function getCompanies(): Collection
+    public function getCompany(): ?Company
     {
-        return $this->companies;
+        return $this->company;
     }
 
-    public function addCompany(Company $company): self
+    public function setCompany(?Company $company): self
     {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompany(Company $company): self
-    {
-        if ($this->companies->contains($company)) {
-            $this->companies->removeElement($company);
-            // set the owning side to null (unless already changed)
-            if ($company->getProduct() === $this) {
-                $company->setProduct(null);
-            }
-        }
+        $this->company = $company;
 
         return $this;
     }
