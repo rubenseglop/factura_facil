@@ -50,31 +50,31 @@ class Company
     private $User;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SocialNetworks", inversedBy="companies")
+     * @ORM\OneToMany(targetEntity="App\Entity\SocialNetworks", mappedBy="company", orphanRemoval=true)
      */
-    private $SocialNetWorks;
+    private $socialNetWorks;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Client", orphanRemoval=true, mappedBy="Company")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="company", orphanRemoval=true)
      */
-    private $Client;
+    private $clients;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", orphanRemoval=true, mappedBy="Company")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="company", orphanRemoval=true)
      */
     private $products;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Bill", inversedBy="companies")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="company", orphanRemoval=true)
      */
-    private $BillsCompany;
+    private $bills;
 
     public function __construct()
     {
+        $this->socialNetWorks = new ArrayCollection();
+        $this->clients = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->bills = new ArrayCollection();
     }
 
 
@@ -155,38 +155,64 @@ class Company
         return $this;
     }
 
-    public function getSocialNetWorks(): ?SocialNetWorks
+    /**
+     * @return Collection|SocialNetworks[]
+     */
+    public function getSocialNetworks(): Collection
     {
-        return $this->SocialNetWorks;
+        return $this->socialNetWorks;
     }
 
-    public function setSocialNetWorks(?SocialNetWorks $SocialNetWorks): self
+    public function addSocialNetwork(SocialNetworks $socialNetwork): self
     {
-        $this->SocialNetWorks = $SocialNetWorks;
+        if (!$this->socialNetWorks->contains($socialNetwork)) {
+            $this->socialNetWorks[] = $socialNetwork;
+            $socialNetwork->setCompany($this);
+        }
 
         return $this;
     }
 
-    public function getClient(): ?Client
+    public function removeSocialNetwork(SocialNetworks $socialNetwork): self
     {
-        return $this->Client;
-    }
-
-    public function setClient(?Client $Client): self
-    {
-        $this->Client = $Client;
+        if ($this->socialNetWorks->contains($socialNetwork)) {
+            $this->socialNetWorks->removeElement($socialNetwork);
+            // set the owning side to null (unless already changed)
+            if ($socialNetwork->getCompany() === $this) {
+                $socialNetwork->setCompany(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getProduct(): ?Product
+    /**
+     * @return Collection|Client[]
+     */
+    public function getClients(): Collection
     {
-        return $this->Product;
+        return $this->clients;
     }
 
-    public function setProduct(?Product $Product): self
+    public function addClient(Client $client): self
     {
-        $this->Product = $Product;
+        if (!$this->clients->contains($client)) {
+            $this->clients[] = $client;
+            $client->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Client $client): self
+    {
+        if ($this->clients->contains($client)) {
+            $this->clients->removeElement($client);
+            // set the owning side to null (unless already changed)
+            if ($client->getCompany() === $this) {
+                $client->setCompany(null);
+            }
+        }
 
         return $this;
     }
@@ -222,14 +248,33 @@ class Company
         return $this;
     }
 
-    public function getBillsCompany(): ?Bill
+    /**
+     * @return Collection|Bill[]
+     */
+    public function getBills(): Collection
     {
-        return $this->BillsCompany;
+        return $this->bills;
     }
 
-    public function setBillsCompany(?Bill $BillsCompany): self
+    public function addBill(Bill $bill): self
     {
-        $this->BillsCompany = $BillsCompany;
+        if (!$this->bills->contains($bill)) {
+            $this->bills[] = $bill;
+            $bill->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBill(Bill $bill): self
+    {
+        if ($this->bills->contains($bill)) {
+            $this->bills->removeElement($bill);
+            // set the owning side to null (unless already changed)
+            if ($bill->getCompany() === $this) {
+                $bill->setCompany(null);
+            }
+        }
 
         return $this;
     }

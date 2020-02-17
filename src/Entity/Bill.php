@@ -39,10 +39,9 @@ class Bill
     private $totalBillIva;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\BillLine", inversedBy="bills")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true)
      */
-    private $BillLine;
+    private $billLines;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
@@ -50,13 +49,14 @@ class Bill
     private $totalImportBill;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="BillsCompany", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="bills")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $companies;
+    private $company;
 
     public function __construct()
     {
-        $this->companies = new ArrayCollection();
+        $this->billLines = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,14 +112,33 @@ class Bill
         return $this;
     }
 
-    public function getBillLine(): ?BillLine
+    /**
+     * @return Collection|BillLine[]
+     */
+    public function getBillLines(): Collection
     {
-        return $this->BillLine;
+        return $this->billLines;
     }
 
-    public function setBillLine(?BillLine $BillLine): self
+    public function addBillLine(BillLine $billLine): self
     {
-        $this->BillLine = $BillLine;
+        if (!$this->billLines->contains($billLine)) {
+            $this->billLines[] = $billLine;
+            $billLine->setBill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillLine(BillLine $billLine): self
+    {
+        if ($this->billLines->contains($billLine)) {
+            $this->billLines->removeElement($billLine);
+            // set the owning side to null (unless already changed)
+            if ($billLine->getBill() === $this) {
+                $billLine->setBill(null);
+            }
+        }
 
         return $this;
     }
@@ -136,37 +155,17 @@ class Bill
         return $this;
     }
 
-    /**
-     * @return Collection|Company[]
-     */
-    public function getCompanies(): Collection
+    public function getCompany(): ?Company
     {
-        return $this->companies;
+        return $this->company;
     }
 
-    public function addCompany(Company $company): self
+    public function setCompany(?Company $company): self
     {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->setBillsCompany($this);
-        }
+        $this->company = $company;
 
         return $this;
     }
-
-    public function removeCompany(Company $company): self
-    {
-        if ($this->companies->contains($company)) {
-            $this->companies->removeElement($company);
-            // set the owning side to null (unless already changed)
-            if ($company->getBillsCompany() === $this) {
-                $company->setBillsCompany(null);
-            }
-        }
-
-        return $this;
-    }
-
 
     public function __toString(){
         return $this->descriptionBill;

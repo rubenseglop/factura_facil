@@ -59,14 +59,10 @@ class Client
     private $bossPhone;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="Client", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="clients")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $companies;
-
-    public function __construct()
-    {
-        $this->companies = new ArrayCollection();
-    }
+    private $company;
 
     public function getId(): ?int
     {
@@ -169,33 +165,14 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection|Company[]
-     */
-    public function getCompanies(): Collection
+    public function getCompany(): ?Company
     {
-        return $this->companies;
+        return $this->company;
     }
 
-    public function addCompany(Company $company): self
+    public function setCompany(?Company $company): self
     {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompany(Company $company): self
-    {
-        if ($this->companies->contains($company)) {
-            $this->companies->removeElement($company);
-            // set the owning side to null (unless already changed)
-            if ($company->getClient() === $this) {
-                $company->setClient(null);
-            }
-        }
+        $this->company = $company;
 
         return $this;
     }

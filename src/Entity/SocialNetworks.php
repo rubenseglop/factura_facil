@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,14 +27,10 @@ class SocialNetworks
     private $URL;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="SocialNetWorks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="socialNetworks")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $companies;
-
-    public function __construct()
-    {
-        $this->companies = new ArrayCollection();
-    }
+    private $company;
 
     public function getId(): ?int
     {
@@ -67,33 +61,14 @@ class SocialNetworks
         return $this;
     }
 
-    /**
-     * @return Collection|Company[]
-     */
-    public function getCompanies(): Collection
+    public function getCompany(): ?Company
     {
-        return $this->companies;
+        return $this->company;
     }
 
-    public function addCompany(Company $company): self
+    public function setCompany(?Company $company): self
     {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->setSocialNetWorks($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompany(Company $company): self
-    {
-        if ($this->companies->contains($company)) {
-            $this->companies->removeElement($company);
-            // set the owning side to null (unless already changed)
-            if ($company->getSocialNetWorks() === $this) {
-                $company->setSocialNetWorks(null);
-            }
-        }
+        $this->company = $company;
 
         return $this;
     }
