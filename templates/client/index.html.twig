@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Client{% endblock %}
-    {% block stylesheets %}
-        {{ parent() }}
-    {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
+{% endblock %}
+
 {% block body %}
 
 <main>
