@@ -54,6 +54,11 @@ class Bill
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->billLines = new ArrayCollection();
@@ -169,5 +174,17 @@ class Bill
 
     public function __toString(){
         return $this->descriptionBill;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }
