@@ -15,14 +15,12 @@ class ProductController extends AbstractController
      * @Route("/product", name="product")
      */
     public function index()
-    {   
+    {  
 
         $usuario=$this->getUser();
         $repositorioProductos=$this->getDoctrine()->getRepository(Product::class);
         $todosProductos=$repositorioProductos->findAll();
         
-        
-
         return $this->render('product/index.html.twig', [
             'controller_name' => 'ProductController',
             'usuario' => $usuario,
@@ -31,7 +29,7 @@ class ProductController extends AbstractController
         ]);
     }
     /**
-     * @Route("/product/buscar", name="buscar")
+     * @Route("/product/search", name="search")
      */
     public function search()
     {   
@@ -41,7 +39,23 @@ class ProductController extends AbstractController
         */
         
         
-        return $this->render('product/buscar.html.twig', [
+        return $this->render('product/search.html.twig', [
+            'controller_name' => 'ProductController'
+            
+        ]);
+    }
+    /**
+     * @Route("/product/delete", name="delete")
+     */
+    public function delete()
+    {   
+        /*
+        $usuario=$this->getUser();
+        $repositorioProductos=$this->getDoctrine()->getRepository(Product::class);
+        */
+        
+        
+        return $this->render('product/delete.html.twig', [
             'controller_name' => 'ProductController'
             
         ]);
