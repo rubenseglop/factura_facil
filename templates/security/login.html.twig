@@ -9,7 +9,6 @@
         <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
             <div class="row">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <br/><br/><br/>
                     <div class="card rounded shadow shadow-sm">
                         <div class="card-header">
                             <h3 class="mb-0">Login</h3>
@@ -36,7 +35,7 @@
                                     <div class="invalid-feedback">Enter your password too!</div>
                                 </div>
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+                                <button type="submit" class="btn btn-primary float-right" id="btnLogin">Login</button>
                             </form>
                         </div>
                         <div class="card-footer">

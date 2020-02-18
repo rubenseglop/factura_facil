@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,14 +42,10 @@ class BillLine
     private $subTotal;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="BillLine", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bill", inversedBy="bills")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $bills;
-
-    public function __construct()
-    {
-        $this->bills = new ArrayCollection();
-    }
+    private $bill;
 
     public function getId(): ?int
     {
@@ -118,33 +112,14 @@ class BillLine
         return $this;
     }
 
-    /**
-     * @return Collection|Bill[]
-     */
-    public function getBills(): Collection
+    public function getBill(): ?Bill
     {
-        return $this->bills;
+        return $this->bill;
     }
 
-    public function addBill(Bill $bill): self
+    public function setBill(?Bill $bill): self
     {
-        if (!$this->bills->contains($bill)) {
-            $this->bills[] = $bill;
-            $bill->setBillLine($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBill(Bill $bill): self
-    {
-        if ($this->bills->contains($bill)) {
-            $this->bills->removeElement($bill);
-            // set the owning side to null (unless already changed)
-            if ($bill->getBillLine() === $this) {
-                $bill->setBillLine(null);
-            }
-        }
+        $this->bill = $bill;
 
         return $this;
     }

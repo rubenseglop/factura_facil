@@ -19,6 +19,17 @@ class CompanyRepository extends ServiceEntityRepository
         parent::__construct($registry, Company::class);
     }
 
+    public function findByUser($user_id) {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.user = :user_id')
+            ->setParameter('user_id', $user_id)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Company[] Returns an array of Company objects
     //  */
