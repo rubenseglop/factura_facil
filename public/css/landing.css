@@ -1,0 +1,892 @@
+
+
+/* Section Title */
+.section-title {
+    margin-bottom: 60px;
+    padding-left: 30px;
+    position: relative;
+}
+  
+.section-title::before, .section-title::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    left: 10px;
+    top: 0;
+    background: var(--main-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.section-title::after {
+    left: 0;
+    height: 50%;
+}
+  
+.section-title:hover::before {
+    height: 50%;
+}
+  
+.section-title:hover::after {
+    height: 100%;
+}
+  
+.section-title h2 {
+    font-size: 35px;
+    font-weight: 200;
+    margin-bottom: 20px;
+}
+  
+.section-title h2 span {
+    color: var(--main-color);
+    font-weight: 600;
+}
+  
+.section-title p {
+    max-width: 635px;
+    margin-top: -7px;
+}
+  
+.section-title h4 {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--main-color);
+    margin-bottom: 17px;
+    text-transform: capitalize;
+}
+
+/* About */
+
+#about .top-text > h1{
+    font-size: 48px;
+    line-height: 48px;
+    font-weight: 1000;
+    margin: 15px 0;
+}
+
+#about .top-text > h1 > span{
+    color: var(--main-color);
+}
+
+#about .top-text > h1, #about .top-text > h4{
+    text-transform: uppercase;
+}
+
+.top-text > h4{
+    margin: 15px 0 25px;
+}
+
+.divider .fa {
+    font-size: 20px;
+    margin: 0 20px;
+}
+
+.divider .outer-line {
+    border-bottom: 1px solid #888;
+}
+
+.divider .outer-line {
+    border-bottom-color: rgb(206, 201, 192);
+}
+
+.divider .outer-line {
+    width: 25%;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.about .about-content {
+    margin-top: 40px;
+}
+
+.about .about-right-side {
+    margin-top: 22px;
+    margin-left: 22px;
+    position: relative;
+    display: inline-block;
+}
+
+.about-right-side img {
+    border: 0;
+}
+
+.about .about-right-side img {
+    position: relative;
+    display: inline-block;
+    border-radius: 4px;
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.about .about-right-side::before {
+    border-top-color: var(--main-color);
+    border-right-color: var(--main-color);
+    border-bottom-color: var(--main-color);
+    border-left-color: var(--main-color);
+}
+.social-icons ul.social-icons-team li a, .about .about-right-side:before {
+    border: 2px solid var(--main-color);
+}
+.about .about-right-side:before {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    transform: translate3d(22px, -22px, -22px);
+    border-radius: 4px;
+}
+  
+/* Form Control */
+.form-control {
+    height: 45px;
+    padding: 10px;
+    font-size: 15px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 0;
+}
+  
+.form-control:focus {
+    border-color: #dddddd;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+  
+/* Main Header */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    background: transparent !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+  
+.header-sticky.is-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+    -webkit-animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+            animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #ffffff !important;
+}
+  
+.navbar-light .navbar-brand {
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+  
+.navbar-light .navbar-brand span {
+    color: var(--main-color);
+    font-size: 35px;
+    font-weight: 700;
+  
+}
+  
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
+    color: #ffffff;
+}
+  
+.navbar-light .navbar-nav .nav-item {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+  
+.navbar-light .navbar-nav .nav-item:last-child {
+    padding-right: 0;
+}
+  
+.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #ffffff;
+    padding-right: 0;
+    padding-left: 0;
+}
+  
+.navbar-light .navbar-nav .nav-item .nav-link.active, .navbar-light .navbar-nav .nav-item .nav-link.show, .navbar-light .navbar-nav .nav-item .nav-link:hover, .navbar-light .navbar-nav .nav-item .nav-link:focus {
+    color: var(--main-color);
+}
+  
+.navbar-light .navbar-nav .active .nav-link, .navbar-light .navbar-nav.show .nav-link {
+    color: var(--main-color);
+}
+  
+.navbar-light.header-sticky.is-sticky .navbar-brand {
+    color: #000000;
+}
+  
+.navbar-light.header-sticky.is-sticky .navbar-nav .nav-link {
+    color: #000000;
+    padding-right: 0;
+    padding-left: 0;
+}
+  
+.navbar-light.header-sticky.is-sticky .navbar-nav .nav-link.active, .navbar-light.header-sticky.is-sticky .navbar-nav .nav-link.show, .navbar-light.header-sticky.is-sticky .navbar-nav .nav-link:hover, .navbar-light.header-sticky.is-sticky .navbar-nav .nav-link:focus {
+    color: var(--main-color);
+}
+  
+.navbar-light.header-sticky.is-sticky .navbar-nav .active .nav-link, .navbar-light.header-sticky.is-sticky .navbar-nav .show .nav-link {
+    color: var(--main-color);
+}
+  
+/* Main Banner */
+.main-banner {
+    height: 750px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+  
+.main-banner::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .77;
+}
+  
+.item-bg-one {
+    background-image: url(../../assets/img/main-bg-1.jpg);
+}
+  
+.item-bg-two {
+    background-image: url(../../assets/img/main-bg-2.jpg);
+}
+  
+.item-bg-three {
+    background-image: url(../../assets/img/main-bg-3.jpg);
+}
+  
+.main-banner-text {
+    text-align: center;
+}
+  
+.main-banner-text h4 {
+    color: #fff;
+    font-weight: 200;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+  
+.main-banner-text h1 {
+    color: #fff;
+    font-size: 55px;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+  
+.main-banner-text h1 span {
+    color: var(--main-color);
+    font-weight: 600;
+}
+  
+.main-banner-text p {
+    color: #fff;
+    max-width: 730px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+  
+.main-banner-text .btn:hover, .main-banner-text .btn:focus {
+    border-color: #ffffff;
+}
+  
+.main-banner-text .view-work {
+    background: transparent;
+    border-color: #fff;
+    margin-left: 10px;
+}
+  
+.main-banner-text .view-work:hover, .main-banner-text .view-work:focus {
+    border-color: var(--main-color);
+    background: var(--main-color);
+    color: #ffffff;
+}
+  
+.home-slides .owl-controls {
+    margin-top: 0;
+}
+  
+/* Particles Banner CSS */
+#particles-js {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: linear-gradient(rgba(24, 26, 27, 0) 60%, rgb(24, 26, 27)), linear-gradient(70deg, rgb(35, 34, 38) 32%, var(--secundary-color));
+}
+  
+/* Welcome Area CSS */
+.single-box {
+    text-align: center;
+    -webkit-box-shadow: 0 0 30px 0 rgba(67, 67, 67, 0.15);
+            box-shadow: 0 0 30px 0 rgba(67, 67, 67, 0.15);
+    padding: 30px 20px;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.single-box:hover {
+    -webkit-box-shadow: unset;
+            box-shadow: unset;
+    -webkit-transform: translateX(5px);
+            transform: translateX(5px);
+}
+  
+.single-box .icon {
+    color: var(--main-color);
+    font-size: 45px;
+}
+  
+.single-box h3 {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 20px;
+}
+  
+.single-box a {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 45px;
+    height: 40px;
+    line-height: 44px;
+    text-align: center;
+    -webkit-box-shadow: 0px 0px 25px 0px rgba(0, 27, 103, 0.3);
+            box-shadow: 0px 0px 25px 0px rgba(0, 27, 103, 0.3);
+    border-radius: 50% 0 0 0;
+    opacity: 0;
+    visibility: hidden;
+}
+  
+.single-box:hover a {
+    background: var(--main-color);
+    color: #ffffff;
+    opacity: 1;
+    visibility: visible;
+    right: 0;
+    bottom: 0;
+}
+  
+/* About Area CSS */
+.about-area {
+    background-image: url(../../assets/img/patt.png);
+    background-position: center center;
+}
+  
+.about-addax {
+    margin-top: 12px;
+}
+  
+.about-addax .section-title {
+    margin-bottom: 20px;
+    padding-left: 0;
+}
+  
+.about-addax .section-title::before, .about-addax .section-title::after {
+    display: none;
+}
+  
+.about-addax .section-title h2 {
+    font-size: 25px;
+}
+  
+.about-addax ul {
+    margin-bottom: 30px;
+}
+  
+.about-addax ul li {
+    margin-bottom: 10px;
+    font-weight: 300;
+    color: #666666;
+}
+  
+.about-addax ul li i {
+    color: var(--main-color);
+    margin-right: 5px;
+}
+  
+.about-addax ul li:last-child {
+    margin-bottom: 0;
+}
+  
+.about-addax .pull-left {
+    margin-right: 45px;
+}
+  
+  
+/* Contact Area CSS */
+.contact-info {
+    -webkit-box-shadow: 0 0 30px 0 rgba(67, 67, 67, 0.15);
+            box-shadow: 0 0 30px 0 rgba(67, 67, 67, 0.15);
+    background: #ffffff;
+    padding: 30px;
+    border-top: 3px solid var(--main-color);
+    border-bottom: 3px solid var(--main-color);
+}
+  
+.contact-info ul li {
+    position: relative;
+    padding-left: 60px;
+    font-size: 16px;
+    margin-bottom: 34px;
+    color: #151515;
+}
+  
+.contact-info ul li:last-child {
+    margin-bottom: 0;
+}
+  
+.contact-info ul li i {
+    position: absolute;
+    left: 0;
+    top: -11px;
+    color: var(--main-color);
+    font-size: 19px;
+    background: #f6f6f6;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 50%;
+}
+  
+.contact-info .follow-us {
+    text-align: right;
+    margin-top: 40px;
+}
+  
+.contact-info .follow-us li {
+    padding-left: 0;
+    display: inline-block;
+    margin-bottom: 0;
+}
+  
+.contact-info .follow-us li:first-child {
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 5px;
+}
+  
+.contact-info .follow-us li a {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+}
+  
+.contact-info .follow-us li a:hover, .contact-info .follow-us li a:focus {
+    background: var(--main-color);
+    color: #ffffff;
+    border-color: var(--main-color);
+}
+  
+.contact-form {
+    -webkit-box-shadow: 0 0 30px 0 rgba(67, 67, 67, 0.15);
+            box-shadow: 0 0 30px 0 rgba(67, 67, 67, 0.15);
+    padding: 40px 30px;
+    border-top: 3px solid var(--main-color);
+    border-bottom: 3px solid var(--main-color);
+    background: #ffffff;
+}
+  
+.contact-form h4 {
+    color: var(--main-color);
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+  
+.contact-form .list-unstyled li {
+    color: red;
+}
+  
+.contact-form .form-control {
+    border-radius: 30px;
+}
+  
+.contact-form .btn {
+    margin-top: 20px;
+}
+  
+.contact-form #message {
+    height: auto;
+    padding: 15px;
+}
+  
+/* Footer Area CSS */
+.footer-area {
+    text-align: center;
+    padding: 50px 0;
+    background: #222222;
+}
+  
+.footer-area h4 {
+    line-height: 22px;
+    margin-bottom: 30px;
+}
+  
+.footer-area h4 a {
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 35px;
+}
+  
+.footer-area h4 span {
+    color: var(--main-color);
+    font-size: 40px;
+    font-weight: 700;
+}
+  
+.footer-area ul li {
+    display: inline-block;
+}
+  
+.footer-area ul li a {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 34px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 15px;
+}
+  
+.footer-area ul li a:hover, .footer-area ul li a:focus {
+    background: var(--main-color);
+    color: #ffffff;
+    border-color: var(--main-color);
+}
+  
+.footer-area p {
+    line-height: 1;
+    margin-top: 30px;
+    color: #ffffff;
+}
+  
+/* Go Top CSS */
+.go-top {
+    position: fixed;
+    cursor: pointer;
+    bottom: 30px;
+    right: 20px;
+    font-size: 25px;
+    color: #fff;
+    background-color: var(--secundary-color);
+    z-index: 1;
+    display: none;
+    width: 40px;
+    text-align: center;
+    height: 40px;
+    line-height: 39px;
+    border-radius: 50%;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.go-top:hover {
+    color: #ffffff;
+    background: var(--main-color);
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .ptb-80 {
+        padding-bottom: 50px;
+        padding-top: 50px;
+    }
+    p {
+        font-size: 14px;
+    }
+    img {
+        width: 100%;
+    }
+    .btn {
+        font-size: 14px;
+    }
+    .section-title {
+        margin-bottom: 40px;
+    }
+    .section-title h4 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .section-title h2 {
+        font-size: 28px;
+    }
+    .section-title p {
+        font-size: 14px;
+    }
+    .navbar {
+        position: relative;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .navbar.navbar-light .navbar-brand {
+        color: #000000;
+        padding-top: 0;
+    }
+    .navbar.navbar-light .navbar-brand:focus, .navbar.navbar-light .navbar-brand:hover {
+        color: #000000;
+    }
+    .navbar.navbar-light .navbar-toggler {
+        border-color: var(--main-color);
+    }
+    .navbar.navbar-light .navbar-toggler .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 44, 87, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    .navbar.navbar-light .navbar-nav .nav-link {
+        color: #000000;
+    }
+    .main-banner {
+        height: 100%;
+        padding-top: 110px;
+        padding-bottom: 110px;
+    }
+    .creative-banner-one {
+        border-width: 5rem 100vw 0 0;
+    }
+    .creative-banner-two::before {
+        border-top: 90px solid transparent;
+    }
+    .creative-banner-two::after {
+        border-top: 90px solid transparent;
+    }
+    .creative-banner-three::before {
+        height: 40px;
+        background-size: cover;
+        bottom: 0;
+    }
+    .main-banner-text h4 {
+        font-size: 20px;
+        letter-spacing: 0;
+    }
+    .main-banner-text h1 {
+        font-size: 35px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        letter-spacing: 0;
+        line-height: 45px;
+    }
+    .main-banner-text p {
+        font-size: 15px;
+    }
+    .main-banner-text .view-work {
+        margin-left: 0;
+    }
+    .welcome-area {
+        padding-bottom: 20px;
+    }
+    .welcome-area .section-title h2 {
+        line-height: 1.3;
+        margin-top: -3px;
+    }
+    .single-box {
+        margin-bottom: 30px;
+    }
+    .single-box .icon {
+        font-size: 35px;
+    }
+    .single-box h3 {
+        margin-top: 20px;
+        margin-bottom: 18px;
+        font-size: 18px;
+    }
+    .about-addax .section-title h2 {
+        line-height: 1.4;
+        margin-top: -10px;
+        font-size: 18px;
+    }
+    .about-addax .pull-left {
+        margin-right: 0;
+        float: none;
+        margin-bottom: 10px;
+    }
+    .about-addax ul li {
+        font-size: 14px;
+    }
+    .strategy-area .image {
+        position: relative;
+        background-image: unset;
+    }
+    .strategy-area .image img {
+        display: block;
+    }
+    .about-strategy {
+        padding-left: 0;
+        padding-top: 35px;
+    }
+    .about-strategy ul li {
+        font-size: 14px;
+    }
+    .contact-info {
+        padding: 25px 25px 30px;
+    }
+    .contact-info ul li {
+        font-size: 14px;
+    }
+    .contact-info ul li:first-child i {
+        top: 0;
+    }
+    .contact-form {
+        padding: 40px 25px;
+        margin-top: 30px;
+    }
+    .contact-form label {
+        font-size: 14px;
+    }
+    .footer-area {
+        padding: 35px 0;
+    }
+    .footer-area h4 {
+        line-height: 20px;
+        margin-bottom: 25px;
+    }
+    .footer-area h4 a {
+        font-size: 22px;
+    }
+    .footer-area p {
+        font-size: 14px;
+    }
+    .footer-area ul li a {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+    }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+    p {
+        font-size: 15px;
+    }
+    .navbar {
+        position: relative;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .navbar.navbar-light .navbar-brand {
+        color: #000000;
+    }
+    .navbar.navbar-light:focus, .navbar.navbar-light:hover {
+        color: #000000;
+    }
+    .navbar.navbar-light .navbar-toggler {
+        border-color: var(--main-color);
+    }
+    .navbar.navbar-light .navbar-toggler .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 44, 87, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    .navbar.navbar-light .navbar-nav .nav-link {
+        color: #000000;
+    }
+    .main-banner {
+        height: 100%;
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+    .creative-banner-two::before {
+        border-top: 100px solid transparent;
+    }
+    .creative-banner-two::after {
+        border-top: 100px solid transparent;
+    }
+    .creative-banner-three::before {
+        height: 60px;
+        background-size: cover;
+        bottom: 0;
+    }
+    .main-banner-text h4 {
+        font-size: 18px;
+    }
+    .main-banner-text h1 {
+        font-size: 45px;
+        margin-bottom: 25px;
+    }
+    .welcome-area {
+        padding-bottom: 50px;
+    }
+    .single-box {
+        margin-bottom: 30px;
+    }
+    .about-addax .section-title h2 {
+        font-size: 22px;
+    }
+    .about-addax ul li {
+        font-size: 15px;
+    }
+    .about-strategy ul li {
+        font-size: 15px;
+    }
+    .shorting-menu {
+        display: block;
+        padding: 15px 15px;
+    }
+    .single-work {
+        padding: 0;
+        margin: 0;
+    }
+    .single-work:hover::before {
+        top: 0;
+        width: 100%;
+        height: 100%;
+        left: 0;
+    }
+    .single-work .work-content {
+        bottom: 0;
+        width: 100%;
+        left: 0;
+    }
+    .single-work:hover .work-content {
+        bottom: 10px;
+    }
+    .contact-form {
+        margin-top: 40px;
+    }
+    }
+
+    @media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .about-addax .pull-left {
+        margin-right: 35px;
+    }
+    }
+
+    @media only screen and (min-width: 1400px) {
+    .main-banner {
+        height: 950px;
+    }
+}

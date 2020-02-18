@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,14 +37,15 @@ class Product
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="Product", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $companies;
+    private $company;
 
-    public function __construct()
-    {
-        $this->companies = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
 
     public function getId(): ?int
     {
@@ -101,39 +100,32 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection|Company[]
-     */
-    public function getCompanies(): Collection
+    public function getCompany(): ?Company
     {
-        return $this->companies;
+        return $this->company;
     }
 
-    public function addCompany(Company $company): self
+    public function setCompany(?Company $company): self
     {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompany(Company $company): self
-    {
-        if ($this->companies->contains($company)) {
-            $this->companies->removeElement($company);
-            // set the owning side to null (unless already changed)
-            if ($company->getProduct() === $this) {
-                $company->setProduct(null);
-            }
-        }
+        $this->company = $company;
 
         return $this;
     }
 
     public function __toString(){
         return $this->name;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 
 }

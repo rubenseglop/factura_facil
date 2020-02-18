@@ -1,0 +1,259 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Factura Fácil{% endblock %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset("css/landing.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/animate.css") }}">
+
+{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light header-sticky">
+        <div class="container">
+            <a class="navbar-brand" href="index"><span>F</span>actura<span> F</span>ácil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#welcome">Sobre Factura Fácil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ relative_path('/login') }}">Inicia sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="home" class="main-banner item-bg-one">
+
+        <div class="creative-banner-three"></div>
+
+        <div id="particles-js"></div>
+
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="main-banner-text">
+                                <h4>Factura Fácil</h4>
+                                <h1>¡
+                                    <a href="" class="typewrite" data-period="2000"
+                                    data-type='[ "Administra tus facturas", "Crea empresas", "Administra tus clientes", "Administra tus productos", "Lleva tu empresa al siguiente nivel" ]'>
+                                        <span class="wrap"></span>
+                                    </a>
+                                    !
+                                </h1>
+                                <p>Factura Fácil es una herramienta con la que podrás administrar las facturas de tu empresa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="about ptb-80">
+        <div class="container">
+            <div class="text-center top-text">
+                <h1><span>Sobre</span> Nosotros</h1>
+                <h4>Quienes Somos</h4>
+            </div>
+            <div class="divider text-center">
+                <span class="outer-line"></span>
+                <span class="fa fa-user" aria-hidden="true"></span>
+                <span class="outer-line"></span>
+            </div>
+            <div class="row about-content">
+                <div class="col-sm-12 col-md-12 col-lg-6 about-left-side">
+                    <h3 class="title-about">SOMOS <strong>FACTURA FÁCIL</strong></h3> <br>
+                    <hr>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia doloribus harum aspernatur repellendus obcaecati et saepe aliquam perferendis eum architecto,
+                     dolores quod quas ad quibusdam sequi labore. Nisi ab fuga eos facere. </p>
+                    <hr>
+                    <p>Somos expertos en desarrollo de páginas web, aparte de poseer nuestro
+                                propio programa de facturación.</p>
+                </div>
+                <div class="col-md-12 col-lg-6 about-right">
+                    <div class="about-right-side">
+                        <img class="img-fluid" src="{{ asset("img/about-us.png") }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="welcome" class="welcome-area ptb-80 bg-f6f6f6">
+        <div class="container">
+            <div class="section-title">
+                <h4>Usa Factura Fácil</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                    Laborum eos ducimus expedita ex repudiandae suscipit pariatur aut non vero excepturi?</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-box">
+                        <i class="fa fa-laptop icon"></i>
+                        <h3>Lorem ipsum dolor sit amet consectetur adipisicing.</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, assumenda expedita saepe minus rem nam maxime.</p>
+                        <a href="#about" title="Read More" class="link-btn"><i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-box">
+                        <i class="fa fa-pencil-square-o icon"></i>
+                        <h3>Lorem ipsum dolor sit amet consectetur.</h3>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Non, ea obcaecati! Quaerat reiciendis, cum dicta labore officia magnam quo adipisci.</p>
+                        <a href="#about" title="Read More" class="link-btn"><i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+                    <div class="single-box">
+                        <i class="fa fa-archive icon"></i>
+                        <h3>Lorem ipsum dolor sit.</h3>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum eligendi hic perferendis
+                         quae aspernatur inventore vero eaque velit optio? Deserunt, suscipit!</p>
+                        <a href="#about" title="Read More" class="link-btn"><i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-area ptb-80">
+        <div class="container">
+            <div class="section-title">
+                <h2>Para quien esta pensado <span>Factura Fácil</span></h2>
+                <p>Factura Fácil es una potente herramienta pensada para ser usada por empresas
+                    y trabajadores.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-md-12">
+                    <div class="about-addax">
+                        <div class="section-title">
+                            <h2>Para <span>Empresas</span></h2>
+                            <p>Esta aplicacion es muy util para una empresa porque:</p>
+                        </div>
+
+                        <ul>
+                            <li><i class="fa fa-check"></i>Obtienes un mayor control sobre tus facturas</li>
+                            <li><i class="fa fa-check"></i>Ahorras tiempo</li>
+                            <li><i class="fa fa-check"></i>Es facil de usar</li>
+                            <li><i class="fa fa-check"></i>Es rapida</li>
+                            <li><i class="fa fa-check"></i>Es intuitiva</li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-area ptb-80 bg-f6f6f6">
+        <div class="container">
+            <div class="section-title">
+                <h4>Contacta con nosotros</h4>
+
+                <p>Contacta con nosotros por correo o llamandonos a nuestro numero de telefono.</p>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="contact-form">
+                        <h4>Envianos un mensaje</h4>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" class="form-control" name="name" id="name" required
+                                            data-error="Please enter your name">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" required
+                                            data-error="Please enter your email">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="number">Numero de telefono</label>
+                                        <input type="text" class="form-control" name="number" id="number" required
+                                            data-error="Please enter your number">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="message">Mensaje</label>
+                                        <textarea name="message" class="form-control" id="message" cols="30" rows="4"
+                                                required data-error="Write your message"></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                    <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <ul>
+                        <li><a href="#" class="fa fa-facebook"></a></li>
+                        <li><a href="#" class="fa fa-twitter"></a></li>
+                        <li><a href="#" class="fa fa-instagram"></a></li>
+                    </ul>
+                    <p>Copyright <i class="fa fa-copyright"></i> 2019 All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="go-top"><i class="fa fa-angle-up"></i></div>
+
+    {% block footer_javascripts %}
+
+        <script src="{{ asset("js/jquery.min.js") }}"></script>
+        <script src="{{ asset("js/particles.min.js") }}"></script>
+        <script src="{{ asset("js/main.js") }}"></script>
+
+    {% endblock %}
+{% endblock %}
+
+
