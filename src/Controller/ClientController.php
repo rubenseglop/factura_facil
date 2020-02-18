@@ -61,6 +61,10 @@ class ClientController extends AbstractController
         $client = new Client();
         $form = $this->createForm(AddClientType::class, $client);
 
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        
+
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
         // $client = $repositoryClient->findOneById($idclient);
@@ -77,6 +81,7 @@ class ClientController extends AbstractController
         return $this->render('form/addnewclient.html.twig', [ 'registrationForm' =>$form->createView() ]);
     }
 
+}
     
     // Formulario para editar los datos del cliente
     /**
