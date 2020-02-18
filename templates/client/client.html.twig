@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+
+        <style>
+    tr{
+        border: 1px solid;
+    }
+
+    td{
+        border:1px solid;
+        text-align: center;
+    }
+
+    th{
+        border: 1px solid;
+    }
+
+    table{
+        border: 1px solid;
+        width: 30%;
+        margin-top: 10px;
+        margin-left:10px;
+    }
+
+    input{
+        margin-left:10px;
+    }
+</style>
+
+    {% endblock %}
+
+    
+    
+{% block body %}
+
+
+<table>
+    <tr>
+        <th>Name</th>
+        <td>{{ client.name }}</td>
+    </tr>
+    <tr>
+        <th>Fiscal Address</th>
+        <td>{{ client.fiscaladress }}</td>
+    </tr>
+    <tr>
+        <th>NIF</th>
+        <td>{{ client.nif }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ client.email }}</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>{{ client.phone }}</td>
+    </tr>
+    <tr>
+        <th>Web</th>
+        <td>{{ client.web }}</td>
+    </tr>
+    <tr>
+        <th>Boss Name</th>
+        <td>{{ client.bossname }}</td>
+    </tr>
+    <tr>
+        <th>Boss Phone</th>
+        <td>{{ client.bossphone }}</td>
+    </tr>
+</table>
+
+<br><br>
+
+<!--Botón para volver a la última página visitada-->
+<input type="button" onclick="history.back()" name="Back" value="Back">
+
+{% endblock %}

@@ -16,13 +16,21 @@ main{
     margin-left: 20px;
     float: left;
     font-family: 'Dancing Script', cursive;
+    margin-top: 7px;
+}
+
+#cabecera #logo{
+    float: left;
+    margin-left: 40px;
+    margin-right: 0.1px;
+    width: 60px;
 }
 
 #cabecera img{
     width: 4%;
     float: right;
     margin-right: 20px;
-    margin-top: 10px;
+    margin-top: 7px;
 }
 
 section{
@@ -50,6 +58,11 @@ section img{
 }
 section p{
     height: 25px;
+    margin-top: 10px;
+}
+
+section hr:last-child{
+    display: none;
 }
 
 section #titulo{
@@ -58,7 +71,7 @@ section #titulo{
 }
 
 section #añadir{
-   margin-top: 40px;
+   margin-top: 60px;
 }
 
 section button{
@@ -74,7 +87,7 @@ fieldset{
 
 
 
-section #empresas{
+section #clientes{
     border: 1px solid;
     border-radius: 20px;
     width: 70%;
@@ -103,6 +116,11 @@ aside h2{
 aside a{
     text-decoration: none;
     margin-top: 10px;
+}
+
+aside:hover h2{
+    background-color: grey;
+    transition: background-color .1s;
 }
 
 

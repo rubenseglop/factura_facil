@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {# {{ parent() }} #}
+    {% endblock header %}
+
+<h1>Añadir Nuevo Cliente</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.name) }}
+        {{ form_row(registrationForm.fiscalAdress) }}
+        {{ form_row(registrationForm.NIF) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.phone) }}
+        {{ form_row(registrationForm.web) }}
+        {{ form_row(registrationForm.bossName) }}
+        {{ form_row(registrationForm.bossPhone) }}
+    {{ form_end(registrationForm) }}
+{% endblock %}
