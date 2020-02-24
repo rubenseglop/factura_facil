@@ -20,5 +20,11 @@
         {{ form_row(registrationForm.web) }}
         {{ form_row(registrationForm.bossName) }}
         {{ form_row(registrationForm.bossPhone) }}
+        {{ form_row(registrationForm.company) }}
+        
+        {% for company in registrationForm.company.vars.choices %}
+            <div>{{ company.label }}</div>
+            <div>{{ company|json_encode(constant('JSON_PRETTY_PRINT')) }}</div>
+        {% endfor %}
     {{ form_end(registrationForm) }}
 {% endblock %}

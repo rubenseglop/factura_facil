@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
+{% endblock %}
+
+{% block body %}
+
+<main>
+
+    {% include 'header.html.twig' %}
+
+    <section>
+        <div id="titulo">
+            <h1>Mi perfil</h1>
+        </div>
+
+    </section>
+
+    <aside id="menu">
+        <a href="#"><h2>Productos</h2></a>
+        <a href="#"><h2>Facturas</h2></a>
+        <a href="#"><h2>Clientes</h2></a>
+        <a href="#"><h2>Mi Perfil</h2></a>
+    </aside>
+
+    
+</main>
+
+{% endblock %}
