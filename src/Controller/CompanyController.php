@@ -65,14 +65,14 @@ class CompanyController extends AbstractController
     }
 
     /**
-     * @Route("/deleteCompany/{id}", name="deleteCompany")
+     * @Route("/deleteCompany", name="deleteCompany")
      */
-    public function deleteCompany(Request $request)
+    public function deleteCompany()
     {
         if(isset($_GET['id'])) {
             $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
             $entityManager = $this->getDoctrine()->getManager();
-            $company = $repositoryCompany->findOneCompanyById($request);
+            $company = $repositoryCompany->findOneCompanyById($_GET['id']);
             $status = FALSE;
             $company->setStatus($status);
             $entityManager->persist($company);
