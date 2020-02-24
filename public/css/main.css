@@ -134,3 +134,19 @@ aside a{
     text-decoration: none;
     margin-top: 10px;
 }
+
+
+/*company*/
+
+section #clientesCompany{
+    border: 1px solid;
+    border-radius: 20px;
+    width: 70%;
+    margin-left: 10%;
+    margin-top: 2%;
+}
+
+section #añadirCompany{
+    margin-top: 20px;
+}
+
