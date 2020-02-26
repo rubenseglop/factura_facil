@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {# {{ parent() }} #}
+    {% endblock header %}
+
+<h1>Añadir Nueva Empresa</h1>
+
+    {{ form(formulario) }}
+{% endblock %}
