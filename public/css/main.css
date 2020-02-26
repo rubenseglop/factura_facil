@@ -149,4 +149,9 @@ section #clientesCompany{
 section #añadirCompany{
     margin-top: 20px;
 }
+section #nameCompany{
+    margin-left: 10px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+}
 
