@@ -210,7 +210,7 @@ class Company
             $this->clients->removeElement($client);
             // set the owning side to null (unless already changed)
             if ($client->getCompany() === $this) {
-                $client->setCompany(null);
+                $client->setStatus(false);
             }
         }
 

@@ -15,15 +15,16 @@ main{
 
 #cabecera h1{
     width: 50%;
-    margin-left: 20px;
+    margin-left: 5px;
     float: left;
+    margin-top: 15px;
 }
 
 #cabecera img{
     width: 4%;
     float: right;
     margin-right: 20px;
-    margin-top: 10px;
+    margin-top: 4px;
 }
 
 section{
@@ -37,6 +38,11 @@ section #buscador{
     margin-bottom: 25px;
     border-radius: 20px;
     border: 1px solid;
+}
+
+
+section #iconos{
+    margin-top: -25px;
 }
 
 
@@ -55,21 +61,36 @@ section img{
 
 section p{
     height: 25px;
-    margin-top: 10px;
+    margin-left: 10px;
 }
+
+
+
 
 section #titulo{
     width: 70%;
-    margin-left: 10%;
+    margin-left: 9%;
+    margin-top: 20px;
 }
 
-aside:hover h2{
+
+section #titulo h1{
+    margin-left: 10px;
+}
+
+section #search{
+    margin-top: 20px;
+}
+
+
+aside#menu h2:hover{
     background-color: grey;
     transition: background-color .1s;
 }
 
 section #añadir{
    margin-top: 60px;
+   margin-right: 1px;
 }
 
 section #clientes{
@@ -81,12 +102,18 @@ section #clientes{
 
 section button{
     border-radius: 10px;
+    background-color: #6699FF;
 }
 
 fieldset{
     background: #fff;
     border:1px solid #333;
     border-radius: 5px;
+}
+
+section #clientes li:last-child{
+    margin-bottom: 20px;
+    margin-top: -10px;
 }
 
 section #empresas{
@@ -110,6 +137,9 @@ section img{
     margin-right: 10px;
 }
 
+section #showAllClients{
+    margin-left: 98px;
+}
 
 
 aside{
@@ -136,6 +166,42 @@ aside a{
 }
 
 
+<<<<<<< HEAD
+tr{
+    border: 1px solid;
+}
+
+td{
+    border:1px solid;
+    text-align: center;
+}
+
+th{
+    border: 1px solid;
+}
+
+table{
+    border: 1px solid;
+    width: 30%;
+    margin-top: 10px;
+    margin-left:10px;
+}
+
+input{
+    margin-left:10px;
+}
+
+
+#boton{
+    width: 100px; 
+    height: 30px; 
+    background: #6699FF; 
+    color: #ffffff; 
+    cursor: pointer; 
+    border: 0px;
+    border-radius: 20px;
+}
+=======
 /*company*/
 
 section #clientesCompany{
@@ -149,4 +215,10 @@ section #clientesCompany{
 section #añadirCompany{
     margin-top: 20px;
 }
+section #nameCompany{
+    margin-left: 10px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+}
 
+>>>>>>> e8b6100fdfbe675d5534b0552e24e7486b8d3c70
