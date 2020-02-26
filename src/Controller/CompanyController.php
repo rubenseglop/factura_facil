@@ -48,21 +48,6 @@ class CompanyController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/editCompany", name="editCompany")
-     */
-    public function editCompany()
-    {
-
-        /*$repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
-        $user = $this->getUser();
-        $idUser = $user->getId();
-        $companies = $repositoryCompany->findCompaniesByUser($idUser);
-        return $this->render('company/index.html.twig', [
-            'controller_name' => 'CompanyController',
-            'companies' => $companies
-        ]);*/
-    }
 
     /**
      * @Route("/deleteCompany", name="deleteCompany")
@@ -122,5 +107,23 @@ class CompanyController extends AbstractController
             'controller_name' => 'CompanyController',
             'formulario' => $form->createView()
         ]);
+    }
+
+
+    /**
+     * @Route("/editCompany", name="editCompany")
+     */
+    public function edit()
+    {
+        if (isset($_GET['id'])) {
+            $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+            $user = $this->getUser();
+            $idUser = $user->getId();
+            $companies = $repositoryCompany->findCompaniesByUser($idUser);
+            return $this->render('company/index.html.twig', [
+                'controller_name' => 'CompanyController',
+                'companies' => $companies
+            ]);
+        }
     }
 }
