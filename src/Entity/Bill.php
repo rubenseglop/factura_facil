@@ -59,6 +59,11 @@ class Bill
      */
     private $status;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client")
+     */
+    private $client;
+
     public function __construct()
     {
         $this->billLines = new ArrayCollection();
@@ -184,6 +189,18 @@ class Bill
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
