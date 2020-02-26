@@ -1,0 +1,63 @@
+
+.navbar-facturas {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 50;
+    height: 75px;
+    box-shadow: 0 0.23077rem 0.38462rem 0 rgba(0,0,0,.25);
+    background: var(--secundary-color);
+    display: flex;
+    flex-direction: row;
+    padding: 0px 24px;
+}
+
+.nav-start {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+.nav-start img {
+    width: 50px;
+    height: 50px;
+}
+
+.nav-end {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav-end ul {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    padding-right: 24px;
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+.nav-end a {
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-header > a {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 550;
+    margin-left: 12px;
+    padding-left: 0px;
+    padding-right: 12px;
+}
+
+.nav-items img {
+    width: 50px;
+    height: 50px;
+}

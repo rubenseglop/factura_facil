@@ -188,7 +188,7 @@
             animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
     padding-top: 10px;
     padding-bottom: 10px;
-    background: var(--grey-color2) !important;
+    background: var(--secundary-color) !important;
 }
   
 .navbar-light .navbar-brand {
@@ -341,7 +341,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    background-image: linear-gradient(rgba(24, 26, 27, 0) 60%, rgb(24, 26, 27)), linear-gradient(70deg, rgb(35, 34, 38) 32%, var(--secundary-color));
+    background-image: linear-gradient(rgba(24, 26, 27, 0) 60%, rgb(24, 26, 27)), linear-gradient(70deg, rgb(35, 34, 38) 32%, var(--purple-color));
 }
   
 /* Welcome Area CSS */
@@ -606,7 +606,7 @@
     right: 20px;
     font-size: 25px;
     color: #fff;
-    background-color: var(--secundary-color);
+    background-color: var(--purple-color);
     z-index: 1;
     display: none;
     width: 40px;

@@ -3,9 +3,9 @@
 
 :root {
   --main-color: #89BAE3;
-  --secundary-color: rgb(39, 0, 63);
+  --secundary-color: #222222;
+  --purple-color: rgb(39, 0, 63);
   --grey-color: #CCCCCC;
-  --grey-color2: #222222;
 }
 
 /* Global CSS */
