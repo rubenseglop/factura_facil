@@ -8,9 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/{id}/profile", name="profile")
+     * @Route("profile", name="profile")
      */
-    public function profile($id)
+    public function profile()
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
