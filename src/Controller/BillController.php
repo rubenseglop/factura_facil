@@ -11,7 +11,7 @@ class BillController extends AbstractController
 {
     /*Vista de todas las facturas correspondientes a la empresa en la que se encuentra el usuario*/
     /**
-     * @Route("/{id}/bill", name="bill")
+     * @Route("/{id}/facturas", name="bill")
      */
     public function index($id)
     {		
@@ -29,7 +29,7 @@ class BillController extends AbstractController
     }
     /*Vista de la factura que el usuario haya seleccionado para visualizar*/
     /**
-     * @Route("/showBill/{id}", name="showBill")
+     * @Route("/factura/{id}", name="showBill")
      */
     public function show($id){
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);

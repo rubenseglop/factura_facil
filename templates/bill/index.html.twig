@@ -128,9 +128,25 @@
             
             <h1>Tus Facturas:</h1></br>
             <hr>
-            {% for bill in bills %}
+            {% for bills in bill %}
 
-               Factura Número: {{ bill.numberBill }} <p><img src="EditarEmpresas.png"><img src="borrar.png"></p>                                                                                                                                                           
+              <ul>
+                    <li>
+                        <p>
+                            <div id="oneBill">
+                                Factura: <a href="{{ path('showBill', {id:bills.id}) }}">{{ bills.numberBill }}</a>
+                            </div>
+                            <div id="iconos">
+                                <a href="{{ path('edit', {id: bills.id}) }}"><img 
+                                        src="{{asset("img/EditarEmpleados.png")}}" alt="" /></a>
+                                <a href=" {{ path('delete',{id: bills.id}) }} ">
+                                        <img src="{{asset("img/borrar.png")}}" alt="Borrar" id="delete"/></a>
+                            </div>
+                        </p>
+                    </li>
+                </ul>
+            
+                <hr>                                                                                                                                                          
 
             <hr>
             {% endfor %}
