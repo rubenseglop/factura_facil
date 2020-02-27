@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("profile", name="profile")
+     * @Route("/profile", name="profile")
      */
     public function profile()
     {
