@@ -128,7 +128,7 @@
             
             <h1>Tus Facturas:</h1></br>
             <hr>
-            {% for bill in bills %}
+            {% for bills in bill %}
 
                Factura Número: {{ bill.numberBill }} <p><img src="EditarEmpresas.png"><img src="borrar.png"></p>                                                                                                                                                           
 
@@ -149,5 +149,55 @@
     </aside>
 
 </main>
+
+<div class="panel">
+            <div class="panel-heading">
+                <h3>Productos</h3>
+                <a href="index.php?add_product"><button><i class="fas fa-plus"></i></button></a>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nº Factura</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Total IVA</th>
+                        <th scope="col">Importe total</th>
+                        <th width="75px" scope="col">Ver</th>
+                        <th width="75px" scope="col">Modificar</th>
+                        <th width="75px" scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bill in bills %}
+                        <tr>
+                            <th>1</th>
+                            <td><?php echo $product->getName(); ?></td>
+                            <td><?php echo $product->getCategoryName(); ?></td>
+                            <td><?php echo $product->getPrice().'€'; ?></td>
+                            <td><?php echo $product->getStock(); ?></td>
+                            <td><?php 
+                                    if($product->getOfferPrice() > 0){
+                                        echo $product->getOfferPrice().'€';
+                                    }else{
+                                        echo '';
+                                    } 
+                                ?></td>
+                            <td><?php echo $product->getSeller(); ?></td>
+                            <td><a><form method="POST">
+                                <input name="product" type="hidden" value="<?php echo $product->getId(); ?>" />
+                                <button name="watch" class="watch"><i class="far fa-eye"></i></i></button>
+                            </form></a></td>
+                            <td><a href="index.php?edit_product=<?php echo $product->getId(); ?>"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                            <td><a><form method="POST">
+                                <input name="product" type="hidden" value="<?php echo $product->getId(); ?>" />
+                                <button name="delete" class="delete"><i class="far fa-trash-alt"></i></button>
+                            </form></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
 {% endblock %}

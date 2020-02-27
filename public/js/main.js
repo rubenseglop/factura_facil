@@ -1,9 +1,12 @@
 
 $(function() {
-    $("#menu-user-toggle").toggle(function() {
-        $(".nav-acount").hide();
-    }, function() {
-        $(".nav-acount").show();
+
+    
+    $("#menu-user-toggle").click(function() {
+        console.log("hola 1");
+        $(".nav-acount").toggle('slow', function(){
+            console.log("hola");
+         });
     });
     
 });
