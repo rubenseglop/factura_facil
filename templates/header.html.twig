@@ -3,14 +3,14 @@
     <nav class="navbar-facturas">
         <div class="nav-start">
             <img src="{{ asset("img/logo1.png") }}" alt="Logo" id="logo">
-            <a class="navbar-brand">Factura Fácil</a>
+            <a href="{{ path('companies') }}" class="navbar-brand">Factura Fácil</a>
         </div>
 
         <div class="nav-end">
             <div class="nav-items">
                 <ul>
-                    <li><a href="">Mis empresas</a></li>
-                    <li><a href=""><img src="{{ asset("img/avatar.png") }}" alt="Avatar"/></a></li>
+                    <li><a href="{{ path('companies') }}">Mis empresas</a></li>
+                    <li><a><img src="{{ asset("img/avatar.png") }}" alt="Avatar"/></a></li>
                 </ul>
             </div>
         </div>

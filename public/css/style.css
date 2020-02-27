@@ -43,7 +43,6 @@ p {
 
 a {
     text-decoration: none;
-    -webkit-transition: .4s;
     transition: .4s;
 }
 

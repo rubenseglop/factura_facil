@@ -4,8 +4,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css">
 {% endblock %}
 
 {% block body %}
@@ -13,8 +11,9 @@
 <main>
 
     {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
 
-    <div class="container">
+    <div class="container content-container">
         <div class="row">
             <div class="col-md-12">
                 <h1>Mi perfil</h1>
