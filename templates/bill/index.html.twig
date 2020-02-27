@@ -3,167 +3,62 @@
 {% block title %}Facturas{% endblock %}
 
 {% block body %}
-<style>
-    main{
-        padding: 0px;
-        margin:0px;
-        width: 100%;
-        height: 100%;
-    }
 
-    #cabecera{
-        border:1px solid;
-        width: 100%;
-        height: 70px;
-    }
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
 
-    #cabecera h1{
-        width: 50%;
-        margin-left: 20px;
-        float: left;
-    }
+    <div class="container main-container">
+        <div class="row">
 
-    #cabecera img{
-        width: 4%;
-        float: right;
-        margin-right: 20px;
-        margin-top: 10px;
-    }
-    section{
-        width: 79%;
-        float: right;
-        height: 100%;
-    }
-    section #buscador{
-        width: 30%;
-        margin-bottom: 5px;
-        border-radius: 20px;
-        border: 1px solid;
-    }
-    section img{
-        width: 3%;
-        float: right;
-        margin-right: 10px;
-    }
-    section p{
-        height: 25px;
-    }
-    section select{
-        margin-bottom: 25px;
-        border-radius: 20px;
-    }
-    section #añadir{
-        margin-top: 100px;
-    }
-    section button{
-        border-radius: 10px;
-    }
-    fieldset{
-        background: #fff;
-        border:1px solid #333;
-        border-radius: 5px;
-    }
-    section #empresas{
-        border: 1px solid;
-        border-radius: 20px;
-        width: 70%;
-        margin-left: 10%;
-    }
-    aside{
-        width: 19%;
-        float: left;
-        height: 100px;
-        text-align: center;
-        height: 80%;
-    }
-    aside h2{
-        width: 100%;
-        margin-top: 0.1px;
-        margin-bottom: 0.1px;
-        border: 1px solid;
-        height: 7%;
-        color: black;
-        padding-top: 10px;
-    }
-    aside a{
-        text-decoration: none;
-        margin-top: 10px;
-    }
-</style>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>Facturas</h3>
+                    <input type="date" id="buscador"><button type="submit">Buscar</button>
 
-<header>
+                    <select>
+                        <option>Elija un periodo de tiempo</option>
+                        <option>3 meses atrás</option>
+                        <option>6 meses atrás</option>
+                        <option>9 meses atrás</option>
+                        <option>12 meses atrás</option>
+                    </select>
 
-    <div id="cabecera">
-        <h1>Easy Bill</h1>
-            <img src="avatar.png">
+                    <button type="submit">Buscar</button>
+
+                    <a href="#"><button><i class="fas fa-plus"></i></button></a>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nº Factura</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Total IVA</th>
+                            <th scope="col">Importe total</th>
+                            <th width="75px" scope="col">Ver</th>
+                            <th width="75px" scope="col">Modificar</th>
+                            <th width="75px" scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bills in bill %}
+                            <tr>
+                                <th>1</th>
+                                <td>{{ bill.numberBill }}</td>
+                                <td>{{ bill.dateBill }}</td>
+                                <td>{{ bill.descriptionBill }}</td>
+                                <td>{{ bill.totalBillIva }}</td>
+                                <td>{{ bill.totalImportBill }}</td>
+                                <td><a href="#"><button name="watch" class="watch"><i class="far fa-eye"></i></i></button></a></td>
+                                <td><a href="#"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                                <td><a href="#"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-</header>
-
-<main>
-
-    <section>
-
-        <div id="titulo">
-
-            <input type="date" id="buscador"><button type="submit">Buscar</button>
-
-            <select>
-
-                <option>Elija un periodo de tiempo</option>
-                <option>3 meses atrás</option>
-                <option>6 meses atrás</option>
-                <option>9 meses atrás</option>
-                <option>12 meses atrás</option>
-
-            </select>
-
-            <button type="submit">Buscar</button>
-
-            <img src="añadir.png" id="añadir"></h1>
-
-        </div>
-
-        <div id="bills">
-            
-            <h1>Tus Facturas:</h1></br>
-            <hr>
-            {% for bills in bill %}
-
-              <ul>
-                    <li>
-                        <p>
-                            <div id="oneBill">
-                                Factura: <a href="{{ path('showBill', {id:bills.id}) }}">{{ bills.numberBill }}</a>
-                            </div>
-                            <div id="iconos">
-                                <a href="{{ path('edit', {id: bills.id}) }}"><img 
-                                        src="{{asset("img/EditarEmpleados.png")}}" alt="" /></a>
-                                <a href=" {{ path('delete',{id: bills.id}) }} ">
-                                        <img src="{{asset("img/borrar.png")}}" alt="Borrar" id="delete"/></a>
-                            </div>
-                        </p>
-                    </li>
-                </ul>
-            
-                <hr>                                                                                                                                                          
-
-            <hr>
-            {% endfor %}
-        </div>
-
-    </section>
-
-    <aside>
-
-        <a href="#"><h2>Mi Empresa</h2></a>
-        <a href="#"><h2>Productos</h2></a>
-        <a href="#"><h2>Facturas</h2></a>
-        <a href="#"><h2>Clientes</h2></a>
-        <a href="#"><h2>Mi Perfil</h2></a>
-
-    </aside>
-
-</main>
 
 {% endblock %}
