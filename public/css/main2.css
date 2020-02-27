@@ -1,16 +1,21 @@
 
+/*
+* Navbar principal
+*/
+
 .navbar-facturas {
     position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
     z-index: 50;
-    height: 75px;
+    height: 76px;
     box-shadow: 0 0.23077rem 0.38462rem 0 rgba(0,0,0,.25);
     background: var(--secundary-color);
     display: flex;
     flex-direction: row;
     padding: 0px 24px;
+    border-top: 2.5px solid var(--main-color);
 }
 
 .nav-start {
@@ -23,6 +28,7 @@
 .nav-start img {
     width: 50px;
     height: 50px;
+    margin-right: 12px;
 }
 
 .nav-end {
@@ -60,4 +66,19 @@
 .nav-items img {
     width: 50px;
     height: 50px;
+    margin-left: 16px;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+
+/*
+* Contenido
+*/
+
+body {
+    background-color: var(--background-color);
+}
+
+.container {
+    margin-top: 100px;
 }

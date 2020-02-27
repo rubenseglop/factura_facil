@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturas{% endblock %}
+
+{% block body %}
+<style>
+    main{
+        padding: 0px;
+        margin:0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    #cabecera{
+        border:1px solid;
+        width: 100%;
+        height: 70px;
+    }
+
+    #cabecera h1{
+        width: 50%;
+        margin-left: 20px;
+        float: left;
+    }
+
+    #cabecera img{
+        width: 4%;
+        float: right;
+        margin-right: 20px;
+        margin-top: 10px;
+    }
+    section{
+        width: 79%;
+        float: right;
+        height: 100%;
+    }
+    section #buscador{
+        width: 30%;
+        margin-bottom: 5px;
+        border-radius: 20px;
+        border: 1px solid;
+    }
+    section img{
+        width: 3%;
+        float: right;
+        margin-right: 10px;
+    }
+    section p{
+        height: 25px;
+    }
+    section select{
+        margin-bottom: 25px;
+        border-radius: 20px;
+    }
+    section #añadir{
+        margin-top: 100px;
+    }
+    section button{
+        border-radius: 10px;
+    }
+    fieldset{
+        background: #fff;
+        border:1px solid #333;
+        border-radius: 5px;
+    }
+    section #empresas{
+        border: 1px solid;
+        border-radius: 20px;
+        width: 70%;
+        margin-left: 10%;
+    }
+    aside{
+        width: 19%;
+        float: left;
+        height: 100px;
+        text-align: center;
+        height: 80%;
+    }
+    aside h2{
+        width: 100%;
+        margin-top: 0.1px;
+        margin-bottom: 0.1px;
+        border: 1px solid;
+        height: 7%;
+        color: black;
+        padding-top: 10px;
+    }
+    aside a{
+        text-decoration: none;
+        margin-top: 10px;
+    }
+</style>
+
+<header>
+
+    <div id="cabecera">
+        <h1>Easy Bill</h1>
+            <img src="avatar.png">
+    </div>
+
+</header>
+
+<main>
+
+    <section>
+
+        <div id="titulo">
+
+            <input type="date" id="buscador"><button type="submit">Buscar</button>
+
+            <select>
+
+                <option>Elija un periodo de tiempo</option>
+                <option>3 meses atrás</option>
+                <option>6 meses atrás</option>
+                <option>9 meses atrás</option>
+                <option>12 meses atrás</option>
+
+            </select>
+
+            <button type="submit">Buscar</button>
+
+            <img src="añadir.png" id="añadir"></h1>
+
+        </div>
+
+        <div id="bills">
+            
+            <h1>Tus Facturas:</h1></br>
+            <hr>
+            {% for bill in bills %}
+
+               Factura Número: {{ bill.numberBill }} <p><img src="EditarEmpresas.png"><img src="borrar.png"></p>                                                                                                                                                           
+
+            <hr>
+            {% endfor %}
+        </div>
+
+    </section>
+
+    <aside>
+
+        <a href="#"><h2>Mi Empresa</h2></a>
+        <a href="#"><h2>Productos</h2></a>
+        <a href="#"><h2>Facturas</h2></a>
+        <a href="#"><h2>Clientes</h2></a>
+        <a href="#"><h2>Mi Perfil</h2></a>
+
+    </aside>
+
+</main>
+
+{% endblock %}

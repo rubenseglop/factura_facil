@@ -6,6 +6,7 @@
   --secundary-color: #222222;
   --purple-color: rgb(39, 0, 63);
   --grey-color: #CCCCCC;
+  --background-color: #ebeced;
 }
 
 /* Global CSS */
@@ -47,8 +48,9 @@ a {
 }
 
 a:hover, a:focus {
-    color: var(--main-color);
-    text-decoration: none;
+    color: var(--main-color) !important;
+    text-decoration: none !important;
+    cursor: pointer;
 }
 
 img {
