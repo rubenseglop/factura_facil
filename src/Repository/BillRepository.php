@@ -47,4 +47,17 @@ class BillRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByIdCompany($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.company = :val')
+            ->andWhere('b.status = true')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
