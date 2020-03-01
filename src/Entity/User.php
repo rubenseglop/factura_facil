@@ -60,6 +60,11 @@ class User implements UserInterface
      */
     private $companies;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ExtraUserData", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $extraUserData;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
@@ -224,5 +229,22 @@ class User implements UserInterface
 
     public function __toString(){
         return $this->email;
+    }
+
+    public function getExtraUserData(): ?ExtraUserData
+    {
+        return $this->extraUserData;
+    }
+
+    public function setExtraUserData(ExtraUserData $extraUserData): self
+    {
+        $this->extraUserData = $extraUserData;
+
+        // set the owning side of the relation if necessary
+        if ($extraUserData->getUser() !== $this) {
+            $extraUserData->setUser($this);
+        }
+
+        return $this;
     }
 }
