@@ -21,12 +21,12 @@ class BillController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         $entityManager = $this->getDoctrine()->getManager();
-        $bill = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
-        $bill = $billRepository->findByIdCompany($id);
+        $bills = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
+        $bills = $billRepository->findByIdCompany($id);
 
         return $this->render('bill/index.html.twig', [
             'controller_name' => 'BillController',
-            'bill' => $bill
+            'bills' => $bills
         ]);
     }
     //Formulario para añadir una nueva factura
@@ -62,6 +62,33 @@ class BillController extends AbstractController
              'bill' => $bill
              ]);
     }
+    //Función para cambiar el status de una factura de activo a inactivo
+    /**
+     * @Route("/borrarFactura/{id}", name="deleteBill")
+     */
+    public function deleteBill(Request $request, $id){
+        $entityManager = $this->getDoctrine()->getManager();
+        $billRepository = $this->getDoctrine()->getManager();
+        $billRepository = $this->getDoctrine()->getRepository(Bill::class);
+        
+        $bill = $billRepository->findOneById($id);
+        $bill->setStatus(false);
+        $entityManager->persist($bill);
+        $entityManager->flush();
+        return $this->redirect('/'.$bill->getCompany()->getId().'/facturas/'); 
+    }
+    // Buscador de factura por fecha
+    /**
+     * @Route("/busqueda", name="searchDate")
+     */
+    public function searchBill(Request $request){
+        $bills = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
+        $bills = $billRepository->findByDateBill($request);
+        return $this->render('bill/index.html.twig', [
+         'controller_name' => 'BillController',
+         'bills' => $bills
+         ]);
+     }
     /*Vista de la factura que el usuario haya seleccionado para visualizar*/
     /**
      * @Route("/factura/{id}", name="showBill")

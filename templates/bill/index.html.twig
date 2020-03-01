@@ -13,7 +13,12 @@
             <div class="panel">
                 <div class="panel-heading">
                     <h3>Facturas</h3>
-                    <input type="date" id="buscador"><button type="submit">Buscar</button>
+
+                    <form action="{{ path('searchDate')}}" method="POST" id="searchDate">
+
+                        <input type="date" id="buscador"><button type="submit">Buscar</button>
+                        
+                    </form>
 
                     <select>
                         <option>Elija un periodo de tiempo</option>
@@ -42,17 +47,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for bills in bill %}
+                        {% for bill in bills %}
                             <tr>
                                 <th>1</th>
                                 <td>{{ bill.numberBill }}</td>
-                                <td>{{ bill.dateBill }}</td>
+                                
                                 <td>{{ bill.descriptionBill }}</td>
                                 <td>{{ bill.totalBillIva }}</td>
                                 <td>{{ bill.totalImportBill }}</td>
-                                <td><a href="#"><button name="watch" class="watch"><i class="far fa-eye"></i></i></button></a></td>
+                                <td><a href="{{ path('showBill', {id:bill.id}) }}"><button name="watch" class="watch"><i class="far fa-eye"></i></i></button></a></td>
                                 <td><a href="#"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
-                                <td><a href="#"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                                <td><a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
