@@ -11,7 +11,7 @@ class BillController extends AbstractController
 {
     /*Vista de todas las facturas correspondientes a la empresa en la que se encuentra el usuario*/
     /**
-     * @Route("/{id}/facturas", name="bill")
+     * @Route("/{id}/facturas", name="bills")
      */
     public function index($id)
     {		
@@ -19,12 +19,12 @@ class BillController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         $entityManager = $this->getDoctrine()->getManager();
-        $bill = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
-        $bill = $billRepository->findByIdCompany($id);
+        $bills = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
+        $bills = $billRepository->findByIdCompany($id);
 
         return $this->render('bill/index.html.twig', [
             'controller_name' => 'BillController',
-            'bill' => $bill
+            'bills' => $bills
         ]);
     }
     /*Vista de la factura que el usuario haya seleccionado para visualizar*/

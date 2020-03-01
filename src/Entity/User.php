@@ -48,11 +48,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phoneNumber;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $avatar;
 
     /**
@@ -168,18 +163,6 @@ class User implements UserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(string $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
