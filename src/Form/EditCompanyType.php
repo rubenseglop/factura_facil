@@ -17,7 +17,7 @@ class EditCompanyType extends AbstractType
             ->add('fiscalAddress',null, ['required' => false])
             ->add('email',null, ['required' => false])
             ->add('NIF',null, ['required' => false])
-            ->add('Submit', SubmitType::class)
+
         ;
     }
 

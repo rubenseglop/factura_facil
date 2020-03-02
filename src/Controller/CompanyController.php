@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Company;
 use App\Form\AddCompanyType;
+use App\Form\EditCompanyType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -113,16 +114,27 @@ class CompanyController extends AbstractController
     /**
      * @Route("/editCompany", name="editCompany")
      */
-    public function edit()
+    public function edit(Request $request)
     {
         if (isset($_GET['id'])) {
             $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
-            $user = $this->getUser();
-            $idUser = $user->getId();
-            $companies = $repositoryCompany->findCompaniesByUser($idUser);
-            return $this->render('company/index.html.twig', [
+            //$user = $this->getUser();
+            //$idUser = $user->getId();
+            $company = $repositoryCompany->findOneCompanyById($_GET['id']);
+            $nameCompany = $company->getName();
+            $fiscalAdressCompany = $company->getFiscalAddress();
+            $emailCompany = $company->getEmail();
+            $nifCompany = $company->getNIF();
+            $form = $this->createForm(EditCompanyType::class, $company);
+            $form->handleRequest($request);
+            return $this->render('company/editCompany.html.twig', [
+                'editCompany_form' => $form->createView(),
                 'controller_name' => 'CompanyController',
-                'companies' => $companies
+                'companies' => $company,
+                'nameCompany' => $nameCompany,
+                'fiscalAdressCompany' => $fiscalAdressCompany,
+                'emailCompany' => $emailCompany,
+                'nifCompany' => $nifCompany
             ]);
         }
     }
