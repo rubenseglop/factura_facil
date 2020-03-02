@@ -48,7 +48,11 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="profile_extraUserData_birthDate" class="control-label">Fecha de Nacimiento</label>
-                                        {{ form_widget(profileForm.extraUserData.birthDate, { 'attr': {'class': 'input-group date'} }) }}
+                                        <div class="select-date-form">
+                                            {{ form_widget(profileForm.extraUserData.birthDate.day, { 'attr': {'class': 'form-control'}, 'empty_data': '1' }) }}
+                                            {{ form_widget(profileForm.extraUserData.birthDate.month, { 'attr': {'class': 'form-control'} }) }}
+                                            {{ form_widget(profileForm.extraUserData.birthDate.year, { 'attr': {'class': 'form-control'} }) }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
