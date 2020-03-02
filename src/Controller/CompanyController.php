@@ -58,7 +58,7 @@ class CompanyController extends AbstractController
         if(isset($_GET['id'])) {
             $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
             $entityManager = $this->getDoctrine()->getManager();
-            $company = $repositoryCompany->findOneCompanyById($_GET['id']);
+            $company = $repositoryCompany->findOneById($_GET['id']);
             $status = FALSE;
             $company->setStatus($status);
             $entityManager->persist($company);
