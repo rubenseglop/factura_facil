@@ -23,7 +23,7 @@ class AddClientType extends AbstractType
             ->add('web')
             ->add('bossName')
             ->add('bossPhone')
-            ->add('company')
+            // ->add('company')
             ->add('Submit', SubmitType::class)
         ;
     }

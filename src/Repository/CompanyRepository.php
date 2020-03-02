@@ -19,16 +19,7 @@ class CompanyRepository extends ServiceEntityRepository
         parent::__construct($registry, Company::class);
     }
 
-    public function findByUser($user_id) {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.User = :user_id AND c.status = TRUE')
-            ->setParameter('user_id', $user_id)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    
 
     // /**
     //  * @return Company[] Returns an array of Company objects
@@ -60,13 +51,30 @@ class CompanyRepository extends ServiceEntityRepository
     }
     */
 
-    public function findOneCompanyById($value): ?Company
+
+    public function findByUser($user_id) {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.User = :user_id')
+            ->setParameter('user_id', $user_id)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findOneById($value): ?Company
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
+
+
+
 }
+
+

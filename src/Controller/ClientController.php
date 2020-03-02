@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Client;
+use App\Entity\Company;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddClientType;
 use App\Form\EditClientType;
@@ -13,41 +14,20 @@ class ClientController extends AbstractController
 {
     /* Main View */
     /**
-     * @Route("/client", name="client")
+     * @Route("/{id}/client", name="client")
      */
-    public function index()
-    {
-       
-        $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
-        $clients = $repositoryClient->findAll();
+    public function index($id)
+    {   
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $client = $repositoryClient= $this->getDoctrine()->getRepository(Client::class);
+        $client = $repositoryClient->findByIdCompany($id);
+
         return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
-            'clients' => $clients
-        ]);
-    }
-
-
-    /* Al pinchar en el ícono editClient te lleva la vista donde se podrán editar los datos del cliente */ 
-    /**
-     * @Route("/editclient/{idclient}", name="editclient")
-     */
-    public function editClient($idclient){
-        $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
-        $clients = $repositoryClient->findOneById($idclient);
-        return $this->render('client/editarCliente.html.twig', [
-            'controller_name' => 'ClientController',
-            'clients' => $clients
-        ]);
-    }
-
-
-    //Al pinchar en el ícono addClient te lleva la vista donde se podrá añadir un cliente nuevo
-    /**
-     * @Route("/addClient", name="addClient")
-     */
-    public function addClient(){
-        return $this->render('client/editarCliente.html.twig', [
-            'controller_name' => 'ClientController'
+            'client' => $client
         ]);
     }
 
@@ -55,34 +35,46 @@ class ClientController extends AbstractController
 
     //Formulario para añadir nuevo cliente
     /**
-     * @Route("/addNewClient", name="addNewClient")
+     * @Route("{id}/addNewClient", name="addNewClient")
      */
-    public function addNewClient(Request $request){
+    public function addNewClient($id, Request $request){
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $client = new Client();
         $form = $this->createForm(AddClientType::class, $client);
-
+        
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
-        // $client = $repositoryClient->findOneById($idclient);
+        $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+        $company = $repositoryCompany->findOneById($id);
 
         $form->handleRequest($request);
-
+        echo "----Id: ".$id;
         if( $form->isSubmitted() && $form->isValid() ){
             $entityManager = $this->getDoctrine()->getManager();
             $client = $form->getData();
+            $client->setStatus(true);
+            $client->setCompany($company);
+            
             $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirect('/client/');
+            return $this->redirect('/'.$id.'/client/');
         }
-        return $this->render('form/addnewclient.html.twig', [ 'registrationForm' =>$form->createView() ]);
+        return $this->render('form/addnewclient.html.twig', [
+             'registrationForm' =>$form->createView(),
+             'client' => $client
+             ]);
     }
 
     
+    
     // Formulario para editar los datos del cliente
     /**
-     * @Route("/edit/{id}", name="edit")
+     * @Route("{id}/edit", name="edit")
      */
-    public function edit(Request $request, $id){
+    public function edit($id, Request $request){
         $client2 = new Client();
         $form = $this->createForm(EditClientType::class, $client2);
 
@@ -124,10 +116,12 @@ class ClientController extends AbstractController
 
             $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirect('/client/');
+            return $this->redirect('/'.$id.'/client/');
         }
         return $this->render('form/editclient.html.twig', [ 'registrationForm' =>$form->createView() ]);
     }
+    
+
 
     // Mostrar los datos de solo un cliente
     /**
@@ -156,6 +150,23 @@ class ClientController extends AbstractController
         ]);
     }
 
+
+
+    //Borrar Cliente
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function deleteClient(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $repositoryClient = $this->getDoctrine()->getManager();
+        $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
+        
+        $client = $repositoryClient->findOneById($id);
+        $client->setStatus(false);
+        $em->persist($client);
+        $em->flush();
+        return $this->redirect('/'.$id.'/client/'); 
+    }
 
 
 
