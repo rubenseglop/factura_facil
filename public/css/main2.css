@@ -294,3 +294,13 @@
 .panel-form label {
     font-weight: bold;
 }
+
+.select-date-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.select-date-form select {
+    width: 30%;
+    height: calc(2.25rem + 2px);
+}
