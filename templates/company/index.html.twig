@@ -1,52 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My Companies{% endblock %}
+{% block title %}Mis empresas{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
 {% endblock %}
 
 {% block body %}
 
-    <main>
-        {% include 'header.html.twig' %}
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
 
-        <section>
-            <div id="titulo">
-                {#ME HE QUEDADO AQUI CON EL IF ELSE#}
-                <h1>Mis Empresas :  {{ numberCompanies }} de {{ nMaxComanies }}
+    <div class="container main-container">
+        <div class="row">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>Mis Empresas :  {{ numberCompanies }} de {{ nMaxComanies }}</h3>
                     {% if numberCompanies <   nMaxComanies %}
-                    <a href="{{ path('addNewCompany') }}"><img src="img/añadir.png" alt="Añadir"
-                                                                           id="añadirCompany" /></a>
+                        <a href="{{ path('addNewCompany') }}"><button><i class="fas fa-plus"></i></button></a>
                     {% endif %}
-                </h1>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Empresa</th>
+                            <th width="75px" scope="col">Editar</th>
+                            <th width="75px" scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for company in companies %}
+                            <tr>
+                                <td><a href="{{ path('showCompany', {id:company.id}) }}" id="nameCompany">{{ company.name }}</a></td>
+                                <td><a href="{{ path('editCompany', {id:company.id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                                <td><a href="{{ path('deleteCompany', {id:company.id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-
-
-            <div id="clientesCompany">
-
-                {% for company in companies %}
-                    <ul>
-                        <li>
-                            <p>
-                                <a href="{{ path('showCompany', {id:company.id}) }}" id="nameCompany">{{ company.name }}</a>
-                                <a href="{{ path('editCompany', {id:company.id}) }}"><img
-                                            src="img/EditarEmpleados.png" alt="" /></a>
-                                <a href="{{ path('deleteCompany', {id:company.id}) }}"><img src="img/borrar.png" alt="Borrar" /></a>
-
-                            </p>
-                        </li>
-                    </ul>
-
-                    <hr>
-                {% endfor %}
-
-</div>
-
-</section>
-        {% include 'menu-company.html.twig' %}
-    </main>
+        </div>
+    </div>
 
 {% endblock %}
 
