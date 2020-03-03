@@ -20,6 +20,7 @@
                 <a href="#"><img src="{{asset("img/avatar.png")}}" alt="Avatar"/></a>
         </div>
 
+
     </header>
 
     <div id="showAllClients"></div> 
@@ -29,13 +30,11 @@
             <h1>Mis Clientes <a href="{{ 'addNewClient' }}"><img src="{{asset("img/añadir.png")}}" alt="Añadir" 
                                      id="añadir" /></a></h1>
         
-            <form action="{{ path('search')}}" method="POST" id="search">
+            <form action="{{ path('search', {id: company_id})}}" method="POST" id="search">
                     <input type="search" id="buscador" placeholder=" Buscar...">
                     <button type="submit">Buscar</button>        
             </form>              
         </div>
-
-
         <div id="clientes">
             {% for clients in client %}
             
@@ -53,8 +52,7 @@
                             </div>
                         </p>
                     </li>
-                </ul>
-            
+                </ul> 
                 <hr>
             {% endfor %}
         </div>

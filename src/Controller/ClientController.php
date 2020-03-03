@@ -27,7 +27,8 @@ class ClientController extends AbstractController
 
         return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
-            'client' => $client
+            'client' => $client, 
+            'company_id'=> $id
         ]);
     }
 
@@ -48,10 +49,9 @@ class ClientController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
-        $company = $repositoryCompany->findOneById($id);
+        $company = $repositoryCompany->findOneClientById($id);
 
         $form->handleRequest($request);
-        echo "----Id: ".$id;
         if( $form->isSubmitted() && $form->isValid() ){
             $entityManager = $this->getDoctrine()->getManager();
             $client = $form->getData();
@@ -64,7 +64,8 @@ class ClientController extends AbstractController
         }
         return $this->render('form/addnewclient.html.twig', [
              'registrationForm' =>$form->createView(),
-             'client' => $client
+             'client' => $client,
+             'company_id'=> $id
              ]);
     }
 
@@ -132,22 +133,35 @@ class ClientController extends AbstractController
         $client = $repositoryClient->findOneById($id);
         return $this->render('client/client.html.twig',[
             'controller_name'=> 'ClientController',
-            'client' => $client
+            'client' => $client,
+            'company_id'=> $id
         ]);
     }
 
 
     // Buscador
     /**
-     * @Route("/search", name="search")
+     * @Route("/{id}/client/search", name="search")
      */
-    public function search(Request $request){
-       $repositoryClient = $this->getDoctrine()->getManager();
-       $client = $repositoryClient->findByName();
-       return $this->render('client/index.html.twig', [
-        'controller_name' => 'ClientController',
-        'client' => $client
-        ]);
+    public function search( $id, Request $request){
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }else{
+            // $value =  $request->query->get('$value');
+            // dump($value);
+            // $empresa = $this->getDoctrine()->getRepository(Company::Class)->findOneCompanyById($id); 
+            // $client = $this->getDoctrine()->getRepository(Client::class)->searchClient($value, $id);
+            $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
+            $client = $repositoryClient->findOneById($id);
+            $buscador = $repositoryClient->searchClient($client, $id);
+            dump($buscador);
+            dump($client);
+            return $this->render('client/index.html.twig', [
+                                 'controller_name' => 'ClientController',
+                                 'client' => $client,
+                                 'company_id'=> $id
+                                ]);
+            }
     }
 
 
