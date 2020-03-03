@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Nueva Factura
+{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {# {{ parent() }} #}
+    {% endblock header %}
+
+<h1>Añadir Nueva Factura</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.numberBill) }}
+        {{ form_row(registrationForm.dateBill) }}
+        {{ form_row(registrationForm.descriptionBill) }}
+        {{ form_row(registrationForm.totalBillIva) }}
+        {{ form_row(registrationForm.totalImportBill) }}
+        {{ form_row(registrationForm.client) }}
+        {{ form_row(registrationForm.billLine) }}
+    {{ form_end(registrationForm) }}
+{% endblock %}
