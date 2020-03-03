@@ -6,6 +6,7 @@ use App\Entity\BillLine;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AddNewBillLineType extends AbstractType
 {
@@ -19,6 +20,7 @@ class AddNewBillLineType extends AbstractType
             ->add('subTotal')
             ->add('bill')
             ->add('product')
+            ->add('Submit', SubmitType::class)
         ;
     }
 

@@ -234,6 +234,11 @@
     min-width: 806px;
 }
 
+.panel .card-header {
+    margin: -8px -24px 12px;
+    padding: 1.3rem 1.3rem;
+}
+
 .panel-heading {
     width: 100%;
     height: auto;
