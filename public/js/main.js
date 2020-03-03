@@ -5,5 +5,10 @@ $(function() {
     $("#menu-user-toggle").off().click(function() {
         $(".nav-acount").toggle(325);
     });
+
+    $("#searchDate").on("submit", function(event) {
+        event.preventDefault();
+        console.log($(this));
+    });
     
 });
