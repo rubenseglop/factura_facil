@@ -15,7 +15,7 @@ class BillController extends AbstractController
 {
     /*Vista de todas las facturas correspondientes a la empresa en la que se encuentra el usuario*/
     /**
-     * @Route("/{id}/facturas", name="bill")
+     * @Route("/{id}/facturas", name="bills")
      */
     public function index($id)
     {		

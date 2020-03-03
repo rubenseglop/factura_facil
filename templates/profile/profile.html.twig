@@ -13,11 +13,60 @@
 
     <div class="container main-container">
         <div class="row">
-            <div class="col-md-12">
-                <h1>Mi perfil</h1>
-            </div>
-            <div class="col-md-12">
-
+            <div class="panel panel-profile">
+                <div class="panel-heading">
+                    <h2>Mi perfil</h2>
+                </div>
+                <div class="panel-form">
+                    {{ form_start(profileForm, {'method': 'post', 'attr': {'class': 'form'}}) }}
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="profile_avatar" class="control-label">Imagen de perfil</label>
+                                        {{ form_widget(profileForm.avatar, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Imagen de perfil'} }) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="profile_email" class="control-label">Email</label>
+                                        {{ form_widget(profileForm.email, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Email'} }) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombre</label>
+                                        {{ form_widget(profileForm.name, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Nombre'} }) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="profile_extraUserData_dni" class="control-label">DNI</label>
+                                        {{ form_widget(profileForm.extraUserData.dni, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'DNI'} }) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="profile_extraUserData_birthDate" class="control-label">Fecha de Nacimiento</label>
+                                        {{ form_widget(profileForm.extraUserData.birthDate, { 'attr': {'class': 'input-group date'} }) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="profile_extraUserData_phoneNumber" class="control-label">Teléfono</label>
+                                        {{ form_widget(profileForm.extraUserData.phoneNumber, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Número de teléfono'} }) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-actions">
+                                        {{ form_widget(profileForm.save, { 'attr': {'class': 'btn btn-primary float-left'}, 'value': 'Guardar' }) }}
+                                    </div>
+                                </div>
+                                {{ form_rest(profileForm) }}
+                            </div>
+                        </div>
+                    {{ form_end(profileForm) }}
+                </div>
             </div>
         </div>
     </div>

@@ -1,12 +1,9 @@
 
 $(function() {
 
-    
+    /* Método para ocultar y mostrar el menú del usuario */
     $("#menu-user-toggle").click(function() {
-        console.log("hola 1");
-        $(".nav-acount").toggle('slow', function(){
-            console.log("hola");
-         });
+        $(".nav-acount").toggle(325);
     });
     
 });

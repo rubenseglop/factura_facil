@@ -41,9 +41,7 @@ class RegistrationController extends AbstractController
 
             $user->setCompanyLimit(0);
 
-            $user->setPhoneNumber("000000000");
-
-            $user->setAvatar("default.jpg");
+            $user->setAvatar("default.png");
 
             $user->setStatusUser(true);
 

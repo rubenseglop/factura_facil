@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200227192240 extends AbstractMigration
+final class Version20200303103515 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,10 +22,10 @@ final class Version20200227192240 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('CREATE TABLE extra_user_data (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, dni VARCHAR(255) DEFAULT NULL, birth_date DATE DEFAULT NULL, phone_number VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_255E63BCA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE extra_user_data ADD CONSTRAINT FK_255E63BCA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE bill CHANGE client_id client_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE bill_line ADD CONSTRAINT FK_220BDC5C4584665A FOREIGN KEY (product_id) REFERENCES product (id)');
-        $this->addSql('CREATE INDEX IDX_220BDC5C4584665A ON bill_line (product_id)');
-        $this->addSql('ALTER TABLE user CHANGE roles roles JSON NOT NULL');
+        $this->addSql('ALTER TABLE user DROP phone_number, CHANGE roles roles JSON NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -33,9 +33,8 @@ final class Version20200227192240 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('DROP TABLE extra_user_data');
         $this->addSql('ALTER TABLE bill CHANGE client_id client_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE bill_line DROP FOREIGN KEY FK_220BDC5C4584665A');
-        $this->addSql('DROP INDEX IDX_220BDC5C4584665A ON bill_line');
-        $this->addSql('ALTER TABLE user CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
+        $this->addSql('ALTER TABLE user ADD phone_number VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
 }
