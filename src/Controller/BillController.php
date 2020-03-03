@@ -71,7 +71,7 @@ class BillController extends AbstractController
     /**
      * @Route("/borrarFactura/{id}", name="deleteBill")
      */
-    public function deleteBill(Request $request, $id){
+    public function deleteBill($id){
         $entityManager = $this->getDoctrine()->getManager();
         $billRepository = $this->getDoctrine()->getManager();
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);

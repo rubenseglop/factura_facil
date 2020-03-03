@@ -50,11 +50,11 @@ class BillRepository extends ServiceEntityRepository
 
     public function findById($value)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.id = :val')
-            ->andWhere('c.status = true')
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.id = :val')
+            ->andWhere('b.status = true')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('b.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -62,11 +62,11 @@ class BillRepository extends ServiceEntityRepository
     }
     public function findByIdCompany($value)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.company = :val')
-            ->andWhere('c.status = true')
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.company = :val')
+            ->andWhere('b.status = true')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('b.id', 'ASC')
             ->setMaxResults(100000)
             ->getQuery()
             ->getResult()

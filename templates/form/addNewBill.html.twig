@@ -18,6 +18,9 @@
         {{ form_row(registrationForm.totalBillIva) }}
         {{ form_row(registrationForm.totalImportBill) }}
         {{ form_row(registrationForm.client) }}
-        {{ form_row(registrationForm.billLine) }}
+        <h3>Bill Lines</h3>
+        <div class="billLines">
+            {{ form_rest(registrationForm) }}
+        </div> 
     {{ form_end(registrationForm) }}
 {% endblock %}

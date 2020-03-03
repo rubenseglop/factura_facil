@@ -22,10 +22,7 @@ class AddNewBillType extends AbstractType
             //->add('status')
             //->add('company')
             ->add('client')
-            ->add('billLines', CollectionType::class, [
-                  'entry_type' => AddNewBillLinesType::class,
-                  'entry_options' => ['label' => false],
-            ])
+            ->add('billLines', CollectionType::class, ['entry_type' => AddNewBillLineType::class, 'entry_options' => ['label' => false]])
             ->add('Submit', SubmitType::class)
         ;
     }
