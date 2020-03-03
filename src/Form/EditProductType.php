@@ -8,18 +8,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class SearchProductType extends AbstractType
+class EditProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
-            //->add('description')
-            //->add('productIVA')
-            //->add('price')
-            //->add('status')
+            ->add('description')
+            ->add('productIVA')
+            ->add('price')
+            ->add('status')
             //->add('company')
-            ->add('Buscar', SubmitType::class)
+            ->add('Editar', SubmitType::class)
         ;
     }
 

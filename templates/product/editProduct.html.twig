@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+{% block stylesheets %}
+
+{% endblock %}
+{% block body %}
+<h3>Edit Product</h3>
+    {{form(form)}}
+<a href="{{ path('product',{id:idCompany}) }}">Back To Products</a>
+{% endblock %}

@@ -3,19 +3,17 @@
 {% block title %}Buscardor Productos{% endblock %}
 {% block stylesheets %}
         <style>
-            .nombre{
-
-            }
             ul{
                 list-style-type:none;
             }
         </style>
 {% endblock %}
 {% block body %}
-<div class="nombre">
+<div class="bloque">
 
-    <h1>Productos</h1>
-    <p>Lista de productos coincidentes con ese nombre</p>
-    
+    <h1>Search Products By Name</h1>
+    <p>{{product.name}} ------> <a href=""><button>Editar Producto</button></a> <a href=""><button>Eliminar Producto</button></a></p>
+    <a href="{{ path('product',{id:idCompany}) }}">Volver a todos los productos </a>
+   
 </div>
 {% endblock %}
