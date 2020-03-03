@@ -72,12 +72,14 @@ class BillRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    public function findByDateBill($value) :?Bill
+    public function findByDateBill($value, $id) :array
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.dateBill = :val')
+            ->andWhere('c.company = :id')
             ->andWhere('c.status = true')
             ->setParameter('val', $value)
+            ->setParameter('id', $id)
             ->orderBy('c.id', 'ASC')
             ->setMaxResults(100000)
             ->getQuery()

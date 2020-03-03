@@ -86,9 +86,9 @@ class BillController extends AbstractController
     /**
      * @Route("/busqueda", name="searchDate")
      */
-    public function searchBill(Request $request){
+    public function searchBill(Request $request, $id){
         $bills = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
-        $bills = $billRepository->findByDateBill($request);
+        $bills = $billRepository->findByDateBill($request, $id);
         return $this->render('bill/index.html.twig', [
          'controller_name' => 'BillController',
          'bills' => $bills
