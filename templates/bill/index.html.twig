@@ -2,6 +2,13 @@
 
 {% block title %}Facturas{% endblock %}
 
+{% block javascripts %}
+
+    {{ parent() }}
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+{% endblock %}
+
 {% block body %}
 
     {% include 'header.html.twig' %}
@@ -56,7 +63,7 @@
                                             <td>{{ bill.descriptionBill }}</td>
                                             <td>{{ bill.totalBillIva }}%</td>
                                             <td>{{ bill.totalImportBill }}€</td>
-                                            <td><a href="{{ path('showBill', {id:bill.id}) }}"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
+                                            <td><a href="{{ path('showPdfBill', {id:bill.id}) }}" target="_blank" class="show-pdf"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
                                             <td><a href="#"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
                                             <td><a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
                                         </tr>
@@ -70,10 +77,15 @@
         </div>
     </div>
 
+    {% block footer_javascripts %}
+        
+        <script src="https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js"></script>
+        <script src="https://unpkg.com/jspdf-autotable@3.2.13/dist/jspdf.plugin.autotable.js"></script>
+        <script src="{{ asset("js/invoice.js") }}"></script>
+        <script src="{{ asset("js/menu-company.js") }}"></script>
+
+    {% endblock %}
+
 {% endblock %}
 
-{% block footer_javascripts %}
 
-    <script src="{{ asset("js/menu-company.js") }}"></script>
-
-{% endblock %}

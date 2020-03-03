@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Pdf Factura Fácil{% endblock %}</title>
+</head>
+<body>
+    {% block body %}
+
+        <table id="table-invoice">
+            <thead>
+                <tr>
+                    <th scope="col">Nº de factura</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Total IVA</th>
+                    <th scope="col">Importe total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ bill.numberBill }}</td>
+                    <td>{{ bill.dateBill|date("m/d/Y") }}</td>
+                    <td>{{ bill.descriptionBill }}</td>
+                    <td>{{ bill.totalBillIva }}%</td>
+                    <td>{{ bill.totalImportBill }}€</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>Líneas de factura</h2>
+        <table id="table-invoice-lines">
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">IVA</th>
+                <th scope="col">Subtotal</th>
+            </tr>
+            {% for billLine in bill.billLines %}
+                <tr>
+                    <td>{{ billLine.product.name }}</td>
+                    <td>{{ billLine.description }}</td>
+                    <td>{{ billLine.quantity }}</td>
+                    <td>{{ billLine.price }}€</td>
+                    <td>{{ billLine.billLineIva }}%</td>
+                    <td>{{ billLine.subTotal }}€</td>
+                </td>
+            {% endfor %}
+        </table>
+    
+    {% endblock %}
+</body>
+</html>

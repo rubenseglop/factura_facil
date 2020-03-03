@@ -7,7 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Bill;
 use App\Entity\Company;
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\AddNewBillType;
 
 class BillController extends AbstractController
 {
@@ -101,4 +100,18 @@ class BillController extends AbstractController
             'bill' => $bill
         ]);
     }
+
+    /**
+     * Mostrar pdf de la factura seleccionada
+     * @Route("/pdf_factura/{id}", name="showPdfBill")
+     */
+    public function showPdfBill($id) {
+        $billRepository = $this->getDoctrine()->getRepository(Bill::class);
+        $bill = $billRepository->findOneById($id);
+
+        return $this->render('bill/pdf_bill.html.twig',[
+            'bill' => $bill
+        ]);
+    }
+
 }
