@@ -63,7 +63,7 @@
                                             <td>{{ bill.descriptionBill }}</td>
                                             <td>{{ bill.totalBillIva }}%</td>
                                             <td>{{ bill.totalImportBill }}€</td>
-                                            <td><a href="{{ path('showPdfBill', {id:bill.id}) }}" target="_blank" class="show-pdf"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
+                                            <td><a href="{{ path('showPdfBill', {id: bill.id}) }}" target="_blank" class="show-pdf"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
                                             <td><a href="#"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
                                             <td><a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
                                         </tr>
