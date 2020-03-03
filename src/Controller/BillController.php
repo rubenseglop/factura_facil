@@ -28,7 +28,8 @@ class BillController extends AbstractController
 
         return $this->render('bill/index.html.twig', [
             'controller_name' => 'BillController',
-            'bills' => $bills
+            'bills' => $bills,
+            'id_company' => $id
         ]);
     }
     //Formulario para añadir una nueva factura
