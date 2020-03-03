@@ -67,7 +67,7 @@ class CompanyController extends AbstractController
             $form = $this->createForm(EditCompanyType::class, $company);
             //$form->handleRequest($request);
             $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
+            if($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $company = $form->getData();
                 $company->setName($company->getName());

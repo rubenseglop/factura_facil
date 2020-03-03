@@ -4,12 +4,9 @@ function loadPdf(url, invoice_number) {
 
     $.ajax(url).done(function(response){
 
-        console.log($(response).filter("#table-invoice").html())
         var table_invoice = $(response).filter("#table-invoice");
         var table_invoice_lines = $(response).filter("#table-invoice-lines");
-        console.log(table_invoice.children("tbody").children("tr").children("td").eq(0).text());
 
-        console.log(table_invoice_lines.children().children("tr").length);
         if(table_invoice_lines.children().children("tr").length > 1) {
             for(let i = 1; i < table_invoice_lines.children().children("tr").length; i++) {
                 console.log(table_invoice_lines.children().children("tr").eq(i).children("td").eq(0).text());
