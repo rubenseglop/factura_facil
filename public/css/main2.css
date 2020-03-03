@@ -232,6 +232,7 @@
     border-radius: 5px;
     width: 100%;
     min-width: 806px;
+    margin-bottom: 32px;
 }
 
 .panel .card-header {
@@ -308,4 +309,25 @@
 .select-date-form select {
     width: 30%;
     height: calc(2.25rem + 2px);
+}
+
+#searchDate {
+    display: flex;
+}
+
+#searchDate label {
+    font-weight: bold;
+}
+
+#searchDate .form-actions {
+    display: flex;
+    align-items: center;
+}
+
+#searchDate .form-actions > button {
+    margin-top: 9px;
+}
+
+#searchDate div {
+    margin-right: 6px;
 }

@@ -6,9 +6,10 @@ $(function() {
         $(".nav-acount").toggle(325);
     });
 
-    $("#searchDate").on("submit", function(event) {
-        event.preventDefault();
-        console.log($(this));
+    $("#searchDate").on("submit", function(event) { 
+        if($(this).find("#end-search").val() == "" || $(this).find("#start-search").val() == "") {
+            event.preventDefault();
+        }
     });
     
 });

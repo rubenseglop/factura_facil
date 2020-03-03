@@ -27,18 +27,20 @@
                                 <a href="{{ path('addNewBill', {id:id_company}) }}"><button><i class="fas fa-plus"></i></button></a>
                             </div>
                             <div class="panel-search">
-                                <form action="{{ path('searchDate', {id:id_company}) }}" method="POST" id="searchDate">
-                                    <input type="Date" id="buscador"><button type="submit">Buscar</button>  
+                                <form action="{{ path('bills', {id:id_company}) }}" method="POST" id="searchDate">
+                                    <div class="form-group">
+                                        <label class="control-label" for="start-date">Fecha Inicio</label>
+                                        <input class="form-control" type="Date" name="start-date" id="start-date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="end-date">Fecha Fin</label>
+                                        <input class="form-control" type="Date" name="end-date" id="end-date">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
                                 </form>
                                 
-                                <select>
-                                    <option>Elija un periodo de tiempo</option>
-                                    <option>3 meses atrás</option>
-                                    <option>6 meses atrás</option>
-                                    <option>9 meses atrás</option>
-                                    <option>12 meses atrás</option>
-                                </select>
-                                <button type="submit">Buscar</button>
                             </div>
                             <table class="table">
                                 <thead>
@@ -59,7 +61,7 @@
                                         <tr>
                                             <th>1</th>
                                             <td>{{ bill.numberBill }}</td>
-                                            <td>{{ bill.dateBill|date("m/d/Y") }}</td>
+                                            <td>{{ bill.dateBill|date("d/m/Y") }}</td>
                                             <td>{{ bill.descriptionBill }}</td>
                                             <td>{{ bill.totalBillIva }}%</td>
                                             <td>{{ bill.totalImportBill }}€</td>
