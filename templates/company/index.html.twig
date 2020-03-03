@@ -10,16 +10,7 @@
 {% block body %}
 
     <main>
-
-        <header>
-
-            <div id="cabecera">
-                <img src="img/logo1.png" alt="Logo" id="logo">
-                <h1>Factura Fácil</h1>
-                <a href="#"><img src="img/avatar.png" alt="Avatar"/></a>
-            </div>
-
-        </header>
+        {% include 'header.html.twig' %}
 
         <section>
             <div id="titulo">
@@ -54,7 +45,7 @@
 </div>
 
 </section>
-
+        {% include 'menu-company.html.twig' %}
     </main>
 
 {% endblock %}
