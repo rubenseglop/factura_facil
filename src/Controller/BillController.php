@@ -5,8 +5,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Bill;
+use App\Entity\BillLine;
 use App\Entity\Company;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\AddNewBillType;
+use App\Form\AddNewBillLineType;
 
 class BillController extends AbstractController
 {
@@ -38,12 +41,14 @@ class BillController extends AbstractController
         }
 
         $bill = new Bill();
-        $form = $this->createForm(AddNewType::class, $bill);
+        $billLine = new BillLine();
+        $form = $this->createForm(AddNewBillType::class, $bill);
         
         $entityManager = $this->getDoctrine()->getManager();
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);
-        $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
-        $company = $repositoryCompany->findOneById($id);
+        $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
+        $companyRepository = $this->getDoctrine()->getRepository(Company::class);
+        $company = $companyRepository->findOneById($id);
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ){
@@ -52,9 +57,9 @@ class BillController extends AbstractController
             $bill->setStatus(true);
             $bill->setCompany($company);
             
-            $entityManager->persist($client);
+            $entityManager->persist($bill);
             $entityManager->flush();
-            return $this->redirect('/'.$id.'/factura/');
+            return $this->redirect('/'.$bill->getCompany()->getId().'/facturas/');
         }
         return $this->render('form/addNewBill.html.twig', [
              'registrationForm' =>$form->createView(),
@@ -92,7 +97,7 @@ class BillController extends AbstractController
     /**
      * @Route("/factura/{id}", name="showBill")
      */
-    public function show($id){
+    public function showBill($id){
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);
         $bill = $billRepository->findOneById($id);
         return $this->render('bill/bill.html.twig',[

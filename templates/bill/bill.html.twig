@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <script type="text/javascript" src="{{ asset("js/ClientInfo.js") }}"></script>
+        <link rel="stylesheet" href="{{ asset("css/main.css") }}">
+
+    {% endblock %}
+
+    
+    
+{% block body %}
+
+<div id="info">
+    <table>
+        <tr>
+            <th>Número de la Factura</th>
+            <td>{{ bill.numberBill }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de la Factura</th>
+            
+        </tr>
+        <tr>
+            <th>Cliente</th>
+            <td>{{ bill.client }}</td>
+        </tr>
+        <tr>
+            <th>Descripción de la Factura</th>
+            <td>{{ bill.descriptionBill }}</td>
+        </tr>
+        <tr>
+            <th>Iva de la Factura</th>
+            <td>{{ bill.totalBillIva }}</td>
+        </tr>
+        <tr>
+            <th>Líneas de Pedido de la Factura</th>
+            <td>{{ bill.billLine }}</td>
+        </tr>
+        <tr>
+            <th>Importe Total de la Factura</th>
+            <td>{{ bill.totalBillImport }}</td>
+        </tr>
+    </table>
+
+    <br><br>
+
+    <!--Botón para volver a la última página visitada-->
+    {# <input type="button" onclick="history.back()" name="Back" value="Back"> #}
+    <input type="button" value="Back" id ="boton" onClick="location.reload();"/>
+    
+</div>
+{% endblock %}

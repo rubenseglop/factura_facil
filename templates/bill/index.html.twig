@@ -24,10 +24,10 @@
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3>Facturas</h3>
-                                <a href="#"><button><i class="fas fa-plus"></i></button></a>
+                                <a href="{{ path('addNewBill') }}"><button><i class="fas fa-plus"></i></button></a>
                             </div>
                             <div class="panel-search">
-                                <form action="{{ path('searchDate')}}" method="POST" id="searchDate">
+                                <form action="{{ path('searchDate') }}" method="POST" id="searchDate">
                                     <input type="date" id="buscador"><button type="submit">Buscar</button>  
                                 </form>
                                 
