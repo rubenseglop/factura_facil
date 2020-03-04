@@ -37,7 +37,7 @@ class ClientController extends AbstractController
 
     //Formulario para añadir nuevo cliente
     /**
-     * @Route("{id}/añadir-nuevo-cliente", name="addNewClient")
+     * @Route("{id}/cliente/agregar-nuevo-cliente", name="addNewClient")
      */
     public function addNewClient($id, Request $request){
         if (!$this->getUser()) {
