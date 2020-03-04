@@ -14,7 +14,7 @@ class ClientController extends AbstractController
 {
     /* Main View */
     /**
-     * @Route("/{id}/client", name="client")
+     * @Route("/{id}/cliente", name="client")
      */
     public function index($id)
     {   
@@ -37,7 +37,7 @@ class ClientController extends AbstractController
 
     //Formulario para añadir nuevo cliente
     /**
-     * @Route("{id}/addNewClient", name="addNewClient")
+     * @Route("{id}/añadir-nuevo-cliente", name="addNewClient")
      */
     public function addNewClient($id, Request $request){
         if (!$this->getUser()) {
@@ -74,7 +74,7 @@ class ClientController extends AbstractController
     
     // Formulario para editar los datos del cliente
     /**
-     * @Route("{id}/edit", name="edit")
+     * @Route("{id}/editar", name="editar")
      */
     public function edit($id, Request $request){
         $client2 = new Client();
@@ -142,21 +142,18 @@ class ClientController extends AbstractController
 
     // Buscador
     /**
-     * @Route("/{id}/client/search", name="search")
+     * @Route("/{id}/cliente/buscar", name="search")
      */
     public function search( $id){
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }else{
-            // $value =  $request->query->get('$value');
-            // dump($value);
-            // $empresa = $this->getDoctrine()->getRepository(Company::Class)->findOneCompanyById($id); 
-            // $client = $this->getDoctrine()->getRepository(Client::class)->searchClient($value, $id);
             $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
-            $client = $repositoryClient->findOneById($id);
-            $buscador = $repositoryClient->searchClient($_POST['buscador'], $id);
-            dump($buscador);
-            dump($client);
+            //$client = $repositoryClient->findOneById($id);
+            
+            
+            $client = $repositoryClient->searchClient($_POST['buscador'], $id);
+            
             return $this->render('client/index.html.twig', [
                                  'controller_name' => 'ClientController',
                                  'client' => $client,

@@ -27,7 +27,7 @@
     <section id="sect">
         <div id="titulo">
         
-            <h1>Mis Clientes <a href="{{ 'addNewClient' }}"><img src="{{asset("img/añadir.png")}}" alt="Añadir" 
+            <h1>Mis Clientes <a href="{{ 'añadir-nuevo-cliente' }}"><img src="{{asset("img/añadir.png")}}" alt="Añadir" 
                                      id="añadir" /></a></h1>
         
             <form action="{{ path('search', {id: company_id})}}" method="POST" id="search">
@@ -45,7 +45,7 @@
                                 <a href="{{ path('show', {id:clients.id}) }}">{{ clients.name }}</a>
                             </div>
                             <div id="iconos">
-                                <a href="{{ path('edit', {id: clients.id}) }}"><img 
+                                <a href="{{ path('editar', {id: clients.id}) }}"><img 
                                         src="{{asset("img/EditarEmpleados.png")}}" alt="" /></a>
                                 <a href=" {{ path('delete',{id: clients.id}) }} ">
                                         <img src="{{asset("img/borrar.png")}}" alt="Borrar" id="delete"/></a>
