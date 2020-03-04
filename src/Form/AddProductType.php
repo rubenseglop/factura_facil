@@ -19,7 +19,6 @@ class AddProductType extends AbstractType
             ->add('price')
             //->add('status')
             //->add('company')
-            ->add('Anadir', SubmitType::class)
         ;
     }
 
