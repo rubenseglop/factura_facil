@@ -1,19 +1,65 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Buscardor Productos{% endblock %}
-{% block stylesheets %}
-        <style>
-            ul{
-                list-style-type:none;
-            }
-        </style>
-{% endblock %}
 {% block body %}
-<div class="bloque">
+{% include 'header.html.twig' %}
+{% include 'menu-user.html.twig' %}<div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
+
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel panel-table">
+                            <div class="panel-heading">
+                            <h3>Search Products By Name</h3>
+                                <a href="{{ path('addNewBill', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Producto</th>
+                                        <th width="75px" scope="col">Editar</th>
+                                        <th width="75px" scope="col">Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set counter = 0 %}
+
+                                    {% for p in products %}
+                                        {% set counter = counter + 1 %}
+                                        <tr>
+                                        <td>{{counter}}</td>
+                                        <td>{{p.name}} </td>
+                                         {% if counter < 2 %}
+                                                <td><a href="{{ path('editProduct',{idProduct:p.id,id:company_id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                                                <td><a href="{{ path('deleteProduct',{idProduct:p.id,id:company_id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                                            {% endif %}
+                                        </tr>
+
+                                    {% endfor %} 
+
+                                </tbody>
+                            </table>
+                             <a href="{{ path('product',{id:company_id}) }}">Volver a todos los productos </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{# <div class="bloque">
 
     <h1>Search Products By Name</h1>
     <p>{{product.name}} ------> <a href=""><button>Editar Producto</button></a> <a href=""><button>Eliminar Producto</button></a></p>
     <a href="{{ path('product',{id:company_id}) }}">Volver a todos los productos </a>
    
-</div>
+</div> #}
+{% block footer_javascripts %}
+        
+        <script src="{{ asset("js/menu-company.js") }}"></script>
+
+{% endblock %}
 {% endblock %}
