@@ -12,8 +12,8 @@
                     <div class="row flex-xl-nowrap">
                         <div class="panel panel-table">
                             <div class="panel-heading">
-                            <h3>Buscar productos por nombre</h3>
-                                <a href="{{ path('addProduct', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
+                            <h3>Search Products By Name</h3>
+                                <a href="{{ path('addNewBill', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
                             </div>
                             <table class="table">
                                 <thead>
@@ -27,16 +27,18 @@
                                 <tbody>
                                     {% set counter = 0 %}
 
-                                    {% for p in products %}
+            
                                         {% set counter = counter + 1 %}
                                         <tr>
-                                            <td>{{ counter }}</td>
-                                            <td>{{ p.name }} </td>
-                                            <td><a href="{{ path('editProduct',{idProduct:p.id,id:company_id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
-                                            <td><a href="{{ path('deleteProduct',{idProduct:p.id,id:company_id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                                        <td>{{counter}}</td>
+                                        <td>{{product.name}} </td>
+                                        {% if counter < 2 %}
+                                                <td><a href="{{ path('editProduct',{idProduct:product.id,id:company_id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                                                <td><a href="{{ path('deleteProduct',{idProduct:product.id,id:company_id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                                        {% endif %}
                                         </tr>
 
-                                    {% endfor %} 
+                                
 
                                 </tbody>
                             </table>

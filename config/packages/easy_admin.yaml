@@ -3,6 +3,18 @@ easy_admin:
     User:
       class: App\Entity\User
       label: 'User'
+      list:
+        fields: ['id','email','name','roles','statusUser','companyLimit']
+      edit:
+        fields:
+          - email
+          - name
+          - statusUser
+          - companies
+          - companyLimit
+          - { property: 'roles', type: 'choice', type_options: { multiple: true, choices:{ 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN'}} }
+      new:
+        fields: ['email','password','name']
     Bill:
       class: App\Entity\Bill
       label: 'Bill'
