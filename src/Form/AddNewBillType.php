@@ -4,30 +4,44 @@ namespace App\Form;
 
 use App\Entity\Bill;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AddNewBillType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numberBill')
-            ->add('dateBill')
-            ->add('descriptionBill')
+            ->add('descriptionBill', TextareaType::class)
             ->add('totalBillIva')
             ->add('totalImportBill')
-            //->add('status')
-            //->add('company')
             ->add('client')
             ->add('billLines', CollectionType::class, [
-                  'entry_type' => AddNewBillLinesType::class,
+                  'entry_type' => AddNewBillLineType::class,
                   'entry_options' => ['label' => false],
-            ])
-            ->add('Submit', SubmitType::class)
-        ;
+                  'allow_add' => true,
+                  'allow_delete' => true,
+            ]);
+        $builder->add('dateBill', DateType::class, [
+            'required' => true,
+        ]);
+        $builder->get('dateBill')->addModelTransformer(new CallbackTransformer(
+            function ($value) {
+                if(!$value) {
+                    return new \DateTime();
+                }
+                return $value;
+            },
+            function ($value) {
+                return $value;
+            }
+        ));
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)

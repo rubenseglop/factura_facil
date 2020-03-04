@@ -39,7 +39,7 @@ class Bill
     private $totalBillIva;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true, cascade={"persist"})
      */
     private $billLines;
 
