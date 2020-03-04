@@ -18,8 +18,9 @@ class AddNewBillType extends AbstractType
     {
         $builder
             ->add('descriptionBill', TextareaType::class)
-            ->add('totalBillIva')
-            ->add('totalImportBill')
+            ->add('amountIVA')
+            ->add('amountWithoutIVA')
+            ->add('totalInvoiceAmount')
             ->add('client')
             ->add('billLines', CollectionType::class, [
                   'entry_type' => AddNewBillLineType::class,

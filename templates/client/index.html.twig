@@ -1,41 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client{% endblock %}
+{% block title %}Facturas{% endblock %}
 
-{% block stylesheets %}
+{% block javascripts %}
+
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     <script type="text/javascript" src="{{ asset("js/ClientInfo.js") }}"></script>
+    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
+
 {% endblock %}
 
 {% block body %}
 
-<main>
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
 
-    <header>
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
 
-        <div id="cabecera">
-            <img src="{{asset("img/logo1.png")}}" alt="Logo" id="logo">
-            <h1>Factura Fácil</h1>
-                <a href="#"><img src="{{asset("img/avatar.png")}}" alt="Avatar"/></a>
-        </div>
-
-    </header>
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel panel-table">
+                            <div class="panel-heading">
+                                
 
     <div id="showAllClients"></div> 
     <section id="sect">
         <div id="titulo">
         
-            <h1>Mis Clientes <a href="{{ 'addNewClient' }}"><img src="{{asset("img/añadir.png")}}" alt="Añadir" 
+            <h1>Mis Clientes <a href="{{ 'cliente/agregar-nuevo-cliente' }}"><img src="{{asset("img/añadir.png")}}" alt="Añadir" 
                                      id="añadir" /></a></h1>
         
-            <form action="{{ path('search')}}" method="POST" id="search">
-                    <input type="search" id="buscador" placeholder=" Buscar...">
-                    <button type="submit">Buscar</button>        
+            <form action="{{ path('search', {id: company_id})}}" method="POST" id="search">
+                    <input type="search" id="buscador" name="buscador" placeholder=" Buscar...">
+                    <button type="submit" >Buscar</button>        
             </form>              
         </div>
-
-
         <div id="clientes">
             {% for clients in client %}
             
@@ -46,32 +49,40 @@
                                 <a href="{{ path('show', {id:clients.id}) }}">{{ clients.name }}</a>
                             </div>
                             <div id="iconos">
-                                <a href="{{ path('edit', {id: clients.id}) }}"><img 
+                                <a href="{{ path('editar', {id: clients.id}) }}"><img 
                                         src="{{asset("img/EditarEmpleados.png")}}" alt="" /></a>
                                 <a href=" {{ path('delete',{id: clients.id}) }} ">
                                         <img src="{{asset("img/borrar.png")}}" alt="Borrar" id="delete"/></a>
                             </div>
                         </p>
                     </li>
-                </ul>
-            
+                </ul> 
                 <hr>
             {% endfor %}
         </div>
             
     </section>
+ 
 
-    
 
-    <aside id="menu">
-        <a href="#"><h2>Mi Empresa</h2></a>
-        <a href="#"><h2>Productos</h2></a>
-        <a href="#"><h2>Facturas</h2></a>
-        <a href="#"><h2>Clientes</h2></a>
-        <a href="#"><h2>Mi Perfil</h2></a>
-    </aside>
+    {% block footer_javascripts %}
+        
+        <script src="https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js"></script>
+        <script src="https://unpkg.com/jspdf-autotable@3.2.13/dist/jspdf.plugin.autotable.js"></script>
+        <script src="{{ asset("js/invoice.js") }}"></script>
+        <script src="{{ asset("js/menu-company.js") }}"></script>
 
-    
-</main>
+    {% endblock %}
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+

@@ -75,9 +75,10 @@
                                         <th scope="col">Nº Factura</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Descripción</th>
-                                        <th scope="col">Total IVA</th>
-                                        <th scope="col">Importe total</th>
-                                        <th width="75px" scope="col">Ver</th>
+                                        <th scope="col">Importe I.V.A.</th>
+                                        <th scope="col">Importe sin I.V.A.</th>
+                                        <th scope="col">Importe Total</th>
+                                        <th width="75px" scope="col">PDF</th>
                                         <th width="75px" scope="col">Editar</th>
                                         <th width="75px" scope="col">Eliminar</th>
                                     </tr>
@@ -90,8 +91,9 @@
                                             <td>{{ bill.numberBill }}</td>
                                             <td>{{ bill.dateBill|date("d/m/Y") }}</td>
                                             <td>{{ bill.descriptionBill }}</td>
-                                            <td>{{ bill.totalBillIva }}%</td>
-                                            <td>{{ bill.totalImportBill }}€</td>
+                                            <td>{{ bill.amountIVA }}€</td>
+                                            <td>{{ bill.amountWithoutIVA }}€</td>
+                                            <td>{{ bill.totalInvoiceAmount }}€</td>
                                             <td><a href="{{ path('showPdfBill', {id: bill.id}) }}" target="_blank" class="show-pdf"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
                                             {% if counter < 2 %}
                                                 <td><a href="{{ path('editBill', {id: bill.id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
