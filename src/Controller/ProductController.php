@@ -37,8 +37,7 @@ class ProductController extends AbstractController
                 return $this->render('product/index.html.twig', [
                     'controller_name' => 'ProductController',
                     'products' => $products,
-                    'company_id'=>$id
-    
+                    'company_id'=> $id
                 ]);
             }
             return $this->render('product/search.html.twig', [

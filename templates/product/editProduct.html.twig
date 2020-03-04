@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}Editar Producto{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
 {% block body %}
-{% include 'header.html.twig' %}
-{% include 'menu-user.html.twig' %}
+
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
 
     <div class="container-fluid">
         <div class="row">
@@ -12,9 +18,57 @@
             <div class="col-md-9 col-lg-10">
                 <div class="container main-container">
                     <div class="row flex-xl-nowrap">
-                        <div class="panel panel-table">
-                            <div class="panel-heading">
-<h3>Edit Product</h3>
-    {{form(form)}}
-<a href="{{ path('product',{id:company_id}) }}">Back To Products</a>
+                        <div class="panel">
+                        <div class="card-header">
+                            <h3>Editar Producto</h3>
+                        </div>
+                        <div class="panel-form invoice-form">
+                            {{ form_start(form, {'method': 'post', 'attr': {'class': 'form'}}) }}
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="add_new_product_name" class="control-label">Nombre</label>
+                                                {{ form_widget(form.name, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Nombre', 'rows':'4'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="add_new_product_description" class="control-label">Descripción</label>
+                                                {{ form_widget(form.description, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Descripción'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="add_new_product_productIVA" class="control-label">I.V.A.</label>
+                                                {{ form_widget(form.productIVA, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'%'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="add_new_product_price" class="control-label">Precio</label>
+                                                {{ form_widget(form.price, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'€'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12" style="visibility: hidden">
+                                            {{ form_rest(form) }}
+                                        </div>
+                                        
+                                        <div class="col-sm-12">
+                                            <div class="form-actions">
+                                                <a href="{{ path('product',{id:company_id}) }}" class="btn btn-secundary float-left">Volver a prodcutos</a>
+                                                <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-right">Crear producto</button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
