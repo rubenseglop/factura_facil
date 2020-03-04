@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Añadir Red Social{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
+
+    <div class="container main-container">
+        {{ form_start(addSocialNetwork_form, {'method': 'post', 'attr': {'class': 'form', 'onsubmit':'return validarformulario(this)'}}) }}
+        <p>Red Social</p>
+        <select name="select" id="seleccionar" class="form-control">
+            <option value="facebook">Facebook</option>
+            <option value="twitter">Twitter</option>
+            <option value="linkedin">Linkedin</option>
+        </select>
+    <div class="form-group">
+        <label for="nameSocialNetWork">Red Social</label>
+        {{ form_widget(addSocialNetwork_form.name, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'name':'Red Social', 'placeholder':'Red Social', 'id':'nameSocialNetWork'} }) }}
+    </div>
+        <p>URL: <br>**<span id="introduce"></span>
+            {{ form_widget(addSocialNetwork_form.URL, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'name':'URL', 'placeholder':'URL', 'id':'url'} }) }}</p>
+
+        <div class="form-actions">
+            <a class="btn btn-secundary" href="{{ relative_path('/empresas') }}">Volver a Empresas</a>
+            <button type="submit" id="register-submit-btn" class="btn btn-primary float-right">Añadir Red Social</button>
+        </div>
+        {{ form_rest(addSocialNetwork_form) }}
+        {{ form_end(addSocialNetwork_form) }}
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/companyScript.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/editcompanyScript.js') }}" type="text/javascript"></script>
+    {% endblock %}
+{% endblock %}
