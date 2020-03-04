@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompanyController extends AbstractController
 {
     /**
-     * @Route("/companies", name="companies")
+     * @Route("/empresas", name="companies")
      */
     public function companies()
     {
@@ -35,25 +35,24 @@ class CompanyController extends AbstractController
 
 
     /**
-     * @Route("/showCompany", name="showCompany")
+     * @Route("/{id}/empresa", name="showCompany")
      */
-    public function showCompany()
+    public function showCompany($id)
     {
-
-        if (isset($_GET['id'])){
-            $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
-            $user = $this->getUser();
-            $idUser = $user->getId();
-            $company = $repositoryCompany->findOneCompanyById($_GET['id']);
-            return $this->render('company/showCompany.html.twig', [
-                'controller_name' => 'CompanyController',
-                'company' => $company
-            ]);
-        }
+        
+        $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+        $user = $this->getUser();
+        $idUser = $user->getId();
+        $company = $repositoryCompany->findOneCompanyById($id);
+        return $this->render('company/showCompany.html.twig', [
+            'controller_name' => 'CompanyController',
+            'company' => $company,
+            'company_id' => $id
+        ]);
     }
 
     /**
-     * @Route("/editCompany", name="editCompany")
+     * @Route("/editar-empresa", name="editCompany")
      */
     public function edit(Request $request)
     {
@@ -91,7 +90,7 @@ class CompanyController extends AbstractController
     }
 
     /**
-     * @Route("/deleteCompany", name="deleteCompany")
+     * @Route("/borrar-empresa", name="deleteCompany")
      */
     public function deleteCompany()
     {
@@ -128,7 +127,7 @@ class CompanyController extends AbstractController
 
 
     /**
-     * @Route("/addNewCompany", name="addNewCompany")
+     * @Route("/agregar-empresa", name="addNewCompany")
      */
     public function addNewCompany(Request $request)
     {

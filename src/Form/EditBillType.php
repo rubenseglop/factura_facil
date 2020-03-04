@@ -6,6 +6,7 @@ use App\Entity\Bill;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class EditBillType extends AbstractType
 {
@@ -14,12 +15,13 @@ class EditBillType extends AbstractType
         $builder
             //->add('numberBill')
             //->add('dateBill')
-            ->add('descriptionBill')
-            ->add('totalBillIva')
-            ->add('totalImportBill')
+            ->add('descriptionBill', null, ['required' => false])
+            //->add('totalBillIva', null, ['required' => false])
+            //->add('totalImportBill', null, ['required' => false])
             //->add('status')
             //->add('company')
-            ->add('client')
+            ->add('client', null, ['required' => false])
+            ->add('Submit', SubmitType::class)
         ;
     }
 
