@@ -23,13 +23,14 @@
 
     <h1 id="misProductos">My Products</h1>
     <br>
+    
     <a href="{{ path('addProduct',{id:id_company}) }}"><button>Add New Product + </button></a>
     
     <ul>
        {% for p in products %}
        
-            <li>{{p.name}}  ------>  <a href="{{ path('editProduct',{idProduct:p.id,id:id_company}) }}"><button>Editar Producto</button></a> <a href=""><button>Eliminar Producto</button></a></li>
-            
+            <li>{{p.name}}  ------>  <a href="{{ path('editProduct',{idProduct:p.id,id:id_company}) }}"><button>Editar Producto</button></a> <a href="{{ path('deleteProduct',{idProduct:p.id,id:id_company}) }}"><button>Eliminar Producto</button></a></li>
+
        {% endfor %} 
     </ul>
 </div>

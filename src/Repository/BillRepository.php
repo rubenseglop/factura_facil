@@ -47,4 +47,42 @@ class BillRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findById($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->andWhere('c.status = true')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByIdCompany($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.company = :val')
+            ->andWhere('c.status = true')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByDateBill($start_date, $end_date, $id)
+    {       
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.dateBill BETWEEN :start_date and :end_date')
+            ->andWhere('c.company = :id')
+            ->andWhere('c.status = true')
+            ->setParameter('start_date', $start_date)
+            ->setParameter('end_date', $end_date)
+            ->setParameter('id', $id)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

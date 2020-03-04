@@ -2,15 +2,18 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 :root {
-  --main-color: #FF7B20;
-  --secundary-color: rgb(39, 0, 63);
+  --main-color: #89BAE3;
+  --secundary-color: #222222;
+  --purple-color: rgb(39, 0, 63);
   --grey-color: #CCCCCC;
+  --background-color: #ebeced;
 }
 
 /* Global CSS */
 
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: var(--background-color);
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
@@ -41,13 +44,13 @@ p {
 
 a {
     text-decoration: none;
-    -webkit-transition: .4s;
     transition: .4s;
 }
 
 a:hover, a:focus {
-    color: var(--main-color);
-    text-decoration: none;
+    color: var(--main-color) !important;
+    text-decoration: none !important;
+    cursor: pointer;
 }
 
 img {
@@ -126,4 +129,13 @@ img {
     background-color: var(--main-color);
     border-color: var(--main-color);
     opacity: 1;
+}
+
+
+/* fa icons */
+
+.fa, .fas {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #fff;
 }

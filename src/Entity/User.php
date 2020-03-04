@@ -48,11 +48,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phoneNumber;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $avatar;
 
     /**
@@ -64,6 +59,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="User", orphanRemoval=true)
      */
     private $companies;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ExtraUserData", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $extraUserData;
 
     public function __construct()
     {
@@ -172,18 +172,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(string $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
     public function getAvatar(): ?string
     {
         return $this->avatar;
@@ -241,5 +229,22 @@ class User implements UserInterface
 
     public function __toString(){
         return $this->email;
+    }
+
+    public function getExtraUserData(): ?ExtraUserData
+    {
+        return $this->extraUserData;
+    }
+
+    public function setExtraUserData(ExtraUserData $extraUserData): self
+    {
+        $this->extraUserData = $extraUserData;
+
+        // set the owning side of the relation if necessary
+        if ($extraUserData->getUser() !== $this) {
+            $extraUserData->setUser($this);
+        }
+
+        return $this;
     }
 }
