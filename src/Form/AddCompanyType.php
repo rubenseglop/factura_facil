@@ -19,7 +19,7 @@ class AddCompanyType extends AbstractType
             ->add('NIF')
             //->add('status')
             //->add('User')
-            ->add('Submit', SubmitType::class)
+            //->add('Submit', SubmitType::class)
         ;
     }
 
