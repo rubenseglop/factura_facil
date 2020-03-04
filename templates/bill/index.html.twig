@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturas{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
+{% endblock %}
+
+{% block body %}
+
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
+
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel panel-table">
+                            <div class="panel-heading">
+                                <h3>Facturas</h3>
+                                <a href="{{ path('addNewBill', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
+                            </div>
+                            <div class="panel-search">
+                                <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDate">
+                                    <div class="form-group">
+                                        <label class="control-label" for="start-date">Fecha Inicio</label>
+                                        <input class="form-control" type="Date" name="start-date" id="start-date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="end-date">Fecha Fin</label>
+                                        <input class="form-control" type="Date" name="end-date" id="end-date">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nº Factura</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Total IVA</th>
+                                        <th scope="col">Importe total</th>
+                                        <th width="75px" scope="col">Ver</th>
+                                        <th width="75px" scope="col">Editar</th>
+                                        <th width="75px" scope="col">Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set counter = 0 %}
+                                    {% for bill in bills %}
+                                        {% set counter = counter + 1 %}
+                                        <tr>
+                                            <td>{{ bill.numberBill }}</td>
+                                            <td>{{ bill.dateBill|date("d/m/Y") }}</td>
+                                            <td>{{ bill.descriptionBill }}</td>
+                                            <td>{{ bill.totalBillIva }}%</td>
+                                            <td>{{ bill.totalImportBill }}€</td>
+                                            <td><a href="{{ path('showPdfBill', {id: bill.id}) }}" target="_blank" class="show-pdf"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
+                                            {% if counter < 2 %}
+                                                <td><a href="#"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                                                <td><a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block footer_javascripts %}
+        
+        <script src="https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js"></script>
+        <script src="https://unpkg.com/jspdf-autotable@3.2.13/dist/jspdf.plugin.autotable.js"></script>
+        <script src="{{ asset("js/invoice.js") }}"></script>
+        <script src="{{ asset("js/menu-company.js") }}"></script>
+
+    {% endblock %}
+
+{% endblock %}
+
+

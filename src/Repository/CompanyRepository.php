@@ -52,7 +52,7 @@ class CompanyRepository extends ServiceEntityRepository
     */
 
 
-    public function findByUserClient($user_id) {
+   /* public function findByUser($user_id) {
         return $this->createQueryBuilder('c')
             ->andWhere('c.User = :user_id')
             ->setParameter('user_id', $user_id)
@@ -61,7 +61,7 @@ class CompanyRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-    }
+    }*/
 
     public function findOneClientById($value): ?Company
     {
@@ -93,6 +93,26 @@ class CompanyRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByUserClient($user_id) {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.User = :user_id AND c.status = TRUE')
+            ->setParameter('user_id', $user_id)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    // public function findOneCompanyById($value): ?Company
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('c.id = :val')
+    //         ->setParameter('val', $value)
+    //         ->getQuery()
+    //         ->getOneOrNullResult()
+    //         ;
+    // }
 
 
 }

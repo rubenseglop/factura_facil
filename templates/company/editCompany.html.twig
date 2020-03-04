@@ -1,10 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Editar Empresa{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
-    <div class="card-header">
-        <h3 class="mb-0">Editar Empresa</h3>
-    </div>
+
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
     
+    <div class="container main-container">
+        <div class="row">
+            <div class="panel">
+                <div class="card-header">
+                    <h3 class="mb-0">Editar Empresa : {{ nameCompany }}</h3>
+                </div>
+                <div class="panel-form">
+                    {{ form_start(editCompany_form, {'method': 'post', 'attr': {'class': 'form', 'onsubmit':'return validarformulario(this)'}}) }}
+                        <div class="form-group">
+                            <label for="nameCompany">Nombre </label>
+                            {{ form_widget(editCompany_form.name, { 'attr': {'class': 'form-control form-control-lg rounded-0 ', 'placeholder':'Company Name', 'name':'nombre de la empresa', 'id':'nameCompany',  'value': nameCompany} }) }}
+                            {# {% for errorItem in editCompany_form.email.vars.errors %}
+                                <span class="help-inline">{{ errorItem.message }}</span>
+                            {% endfor %} #}
+                        </div>
+                        <div class="form-group">
+                            <label for="fiscalAdressCompany">Direccion Fiscal</label>
+                            {{ form_widget(editCompany_form.fiscalAddress, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'name':'domicilio fiscal de la empresa', 'placeholder':'Domicilio Fiscal', 'id':'fiscalAdressCompany', 'value':fiscalAdressCompany} }) }}
+                            {# {% for errorItem in editCompany_form.name.vars.errors %}
+                                <span class="help-inline">{{ errorItem.message }}</span>
+                            {% endfor %}#}
+                        </div>
+                        <div class="form-group">
+                            <label for="emailCompany">Email</label>
+                            {{ form_widget(editCompany_form.email, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'name':'email de la empresa', 'placeholder':'Email Company', 'id':'emailCompany', 'value':emailCompany} }) }}
+                            {# {% for errorItem in editCompany_form.plainPassword.vars.errors %}
+                                <span class="help-inline">{{ errorItem.message }}</span>
+                            {% endfor %}#}
+                        </div>
+                        <div class="form-group">
+                            <label for="nifCompany">NIF</label>
+                            {{ form_widget(editCompany_form.NIF, { 'attr': {'class': 'form-control form-control-lg rounded-0', 'name':'NIF de la empresa', 'id':'nifCompany', 'placeholder':'NIF', 'value':nifCompany} }) }}
+                            {# {% for errorItem in editCompany_form.plainPassword.vars.errors %}
+                                <span class="help-inline">{{ errorItem.message }}</span>
+                            {% endfor %}#}
+                        </div>
+                        <div class="form-actions">
+                            <a class="btn btn-secundary" href="{{ relative_path('/companies') }}">Volver a Empresas</a>
+                            <button type="submit" id="register-submit-btn" class="btn btn-primary float-right">Actualizar Datos</button>
+                        </div>
+                        {{ form_rest(editCompany_form) }}
+                    {{ form_end(editCompany_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/companyScript.js') }}" type="text/javascript"></script>
+    {% endblock %}
 {% endblock %}
