@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\SocialNetworks;
 use App\Form\AddCompanyType;
 use App\Form\EditCompanyType;
+use App\Form\SocialNetworksType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CompanyController extends AbstractController
@@ -31,6 +34,41 @@ class CompanyController extends AbstractController
     }
 
 
+    /**
+     * @Route("/addSocialNetworks", name="addSocialNetworks")
+     */
+    public function socialNetworks(Request $request):Response
+    {
+        if (isset($_GET['id'])) {
+            $socialnetwork = new SocialNetworks();
+            $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+            $company = $repositoryCompany->findOneCompanyById($_GET['id']);
+            $form = $this->createForm(SocialNetworksType::class, $socialnetwork);
+            //$form->handleRequest($request);
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $company = $form->getData();
+                $company->setName($company->getName());
+                $company->setFiscalAddress($company->getFiscalAddress());
+                $company->setEmail($company->getEmail());
+                $company->setNIF($company->getNIF());
+                $entityManager->persist($company);
+                $entityManager->flush();
+                return $this->redirectToRoute('companies');
+            }
+            return $this->render('company/editCompany.html.twig', [
+                'editCompany_form' => $form->createView(),
+                'controller_name' => 'CompanyController',
+                'companies' => $company,
+                'nameCompany' => $nameCompany,
+                'fiscalAdressCompany' => $fiscalAdressCompany,
+                'emailCompany' => $emailCompany,
+                'nifCompany' => $nifCompany,
+                'socialNetworks' => $socialNetworks
+            ]);
+        }
+    }
 
 
 
@@ -64,6 +102,7 @@ class CompanyController extends AbstractController
             $fiscalAdressCompany = $company->getFiscalAddress();
             $emailCompany = $company->getEmail();
             $nifCompany = $company->getNIF();
+            $socialNetworks = $company->getSocialNetworks();
             $form = $this->createForm(EditCompanyType::class, $company);
             //$form->handleRequest($request);
             $form->handleRequest($request);
@@ -85,7 +124,8 @@ class CompanyController extends AbstractController
                 'nameCompany' => $nameCompany,
                 'fiscalAdressCompany' => $fiscalAdressCompany,
                 'emailCompany' => $emailCompany,
-                'nifCompany' => $nifCompany
+                'nifCompany' => $nifCompany,
+                'socialNetworks' => $socialNetworks
             ]);
         }
     }
@@ -147,7 +187,7 @@ class CompanyController extends AbstractController
         }
         return $this->render('form/addnewcompany.html.twig', [
             'controller_name' => 'CompanyController',
-            'formulario' => $form->createView()
+            'editCompany_form' => $form->createView()
         ]);
     }
 }
