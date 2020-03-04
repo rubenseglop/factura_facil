@@ -44,7 +44,7 @@ class ProductController extends AbstractController
             return $this->render('product/search.html.twig', [
                 'controller_name' => 'ProductController',
                 'products' => $products,
-                'id_company'=>$id,
+                'company_id'=>$id,
                 'product'=>$product,
             ]);
 
@@ -91,7 +91,7 @@ class ProductController extends AbstractController
         
         return $this->render('product/add.html.twig', [
             'controller_name' => 'ProductController',
-            'idCompany'=>$id,
+            'company_id'=>$id,
             'form'=>$form->createView()
             
         ]);
