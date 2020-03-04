@@ -12,6 +12,8 @@ function activeElement() {
         element = "option-clients";
     }else if(url.includes("productos")) {
         element = "option-products";
+    }else if(url.includes("empresa")) {
+        element = "option-company";
     }
 
     for(let i = 0; i < sections.length; i++) {

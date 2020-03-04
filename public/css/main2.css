@@ -231,8 +231,11 @@
     padding: 8px 24px;
     border-radius: 5px;
     width: 100%;
+    margin: 0px 4px 32px;
+}
+
+.panel-table{
     min-width: 806px;
-    margin-bottom: 32px;
 }
 
 .panel .card-header {
@@ -260,12 +263,15 @@
 }
 
 .panel-heading > a > button {
-    background: #53e69d;
-    border: 1px solid #53e69d;
     border-radius: 3px;
     padding: 10px 16px;
     font-size: 20px;
     font-weight: 100;
+}
+
+.panel-heading > a > button, .add-little {
+    background: #53e69d;
+    border: 1px solid #53e69d;
 }
 
 .panel-search{
@@ -279,6 +285,13 @@
     font-size: 18px;
 }
 
+.delete-little, .add-little {
+    border-radius: 3px;
+    padding: 4px 8px;
+    color: #fff;
+    font-size: 16px;
+}
+
 .show{
     background: #707cd2;
     border: 1px solid #707cd2;
@@ -289,9 +302,13 @@
     border: 1px solid #ffc36d;
 }
 
-.delete{
+.delete, .delete-little {
     background: #ff7676;
     border: 1px solid #ff7676;
+}
+
+.add-little:hover {
+    cursor: pointer;
 }
 
 
@@ -330,4 +347,9 @@
 
 #searchDate div {
     margin-right: 6px;
+}
+
+.invoice-form .table-bordered {
+    margin-top: 8px;
+    margin-bottom: 16px;
 }

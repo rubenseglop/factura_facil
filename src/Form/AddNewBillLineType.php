@@ -18,9 +18,6 @@ class AddNewBillLineType extends AbstractType
             ->add('price')
             ->add('billLineIva')
             ->add('subTotal')
-            ->add('bill')
-            ->add('product')
-            ->add('Submit', SubmitType::class)
         ;
     }
 

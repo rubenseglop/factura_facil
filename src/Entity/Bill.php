@@ -34,19 +34,24 @@ class Bill
     private $descriptionBill;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $totalBillIva;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true, cascade={"persist"})
      */
     private $billLines;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="float")
      */
-    private $totalImportBill;
+    private $amountIVA;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $amountWithoutIVA;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $totalInvoiceAmount;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="bills")
@@ -110,14 +115,14 @@ class Bill
         return $this;
     }
 
-    public function getTotalBillIva(): ?int
+    public function getCompany(): ?Company
     {
-        return $this->totalBillIva;
+        return $this->company;
     }
 
-    public function setTotalBillIva(int $totalBillIva): self
+    public function setCompany(?Company $company): self
     {
-        $this->totalBillIva = $totalBillIva;
+        $this->company = $company;
 
         return $this;
     }
@@ -153,34 +158,6 @@ class Bill
         return $this;
     }
 
-    public function getTotalImportBill(): ?string
-    {
-        return $this->totalImportBill;
-    }
-
-    public function setTotalImportBill(string $totalImportBill): self
-    {
-        $this->totalImportBill = $totalImportBill;
-
-        return $this;
-    }
-
-    public function getCompany(): ?Company
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?Company $company): self
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    public function __toString(){
-        return $this->descriptionBill;
-    }
-
     public function getStatus(): ?bool
     {
         return $this->status;
@@ -201,6 +178,46 @@ class Bill
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->descriptionBill;
+    }
+
+    public function getAmountIVA(): ?float
+    {
+        return $this->amountIVA;
+    }
+
+    public function setAmountIVA(float $amountIVA): self
+    {
+        $this->amountIVA = $amountIVA;
+
+        return $this;
+    }
+
+    public function getAmountWithoutIVA(): ?float
+    {
+        return $this->amountWithoutIVA;
+    }
+
+    public function setAmountWithoutIVA(float $amountWithoutIVA): self
+    {
+        $this->amountWithoutIVA = $amountWithoutIVA;
+
+        return $this;
+    }
+
+    public function getTotalInvoiceAmount(): ?float
+    {
+        return $this->totalInvoiceAmount;
+    }
+
+    public function setTotalInvoiceAmount(float $totalInvoiceAmount): self
+    {
+        $this->totalInvoiceAmount = $totalInvoiceAmount;
 
         return $this;
     }

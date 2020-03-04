@@ -18,10 +18,7 @@ class ProfileType extends AbstractType
             ->add('name')
             ->add('avatar')
         ;
-
         $builder->add('extraUserData', ExtraUserDataType::class);
-
-        $builder->add('save', SubmitType::class);
 
     }
 

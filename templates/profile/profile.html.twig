@@ -61,12 +61,12 @@
                                         {{ form_widget(profileForm.extraUserData.phoneNumber, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Número de teléfono'} }) }}
                                     </div>
                                 </div>
+                                {{ form_rest(profileForm) }}
                                 <div class="col-sm-12">
                                     <div class="form-actions">
-                                        {{ form_widget(profileForm.save, { 'attr': {'class': 'btn btn-primary float-left'} }) }}
+                                        <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-left">Actualizar</button>
                                     </div>
                                 </div>
-                                {{ form_rest(profileForm) }}
                             </div>
                         </div>
                     {{ form_end(profileForm) }}
