@@ -1,24 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-    Register
-{% endblock %}
-
+{% block title %}Register{% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset("css/main.css") }}">
+    {% endblock %}
 {% block body %}
-    {% block header %}
-        {# {{ parent() }} #}
-    {% endblock header %}
+   
 
-<h1>Añadir Nuevo Cliente</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.fiscalAdress) }}
-        {{ form_row(registrationForm.NIF) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.phone) }}
-        {{ form_row(registrationForm.web) }}
-        {{ form_row(registrationForm.bossName) }}
-        {{ form_row(registrationForm.bossPhone) }}
-    {{ form_end(registrationForm) }}
+<main>
+    
+    <header>
+
+        <div id="cabecera">
+            <img src="{{asset("img/logo1.png")}}" alt="Logo" id="logo">
+            <h1>Factura Fácil</h1>
+                <a href="#"><img src="{{asset("img/avatar.png")}}" alt="Avatar"/></a>
+        </div>
+
+    </header>
+
+    
+    <section id="sectionRegister">
+        <h1>Añadir Nuevo Cliente</h1>
+        <div id="Register">
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.name) }}
+            {{ form_row(registrationForm.fiscalAdress) }}
+            {{ form_row(registrationForm.NIF) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.phone) }}
+            {{ form_row(registrationForm.web) }}
+            {{ form_row(registrationForm.bossName) }}
+            {{ form_row(registrationForm.bossPhone) }}
+        {{ form_end(registrationForm) }}
+        </div>
+    </section>
+
+    
+
+    <aside id="menu">
+        <a href="#"><h2>Mi Empresa</h2></a>
+        <a href="#"><h2>Productos</h2></a>
+        <a href="#"><h2>Facturas</h2></a>
+        <a href="#"><h2>Clientes</h2></a>
+        <a href="#"><h2>Mi Perfil</h2></a>
+    </aside>
+    
+    
+</main>
+
+<!--Botón para volver a la última página visitada-->
+<input type="button" onclick="history.back()" name="Back" value="Back" id="backR">
 {% endblock %}
