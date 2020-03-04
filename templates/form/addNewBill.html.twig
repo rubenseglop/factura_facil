@@ -64,8 +64,11 @@
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>
-                                                            <select id="add_new_bill_billLines_1_product" name="add_new_bill[billLines][1][product]" class="form-control form-control-lg rounded-sm">
-                                                                <option>-------</option>
+                                                            <select id="add_new_bill_billLines_1_product" name="add_new_bill[billLines][1][product]" class="form-control rounded-sm">
+                                                                <option value="null">-------</option>
+                                                                {% for product in products %}
+                                                                    <option value="{{ product.id }}">{{ product.name }}</option>
+                                                                {% endfor %}
                                                             </select>
                                                         </td>
                                                         <td><input id="add_new_bill_billLines_1_description" name="add_new_bill[billLines][1][description]" type="text" class="form-control rounded-sm" required></td>
