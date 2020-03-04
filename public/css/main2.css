@@ -348,3 +348,8 @@
 #searchDate div {
     margin-right: 6px;
 }
+
+.invoice-form .table-bordered {
+    margin-top: 8px;
+    margin-bottom: 16px;
+}

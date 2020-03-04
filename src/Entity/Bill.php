@@ -34,24 +34,24 @@ class Bill
     private $descriptionBill;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true, cascade={"persist"})
+     */
+    private $billLines;
+
+    /**
+     * @ORM\Column(type="float")
      */
     private $amountIVA;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="float")
      */
     private $amountWithoutIVA;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="float")
      */
     private $totalInvoiceAmount;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true, cascade={"persist"})
-     */
-    private $billLines;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="bills")
@@ -111,42 +111,6 @@ class Bill
     public function setDescriptionBill(string $descriptionBill): self
     {
         $this->descriptionBill = $descriptionBill;
-
-        return $this;
-    }
-
-    public function getAmountIVA(): ?string
-    {
-        return $this->totalBillIva;
-    }
-
-    public function setAmountIVA(int $totalBillIva): self
-    {
-        $this->totalBillIva = $totalBillIva;
-
-        return $this;
-    }
-
-    public function getAmountWithoutIVA(): ?string
-    {
-        return $this->totalBillIva;
-    }
-
-    public function setAmountWithoutIVA(int $totalBillIva): self
-    {
-        $this->totalBillIva = $totalBillIva;
-
-        return $this;
-    }
-
-    public function getTotalInvoiceAmount(): ?string
-    {
-        return $this->totalImportBill;
-    }
-
-    public function setTotalInvoiceAmount(string $totalImportBill): self
-    {
-        $this->totalImportBill = $totalImportBill;
 
         return $this;
     }
@@ -220,5 +184,41 @@ class Bill
 
     public function __toString(){
         return $this->descriptionBill;
+    }
+
+    public function getAmountIVA(): ?float
+    {
+        return $this->amountIVA;
+    }
+
+    public function setAmountIVA(float $amountIVA): self
+    {
+        $this->amountIVA = $amountIVA;
+
+        return $this;
+    }
+
+    public function getAmountWithoutIVA(): ?float
+    {
+        return $this->amountWithoutIVA;
+    }
+
+    public function setAmountWithoutIVA(float $amountWithoutIVA): self
+    {
+        $this->amountWithoutIVA = $amountWithoutIVA;
+
+        return $this;
+    }
+
+    public function getTotalInvoiceAmount(): ?float
+    {
+        return $this->totalInvoiceAmount;
+    }
+
+    public function setTotalInvoiceAmount(float $totalInvoiceAmount): self
+    {
+        $this->totalInvoiceAmount = $totalInvoiceAmount;
+
+        return $this;
     }
 }

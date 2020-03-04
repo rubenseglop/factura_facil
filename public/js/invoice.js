@@ -39,15 +39,18 @@ function loadPdf(url, invoice_number) {
             // pdf.line(3, 20, 200, 20);
             
             if(table_invoice_lines.children().children("tr").length > 1) {
+
+                console.log("prueba")
                 
                 var rows = Array();
 
                 for(let i = 1; i < table_invoice_lines.children().children("tr").length; i++) {
-                    var colums = [table_invoice_lines.children().children("tr").eq(i).children("td").eq(1).text(), 
-                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(2).text(), 
+                    var colums = [
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(0).text(), 
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(1).text(), 
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(2).text(),
                     table_invoice_lines.children().children("tr").eq(i).children("td").eq(3).text(),
-                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(4).text(),
-                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(5).text()];
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(4).text()];
                     rows.push(colums);
                 }
 
