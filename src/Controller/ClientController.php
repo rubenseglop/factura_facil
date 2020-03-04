@@ -50,7 +50,7 @@ class ClientController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
-        $company = $repositoryCompany->findOneClientById($id);
+        $company = $repositoryCompany->findOneCompanyById($id);
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ){
@@ -61,7 +61,7 @@ class ClientController extends AbstractController
             
             $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirect('/'.$id.'/client/');
+            return $this->redirect('/'.$id.'/cliente/');
         }
         return $this->render('form/addnewclient.html.twig', [
              'registrationForm' =>$form->createView(),
@@ -118,7 +118,7 @@ class ClientController extends AbstractController
 
             $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirect('/'.$id.'/client/');
+            return $this->redirect('/'.$client->getCompany()->getId().'/cliente/');
         }
         return $this->render('form/editclient.html.twig', [ 'registrationForm' =>$form->createView() ]);
     }
@@ -177,7 +177,7 @@ class ClientController extends AbstractController
         $client->setStatus(false);
         $em->persist($client);
         $em->flush();
-        return $this->redirect('/'.$id.'/cliente/'); 
+        return $this->redirect('/'.$client->getCompany()->getId().'/cliente/'); 
     }
 
 
