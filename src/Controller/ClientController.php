@@ -177,7 +177,7 @@ class ClientController extends AbstractController
         $client->setStatus(false);
         $em->persist($client);
         $em->flush();
-        return $this->redirect('/'.$id.'/client/'); 
+        return $this->redirect('/'.$id.'/cliente/'); 
     }
 
 
