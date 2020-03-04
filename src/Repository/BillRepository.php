@@ -67,23 +67,75 @@ class BillRepository extends ServiceEntityRepository
             ->andWhere('b.status = true')
             ->setParameter('val', $value)
             ->orderBy('b.id', 'ASC')
-            ->setMaxResults(100000)
             ->getQuery()
             ->getResult()
         ;
     }
-    public function findByDateBill($value, $id) :array
-    {
+    public function findByDateBill($start_date, $end_date, $id)
+    {       
         return $this->createQueryBuilder('c')
-            ->andWhere('c.dateBill = :val')
+            ->andWhere('c.dateBill BETWEEN :start_date and :end_date')
             ->andWhere('c.company = :id')
             ->andWhere('c.status = true')
-            ->setParameter('val', $value)
+            ->setParameter('start_date', $start_date)
+            ->setParameter('end_date', $end_date)
             ->setParameter('id', $id)
             ->orderBy('c.id', 'ASC')
-            ->setMaxResults(100000)
             ->getQuery()
             ->getResult()
         ;
+    }
+    public function findByNumberBill($numberBill, $id)
+    {       
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.numberBill = :numberBill')
+            ->andWhere('c.company = :id')
+            ->andWhere('c.status = true')
+            ->setParameter('numberBill', $numberBill)
+            ->setParameter('id', $id)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByDescription($description, $id)
+    {       
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.descriptionBill LIKE :description')
+            ->andWhere('c.company = :id')
+            ->andWhere('c.status = true')
+            ->setParameter('description', $description)
+            ->setParameter('id', $id)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByClient($client, $id)
+    {       
+        
+        /*return $this->createQueryBuilder('c')
+            ->andWhere('c.client.name like :client')
+            ->andWhere('c.company = :id')
+            ->andWhere('c.status = true')
+            ->setParameter('client', $client)
+            ->setParameter('id', $id)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;*/
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT b
+                FROM App\Entity\Bill b
+                INNER JOIN App\Entity\Client c 
+                WHERE c.name LIKE :client AND b.company = :id AND b.client = c.id'
+        )
+        ->setParameter('id', $id)
+        ->setParameter('client', $client);
+    
+        return $query->getResult();
+
     }
 }

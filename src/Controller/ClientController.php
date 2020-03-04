@@ -143,8 +143,8 @@ class ClientController extends AbstractController
      */
     public function search(Request $request){
        $repositoryClient = $this->getDoctrine()->getManager();
-       $client = $repositoryClient->findByName();
-       return $this->render('client/index.html.twig', [
+       $client = $repositoryClient->findByName(); 
+       return $this->render('client/index.html.twig',[
         'controller_name' => 'ClientController',
         'client' => $client
         ]);

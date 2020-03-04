@@ -10,6 +10,8 @@ use App\Entity\Company;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddNewBillType;
 use App\Form\AddNewBillLineType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Validator\Constraints\Date;
 
 class BillController extends AbstractController
 {
@@ -23,8 +25,19 @@ class BillController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         $entityManager = $this->getDoctrine()->getManager();
-        $bills = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
-        $bills = $billRepository->findByIdCompany($id);
+        $billRepository= $this->getDoctrine()->getRepository(Bill::class);
+        
+        if(isset($_POST['start-date']) && isset($_POST['end-date'])) {
+            $bills = $billRepository->findByDateBill($_POST['start-date'], $_POST['end-date'], $id);
+        }else if(isset($_POST['numberBill'])) {
+            $bills = $billRepository->findByNumberBill($_POST['numberBill'],$id);
+        }else if(isset($_POST['description'])){
+            $bills = $billRepository->findByDescription($_POST['description'],$id);
+        }else if(isset($_POST['client'])){
+            $bills = $billRepository->findByClient($_POST['client'],$id);
+        }else {
+            $bills = $billRepository->findByIdCompany($id);
+        }
 
         return $this->render('bill/index.html.twig', [
             'controller_name' => 'BillController',
@@ -82,18 +95,7 @@ class BillController extends AbstractController
         $entityManager->flush();
         return $this->redirect('/'.$bill->getCompany()->getId().'/facturas/'); 
     }
-    // Buscador de factura por fecha
-    /**
-     * @Route("/busqueda", name="searchDate")
-     */
-    public function searchBill(Request $request, $id){
-        $bills = $billRepository= $this->getDoctrine()->getRepository(Bill::class);
-        $bills = $billRepository->findByDateBill($request, $id);
-        return $this->render('bill/index.html.twig', [
-         'controller_name' => 'BillController',
-         'bills' => $bills
-         ]);
-     }
+
     /*Vista de la factura que el usuario haya seleccionado para visualizar*/
     /**
      * @Route("/factura/{id}", name="showBill")
