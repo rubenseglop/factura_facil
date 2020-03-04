@@ -97,6 +97,21 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
 
+    public function searchClient($value, $empresa)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.name LIKE :val AND c.company = :val2')
+            ->setParameter('val', '%'.$value.'%')
+            ->setParameter('val2', $empresa)
+            ->orderBy('c.name', 'ASC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+   
+
 
 
 

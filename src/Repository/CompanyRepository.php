@@ -63,7 +63,7 @@ class CompanyRepository extends ServiceEntityRepository
         ;
     }*/
 
-    public function findOneById($value): ?Company
+    public function findOneClientById($value): ?Company
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.id = :val')
@@ -73,7 +73,27 @@ class CompanyRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByUser($user_id) {
+    public function findOneCompanyById($value): ?Company
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findByUser($value): ?Company
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findByUserClient($user_id) {
         return $this->createQueryBuilder('c')
             ->andWhere('c.User = :user_id AND c.status = TRUE')
             ->setParameter('user_id', $user_id)
@@ -84,15 +104,15 @@ class CompanyRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findOneCompanyById($value): ?Company
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.id = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ;
-    }
+    // public function findOneCompanyById($value): ?Company
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('c.id = :val')
+    //         ->setParameter('val', $value)
+    //         ->getQuery()
+    //         ->getOneOrNullResult()
+    //         ;
+    // }
 
 
 }

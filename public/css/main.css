@@ -1,5 +1,6 @@
-
-
+/*================================================*/
+/*                     CLiente  🡻                */
+/*================================================*/
 main{
     padding: 0px;
     margin:0px;
@@ -7,6 +8,9 @@ main{
     height: 100%;
 }
 
+/*================================================*/
+/*             Cabecera Vista CLiente 🡻          */
+/*================================================*/
 #cabecera{
     border:1px solid;
     width: 100%;
@@ -18,6 +22,7 @@ main{
     margin-left: 5px;
     float: left;
     margin-top: 15px;
+    font-family: 'Dancing Script', cursive;
 }
 
 #cabecera img{
@@ -27,6 +32,20 @@ main{
     margin-top: 4px;
 }
 
+#cabecera #logo{
+    float: left;
+    margin-left: 40px;
+    margin-right: 0.1px;
+    width: 60px;
+}
+
+/*================================================*/
+/*           Fin Cabecera Vista CLiente  🡹       */
+/*================================================*/
+
+/*================================================*/
+/*             Section Vista CLiente  🡻          */
+/*================================================*/
 section{
     width: 79%;
     float: right;
@@ -52,27 +71,16 @@ section img{
     margin-right: 10px;
 }
 
-#cabecera #logo{
-    float: left;
-    margin-left: 40px;
-    margin-right: 0.1px;
-    width: 60px;
-}
-
 section p{
     height: 25px;
     margin-left: 10px;
 }
-
-
-
 
 section #titulo{
     width: 70%;
     margin-left: 9%;
     margin-top: 20px;
 }
-
 
 section #titulo h1{
     margin-left: 10px;
@@ -105,12 +113,6 @@ section button{
     background-color: #6699FF;
 }
 
-fieldset{
-    background: #fff;
-    border:1px solid #333;
-    border-radius: 5px;
-}
-
 section #clientes li:last-child{
     margin-bottom: 20px;
     margin-top: -10px;
@@ -140,8 +142,13 @@ section img{
 section #showAllClients{
     margin-left: 98px;
 }
+/*================================================*/
+/*            Fin Section Vista CLiente  🡹       */
+/*================================================*/
 
-
+/*================================================*/
+/*               Aside Vista CLiente 🡻           */
+/*================================================*/
 aside{
     width: 19%;
     float: left;
@@ -164,8 +171,13 @@ aside a{
     text-decoration: none;
     margin-top: 10px;
 }
+/*================================================*/
+/*             Fin Aside Vista CLiente  🡹        */
+/*================================================*/
 
-
+/*================================================*/
+/*      Tabla con Información del Cliente  🡻     */
+/*================================================*/
 tr{
     border: 1px solid;
 }
@@ -188,6 +200,7 @@ table{
 
 input{
     margin-left:10px;
+    
 }
 
 
@@ -200,6 +213,75 @@ input{
     border: 0px;
     border-radius: 20px;
 }
+
+/*================================================*/
+/*     Fin Tabla con Información del Cliente 🡹   */
+/*================================================*/
+
+/*================================================*/
+/*               Registro CLiente  🡻             */
+/*================================================*/
+#sectionRegister #Register{
+    width: 27%;
+    margin-left: 40px;
+}
+
+#sectionRegister h1{
+    margin-left: 40px;
+}
+
+#sectionRegister input{
+    float: right;
+}
+
+
+#backR{
+    margin-top: 15%;
+    float: left;
+    width: 100px; 
+    height: 30px; 
+    background: #6699FF; 
+    color: #ffffff; 
+    cursor: pointer; 
+    border: 0px;
+    border-radius: 20px;
+}
+/*================================================*/
+/*             Fin Registro CLiente  🡹           */
+/*================================================*/
+
+/*================================================*/
+/*               Editar CLiente  🡻               */
+/*================================================*/
+#sectionEdit #Edit{
+    width: 27%;
+    margin-left: 40px;
+}
+
+#sectionEdit h1{
+    margin-left: 40px;
+}
+
+#sectionEdit input{
+    float: right;
+}
+
+
+#backE{
+    margin-top: 15%;
+    float: left;
+    width: 100px; 
+    height: 30px; 
+    background: #6699FF; 
+    color: #ffffff; 
+    cursor: pointer; 
+    border: 0px;
+    border-radius: 20px;
+}
+/*================================================*/
+/*               Fin Editar CLiente  🡹           */
+/*================================================*/
+
 /*company*/
 
 section #clientesCompany{
@@ -212,10 +294,5 @@ section #clientesCompany{
 
 section #añadirCompany{
     margin-top: 20px;
-}
-section #nameCompany{
-    margin-left: 10px;
-    margin-bottom: 5px;
-    padding-top: 5px;
 }
 

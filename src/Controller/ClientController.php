@@ -14,28 +14,30 @@ class ClientController extends AbstractController
 {
     /* Main View */
     /**
-     * @Route("/{id}/client", name="client")
+     * @Route("/{id}/cliente", name="client")
      */
     public function index($id)
     {   
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
-        }
-        $entityManager = $this->getDoctrine()->getManager();
-        $client = $repositoryClient= $this->getDoctrine()->getRepository(Client::class);
-        $client = $repositoryClient->findByIdCompany($id);
+        }else{
+            $entityManager = $this->getDoctrine()->getManager();
+            $client = $repositoryClient= $this->getDoctrine()->getRepository(Client::class);
+            $client = $repositoryClient->findByIdCompany($id);
 
-        return $this->render('client/index.html.twig', [
-            'controller_name' => 'ClientController',
-            'client' => $client
+            return $this->render('client/index.html.twig', [
+                'controller_name' => 'ClientController',
+                'client' => $client, 
+                'company_id'=> $id
         ]);
+        }
     }
 
   
 
     //Formulario para añadir nuevo cliente
     /**
-     * @Route("{id}/addNewClient", name="addNewClient")
+     * @Route("{id}/cliente/agregar-nuevo-cliente", name="addNewClient")
      */
     public function addNewClient($id, Request $request){
         if (!$this->getUser()) {
@@ -48,10 +50,9 @@ class ClientController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
-        $company = $repositoryCompany->findOneById($id);
+        $company = $repositoryCompany->findOneClientById($id);
 
         $form->handleRequest($request);
-        echo "----Id: ".$id;
         if( $form->isSubmitted() && $form->isValid() ){
             $entityManager = $this->getDoctrine()->getManager();
             $client = $form->getData();
@@ -64,7 +65,8 @@ class ClientController extends AbstractController
         }
         return $this->render('form/addnewclient.html.twig', [
              'registrationForm' =>$form->createView(),
-             'client' => $client
+             'client' => $client,
+             'company_id'=> $id
              ]);
     }
 
@@ -72,7 +74,7 @@ class ClientController extends AbstractController
     
     // Formulario para editar los datos del cliente
     /**
-     * @Route("{id}/edit", name="edit")
+     * @Route("{id}/editar", name="editar")
      */
     public function edit($id, Request $request){
         $client2 = new Client();
@@ -132,22 +134,32 @@ class ClientController extends AbstractController
         $client = $repositoryClient->findOneById($id);
         return $this->render('client/client.html.twig',[
             'controller_name'=> 'ClientController',
-            'client' => $client
+            'client' => $client,
+            'company_id'=> $id
         ]);
     }
 
 
     // Buscador
     /**
-     * @Route("/search", name="search")
+     * @Route("/{id}/cliente/buscar", name="search")
      */
-    public function search(Request $request){
-       $repositoryClient = $this->getDoctrine()->getManager();
-       $client = $repositoryClient->findByName(); 
-       return $this->render('client/index.html.twig',[
-        'controller_name' => 'ClientController',
-        'client' => $client
-        ]);
+    public function search( $id){
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }else{
+            $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
+            //$client = $repositoryClient->findOneById($id);
+            
+            
+            $client = $repositoryClient->searchClient($_POST['buscador'], $id);
+            
+            return $this->render('client/index.html.twig', [
+                                 'controller_name' => 'ClientController',
+                                 'client' => $client,
+                                 'company_id'=> $id
+                                ]);
+            }
     }
 
 
