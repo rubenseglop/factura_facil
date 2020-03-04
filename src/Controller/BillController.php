@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Bill;
 use App\Entity\BillLine;
 use App\Entity\Company;
+use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddNewBillType;
 
@@ -52,6 +53,10 @@ class BillController extends AbstractController
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);
         $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
         $companyRepository = $this->getDoctrine()->getRepository(Company::class);
+        $productRepository=$this->getDoctrine()->getRepository(Product::class);
+
+        $company = $companyRepository->findOneBy(['id'=>$id,'User'=>$this->getUser()]);
+        $products = $productRepository->findBy(['company'=>$company,'status'=>true]);
 
         $company = $companyRepository->findOneById($id);
 
@@ -76,6 +81,7 @@ class BillController extends AbstractController
              'invoiceForm' =>$form->createView(),
              'bill' => $bill,
              'company_id' => $id,
+             'products' => $products
         ]);
     }
 
