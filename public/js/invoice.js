@@ -65,14 +65,15 @@ function loadPdf(url, invoice_number) {
             pdf.autoTable({
                 bodyStyles: { fontSize: 12 },
                 headStyles: { fillColor: [137, 186, 227], fontSize: 13 },
-                head: [['Nº de factura', 'Fecha', 'Descripción', 'I.V.A (%)', 'Importe total (€)']],
+                head: [['Nº de factura', 'Fecha', 'Descripción', 'Importe I.V.A. (€)', 'Importe sin I.V.A. (€)', 'Importe total (€)']],
                 margin: { top: top_margin },
                 body: [
                     [table_invoice.children("tbody").children("tr").children("td").eq(0).text(),
                     table_invoice.children("tbody").children("tr").children("td").eq(1).text(), 
                     table_invoice.children("tbody").children("tr").children("td").eq(2).text(), 
                     table_invoice.children("tbody").children("tr").children("td").eq(3).text(),
-                    table_invoice.children("tbody").children("tr").children("td").eq(4).text()],
+                    table_invoice.children("tbody").children("tr").children("td").eq(4).text(),
+                    table_invoice.children("tbody").children("tr").children("td").eq(5).text()],
                 ],
             });
         

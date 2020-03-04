@@ -34,19 +34,24 @@ class Bill
     private $descriptionBill;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=5, scale=2)
      */
-    private $totalBillIva;
+    private $amountIVA;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2)
+     */
+    private $amountWithoutIVA;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2)
+     */
+    private $totalInvoiceAmount;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BillLine",  mappedBy="bill", orphanRemoval=true, cascade={"persist"})
      */
     private $billLines;
-
-    /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
-     */
-    private $totalImportBill;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="bills")
@@ -110,14 +115,50 @@ class Bill
         return $this;
     }
 
-    public function getTotalBillIva(): ?int
+    public function getAmountIVA(): ?string
     {
         return $this->totalBillIva;
     }
 
-    public function setTotalBillIva(int $totalBillIva): self
+    public function setAmountIVA(int $totalBillIva): self
     {
         $this->totalBillIva = $totalBillIva;
+
+        return $this;
+    }
+
+    public function getAmountWithoutIVA(): ?string
+    {
+        return $this->totalBillIva;
+    }
+
+    public function setAmountWithoutIVA(int $totalBillIva): self
+    {
+        $this->totalBillIva = $totalBillIva;
+
+        return $this;
+    }
+
+    public function getTotalInvoiceAmount(): ?string
+    {
+        return $this->totalImportBill;
+    }
+
+    public function setTotalInvoiceAmount(string $totalImportBill): self
+    {
+        $this->totalImportBill = $totalImportBill;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }
@@ -153,34 +194,6 @@ class Bill
         return $this;
     }
 
-    public function getTotalImportBill(): ?string
-    {
-        return $this->totalImportBill;
-    }
-
-    public function setTotalImportBill(string $totalImportBill): self
-    {
-        $this->totalImportBill = $totalImportBill;
-
-        return $this;
-    }
-
-    public function getCompany(): ?Company
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?Company $company): self
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    public function __toString(){
-        return $this->descriptionBill;
-    }
-
     public function getStatus(): ?bool
     {
         return $this->status;
@@ -203,5 +216,9 @@ class Bill
         $this->client = $client;
 
         return $this;
+    }
+
+    public function __toString(){
+        return $this->descriptionBill;
     }
 }

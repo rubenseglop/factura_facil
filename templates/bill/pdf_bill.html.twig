@@ -22,8 +22,9 @@
                     <td>{{ bill.numberBill }}</td>
                     <td>{{ bill.dateBill|date("m/d/Y") }}</td>
                     <td>{{ bill.descriptionBill }}</td>
-                    <td>{{ bill.totalBillIva }}%</td>
-                    <td>{{ bill.totalImportBill }}€</td>
+                    <td>{{ bill.amountIVA }}€</td>
+                    <td>{{ bill.amountWithoutIVA }}€</td>
+                    <td>{{ bill.totalInvoiceAmount }}€</td>
                 </tr>
             </tbody>
         </table>

@@ -63,10 +63,10 @@
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td><input id="add_new_bill_billLines_1_description" name="add_new_bill[billLines][1][description]" type="text" class="form-control rounded-sm" required></td>
-                                                        <td><input id="add_new_bill_billLines_1_quantity" name="add_new_bill[billLines][1][quantity]" type="number" class="form-control rounded-sm" required></td>
-                                                        <td><input id="add_new_bill_billLines_1_price" name="add_new_bill[billLines][1][price]" type="text" class="form-control rounded-sm" required></td>
-                                                        <td><input id="add_new_bill_billLines_1_billLineIva" name="add_new_bill[billLines][1][billLineIva]" type="number" class="form-control rounded-sm" required></td>
-                                                        <td><input id="add_new_bill_billLines_1_subTotal" name="add_new_bill[billLines][1][subTotal]" type="number" class="form-control rounded-sm" required></td>
+                                                        <td><input min="1" id="add_new_bill_billLines_1_quantity" name="add_new_bill[billLines][1][quantity]" type="number" class="form-control rounded-sm" required></td>
+                                                        <td><input min="0" id="add_new_bill_billLines_1_price" name="add_new_bill[billLines][1][price]" type="text" class="form-control rounded-sm" required></td>
+                                                        <td><input min="0" id="add_new_bill_billLines_1_billLineIva" name="add_new_bill[billLines][1][billLineIva]" type="number" class="form-control rounded-sm" required></td>
+                                                        <td><input min="0" id="add_new_bill_billLines_1_subTotal" name="add_new_bill[billLines][1][subTotal]" type="number" class="form-control rounded-sm" required></td>
                                                         <td><div class="delete-little"><i class="far fa-trash-alt"></i></div></td>
                                                     </tr>
                                                 </tbody>
