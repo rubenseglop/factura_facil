@@ -20,16 +20,17 @@ class ClientController extends AbstractController
     {   
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
-        }
-        $entityManager = $this->getDoctrine()->getManager();
-        $client = $repositoryClient= $this->getDoctrine()->getRepository(Client::class);
-        $client = $repositoryClient->findByIdCompany($id);
+        }else{
+            $entityManager = $this->getDoctrine()->getManager();
+            $client = $repositoryClient= $this->getDoctrine()->getRepository(Client::class);
+            $client = $repositoryClient->findByIdCompany($id);
 
-        return $this->render('client/index.html.twig', [
-            'controller_name' => 'ClientController',
-            'client' => $client, 
-            'company_id'=> $id
+            return $this->render('client/index.html.twig', [
+                'controller_name' => 'ClientController',
+                'client' => $client, 
+                'company_id'=> $id
         ]);
+        }
     }
 
   
@@ -143,7 +144,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/{id}/client/search", name="search")
      */
-    public function search( $id, Request $request){
+    public function search( $id){
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }else{
@@ -153,7 +154,7 @@ class ClientController extends AbstractController
             // $client = $this->getDoctrine()->getRepository(Client::class)->searchClient($value, $id);
             $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
             $client = $repositoryClient->findOneById($id);
-            $buscador = $repositoryClient->searchClient($client, $id);
+            $buscador = $repositoryClient->searchClient($_POST['buscador'], $id);
             dump($buscador);
             dump($client);
             return $this->render('client/index.html.twig', [

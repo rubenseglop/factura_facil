@@ -175,13 +175,9 @@ aside a{
 /*             Fin Aside Vista CLiente  🡹        */
 /*================================================*/
 
-<<<<<<< HEAD
 /*================================================*/
 /*      Tabla con Información del Cliente  🡻     */
 /*================================================*/
-=======
-
->>>>>>> 1ef6e323df2574a45184c295795be448c77cc494
 tr{
     border: 1px solid;
 }
@@ -217,7 +213,6 @@ input{
     border: 0px;
     border-radius: 20px;
 }
-<<<<<<< HEAD
 
 /*================================================*/
 /*     Fin Tabla con Información del Cliente 🡹   */
@@ -287,8 +282,6 @@ input{
 /*               Fin Editar CLiente  🡹           */
 /*================================================*/
 
-=======
->>>>>>> 1ef6e323df2574a45184c295795be448c77cc494
 /*company*/
 
 section #clientesCompany{
