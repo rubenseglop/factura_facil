@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\SocialNetworks;
 use App\Form\AddCompanyType;
 use App\Form\EditCompanyType;
+use App\Form\SocialNetworksType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CompanyController extends AbstractController
@@ -31,7 +34,60 @@ class CompanyController extends AbstractController
     }
 
 
+    /**
+     * @Route("/addSocialNetwork", name="addSocialNetwork")
+     */
+    public function socialNetwork(Request $request)
+    {
+        if (isset($_GET['id'])) {
+            $socialnetwork = new SocialNetworks();
+            $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+            $company = $repositoryCompany->findOneCompanyById($_GET['id']);
+            $formSocial = $this->createForm(SocialNetworksType::class, $socialnetwork);
+            //$form->handleRequest($request);
+            $formSocial->handleRequest($request);
+            if($formSocial->isSubmitted() && $formSocial->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
 
+                $socialnetwork = $formSocial->getData();
+                $company->addSocialNetwork($socialnetwork);
+                //$company->setName($company->getName());
+                //$company->setFiscalAddress($company->getFiscalAddress());
+               // $company->setEmail($company->getEmail());
+                //$company->setNIF($company->getNIF());
+                $entityManager->persist($socialnetwork);
+                $entityManager->flush();
+                return $this->redirectToRoute('companies');
+
+            }
+            return $this->render('company/addSocialNetwork.html.twig', [
+                'addSocialNetwork_form' => $formSocial->createView(),
+                'controller_name' => 'CompanyController',
+                'companies' => $company
+            ]);
+        }
+    }
+
+
+    /**
+     * @Route("/deleteSocialNetwork", name="deleteSocialNetwork")
+     */
+    public function delete()
+    {
+        if(isset($_GET['idS']) && isset($_GET['idC'])){
+            $repositorySocialNetwork = $this->getDoctrine()->getRepository(SocialNetworks::class);
+            $social = $repositorySocialNetwork->findOneSocialById($_GET['idS']);
+            $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+            $company = $repositoryCompany->findOneCompanyById($_GET['idC']);
+            $company->removeSocialNetwork($social);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($company);
+            $entityManager->persist($social);
+            $entityManager->flush();
+            return $this->redirectToRoute('companies');
+            //return $this->redirectToRoute('showCompany',['id' => $_GET['idC']]);
+        }
+    }
 
 
     /**
@@ -63,6 +119,7 @@ class CompanyController extends AbstractController
             $fiscalAdressCompany = $company->getFiscalAddress();
             $emailCompany = $company->getEmail();
             $nifCompany = $company->getNIF();
+            $socialNetworks = $company->getSocialNetworks();
             $form = $this->createForm(EditCompanyType::class, $company);
             //$form->handleRequest($request);
             $form->handleRequest($request);
@@ -84,7 +141,8 @@ class CompanyController extends AbstractController
                 'nameCompany' => $nameCompany,
                 'fiscalAdressCompany' => $fiscalAdressCompany,
                 'emailCompany' => $emailCompany,
-                'nifCompany' => $nifCompany
+                'nifCompany' => $nifCompany,
+                'socialNetworks' => $socialNetworks
             ]);
         }
     }
@@ -146,7 +204,7 @@ class CompanyController extends AbstractController
         }
         return $this->render('form/addnewcompany.html.twig', [
             'controller_name' => 'CompanyController',
-            'formulario' => $form->createView()
+            'editCompany_form' => $form->createView()
         ]);
     }
 }
