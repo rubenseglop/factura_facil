@@ -6,7 +6,7 @@ function activeElement() {
     let sections = document.getElementsByClassName("menu-company-elements")[0].getElementsByTagName("li");
     var element = "option-invoice";
 
-    if(url.includes("facturas")) {
+    if(url.includes("facturas") || url.includes("factura")) {
         element = "option-invoice";
     }else if(url.includes("clientes")) {
         element = "option-clients";
