@@ -11,7 +11,7 @@
             <a href="{{ path('bills', {id:company_id}) }}"><span>Facturas</span> <i class="fas fa-file-invoice"></i></a>
         </li>
         <li id="option-clients">
-            <a href="#"><span>Clientes</span> <i class="fas fa-users"></i></a>
+            <a href="{{ path('client', {id:company_id}) }}"><span>Clientes</span> <i class="fas fa-users"></i></a>
         </li>
         <li id="option-products">
             <a href="{{ path('product', {id:company_id}) }}"><span>Productos</span> <i class="fas fa-tags"></i></a>
