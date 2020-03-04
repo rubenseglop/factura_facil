@@ -14,22 +14,22 @@
 {% endblock %}
 {% block body %}
 <div class="todos-Productos">
-    <form action="{{ path('product',{id:id_company}) }}" method="POST">
+    <form action="{{ path('product',{id:company_id}) }}" method="POST">
         <p>Search Product: </p><input type="text" name="name" id="name">
         <input type="submit" value="Submit">
     </form>
 
     <br>
 
-    <h1 id="misProductos">My Products</h1>
+    <h1 id="misProductos">Mis productos</h1>
     <br>
     
-    <a href="{{ path('addProduct',{id:id_company}) }}"><button>Add New Product + </button></a>
+    <a href="{{ path('addProduct',{id:company_id}) }}"><button>Add New Product + </button></a>
     
     <ul>
        {% for p in products %}
        
-            <li>{{p.name}}  ------>  <a href="{{ path('editProduct',{idProduct:p.id,id:id_company}) }}"><button>Editar Producto</button></a> <a href="{{ path('deleteProduct',{idProduct:p.id,id:id_company}) }}"><button>Eliminar Producto</button></a></li>
+            <li>{{p.name}}  ------>  <a href="{{ path('editProduct',{idProduct:p.id,id:company_id}) }}"><button>Editar Producto</button></a> <a href="{{ path('deleteProduct',{idProduct:p.id,id:id_company}) }}"><button>Eliminar Producto</button></a></li>
 
        {% endfor %} 
     </ul>
