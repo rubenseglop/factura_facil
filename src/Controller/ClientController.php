@@ -61,7 +61,7 @@ class ClientController extends AbstractController
             
             $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirect('/'.$id.'/cliente/');
+            return $this->redirect('/'.$client->getCompany()->getId().'/cliente/');
         }
         return $this->render('form/addnewclient.html.twig', [
              'registrationForm' =>$form->createView(),
