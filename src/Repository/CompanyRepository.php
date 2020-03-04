@@ -52,16 +52,6 @@ class CompanyRepository extends ServiceEntityRepository
     */
 
 
-   /* public function findByUser($user_id) {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.User = :user_id')
-            ->setParameter('user_id', $user_id)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }*/
 
     public function findOneById($value): ?Company
     {

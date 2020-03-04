@@ -18,10 +18,10 @@
 
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {#<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    {#{{ form_start(editCompany_form, {'method': 'post', 'attr': {'class': 'form', 'onsubmit':'return validarformulario(this)'}}) }}#}
+                    {#{{ form_start(editCompany_form, {'method': 'post', 'attr': {'class': 'form', 'onsubmit':'return validarformulario(this)'}}) }}
                         <div class="modal-header">
                             <h5 class="modal-title" align="center" style="color: #000000">Añadir Red Social</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -29,7 +29,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            {{ form_start(addSocialNetwork_form, {'method': 'post', 'attr': {'class': 'form', 'onsubmit':'return validarformulario(this)'}}) }}
+                            {{ form_start(addSocialNetwork_form, {'method': 'post', 'attr': {'class': 'form'}}) }}
                             <div class="form-group">
                                 <p>Red Social</p>
                                 <select name="select" id="seleccionar" class="form-control">
@@ -49,10 +49,10 @@
                             {{ form_end(addSocialNetwork_form) }}
                         </div>
                     {#{{ form_rest(editCompany_form) }}
-                    {{ form_end(editCompany_form) }}#}
+                    {{ form_end(editCompany_form) }}
                 </div>
             </div>
-        </div>
+        </div>#}
 
 
 
@@ -96,23 +96,25 @@
                                 <div class="row">
                                     {% for socialNetwork in socialNetworks %}
                                         <div class="card m-5 col-md-2" style="width: 18rem;">
-                                            <img class="card-img-top" src="{{socialNetwork.name}}.jpg" alt="{{socialNetwork.name}}">
+                                            <img class="card-img-top" class="rounded-6" style="border-radius: 2px;" src="img/{{socialNetwork.name}}.png" alt="{{socialNetwork.name}}">
                                             <div class="card-body">
                                                 <h5 class="card-title" align="center">{{socialNetwork.name}}</h5>
                                                 <a href="https://www.facebook.com/" class="btn btn-primary">Go {{socialNetwork.name}}</a>
+
+                                                <a href="/deleteSocialNetwork?idC={{ companies.id }}&idS={{ socialNetwork.id }}" class="btn btn-primary mt-3"> Borrar</a>
                                             </div>
-                                        </div>
+                                            </div>
                                     {% endfor %}
                                     <div class="card m-5 col-md-3" style="width: 18rem; border: none">
-                                        <button type="button" class="btn btn-primary rounded-circle mt-5" data-toggle="modal" data-target="#exampleModal">
-                                            Añadir Red Social
+                                        <a href="/addSocialNetwork?id={{ companies.id }}" class="btn btn-primary rounded-circle mt-5"> Añadir Red Social</a>
+
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-actions">
-                            <a class="btn btn-secundary" href="{{ relative_path('/companies') }}">Volver a Empresas</a>
+                            <a class="btn btn-secundary" href="{{ relative_path('/empresas') }}">Volver a Empresas</a>
                             <button type="submit" id="register-submit-btn" class="btn btn-primary float-right">Actualizar Datos</button>
                         </div>
                         {{ form_rest(editCompany_form) }}

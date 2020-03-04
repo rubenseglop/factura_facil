@@ -35,41 +35,59 @@ class CompanyController extends AbstractController
 
 
     /**
-     * @Route("/addSocialNetworks", name="addSocialNetworks")
+     * @Route("/addSocialNetwork", name="addSocialNetwork")
      */
-    public function socialNetworks(Request $request):Response
+    public function socialNetwork(Request $request)
     {
         if (isset($_GET['id'])) {
             $socialnetwork = new SocialNetworks();
             $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
             $company = $repositoryCompany->findOneCompanyById($_GET['id']);
-            $form = $this->createForm(SocialNetworksType::class, $socialnetwork);
+            $formSocial = $this->createForm(SocialNetworksType::class, $socialnetwork);
             //$form->handleRequest($request);
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()) {
+            $formSocial->handleRequest($request);
+            if($formSocial->isSubmitted() && $formSocial->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
-                $company = $form->getData();
-                $company->setName($company->getName());
-                $company->setFiscalAddress($company->getFiscalAddress());
-                $company->setEmail($company->getEmail());
-                $company->setNIF($company->getNIF());
-                $entityManager->persist($company);
+
+                $socialnetwork = $formSocial->getData();
+                $company->addSocialNetwork($socialnetwork);
+                //$company->setName($company->getName());
+                //$company->setFiscalAddress($company->getFiscalAddress());
+               // $company->setEmail($company->getEmail());
+                //$company->setNIF($company->getNIF());
+                $entityManager->persist($socialnetwork);
                 $entityManager->flush();
                 return $this->redirectToRoute('companies');
+
             }
-            return $this->render('company/editCompany.html.twig', [
-                'editCompany_form' => $form->createView(),
+            return $this->render('company/addSocialNetwork.html.twig', [
+                'addSocialNetwork_form' => $formSocial->createView(),
                 'controller_name' => 'CompanyController',
-                'companies' => $company,
-                'nameCompany' => $nameCompany,
-                'fiscalAdressCompany' => $fiscalAdressCompany,
-                'emailCompany' => $emailCompany,
-                'nifCompany' => $nifCompany,
-                'socialNetworks' => $socialNetworks
+                'companies' => $company
             ]);
         }
     }
 
+
+    /**
+     * @Route("/deleteSocialNetwork", name="deleteSocialNetwork")
+     */
+    public function delete()
+    {
+        if(isset($_GET['idS']) && isset($_GET['idC'])){
+            $repositorySocialNetwork = $this->getDoctrine()->getRepository(SocialNetworks::class);
+            $social = $repositorySocialNetwork->findOneSocialById($_GET['idS']);
+            $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
+            $company = $repositoryCompany->findOneCompanyById($_GET['idC']);
+            $company->removeSocialNetwork($social);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($company);
+            $entityManager->persist($social);
+            $entityManager->flush();
+            return $this->redirectToRoute('companies');
+            //return $this->redirectToRoute('showCompany',['id' => $_GET['idC']]);
+        }
+    }
 
 
     /**
