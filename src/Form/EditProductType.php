@@ -19,7 +19,6 @@ class EditProductType extends AbstractType
             ->add('price')
             //->add('status')
             //->add('company')
-            ->add('Editar', SubmitType::class)
         ;
     }
 

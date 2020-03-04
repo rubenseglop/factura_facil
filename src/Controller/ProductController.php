@@ -112,16 +112,16 @@ class ProductController extends AbstractController
             $product=$form->getData();
             $entityManager->persist($product);
             $entityManager->flush();
-            $this->redirectToRoute('product',['id' => $id]);
-
-        }else{
-            return $this->render('product/editProduct.html.twig', [
-                'controller_name' => 'ProductController',
-                'company_id'=>$id,
-                'form'=>$form->createView()
-                
-            ]);
+            $this->redirectToRoute('product',array('id' => $id));
         }
+
+
+        return $this->render('product/editProduct.html.twig', [
+            'controller_name' => 'ProductController',
+            'company_id'=>$id,
+            'form'=>$form->createView()
+            
+        ]);
         
     }
 

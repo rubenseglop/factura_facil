@@ -50,14 +50,14 @@
                                                 {{ form_widget(form.price, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'€'} }) }}
                                             </div>
                                         </div>
-                                        <div class="col-sm-12" style="visibility: hidden">
+                                        <div class="col-sm-12">
                                             {{ form_rest(form) }}
                                         </div>
                                         
                                         <div class="col-sm-12">
                                             <div class="form-actions">
                                                 <a href="{{ path('product',{id:company_id}) }}" class="btn btn-secundary float-left">Volver a prodcutos</a>
-                                                <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-right">Crear producto</button>
+                                                <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-right">Editar producto</button>
                                             </div>
                                         </div>
                                         
