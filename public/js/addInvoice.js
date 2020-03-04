@@ -10,7 +10,7 @@ $(function() {
             '<th scope="row">' +lines +'</th>'+
             '<td><input id="add_new_bill_billLines_' +lines +'_description" name="add_new_bill[billLines][' +lines +'][description]" type="text" class="form-control rounded-sm" required></td>'+
             '<td><input id="add_new_bill_billLines_' +lines +'_quantity" name="add_new_bill[billLines][' +lines +'][quantity]" type="number" class="form-control rounded-sm" required></td>'+
-            '<td><input id="add_new_bill_billLines_' +lines +'_price" name="add_new_bill[billLines][' +lines +'][price]" type="text" class="form-control rounded-sm" required></td>'+
+            '<td><input id="add_new_bill_billLines_' +lines +'_price" name="add_new_bill[billLines][' +lines +'][price]" type="number" class="form-control rounded-sm" required></td>'+
             '<td><input id="add_new_bill_billLines_' +lines +'_billLineIva" name="add_new_bill[billLines][' +lines +'][billLineIva]" type="number" class="form-control rounded-sm" required></td>'+
             '<td><input id="add_new_bill_billLines_' +lines +'_subTotal" name="add_new_bill[billLines][' +lines +'][subTotal]" type="number" class="form-control rounded-sm" required></td>'+
             '<td><div class="delete-little"><i class="far fa-trash-alt"></i></div></td>'+
@@ -49,6 +49,11 @@ $(function() {
             }
         }
     });
+
+    $(".table-bordered").on("keyup", ".invoice-price", function() {
+        console.log($(this).val());
+        console.log($(this).parent().parent().find('td:last').children("input").val($(this).val()))
+    })
     
 });
 

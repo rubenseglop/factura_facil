@@ -39,15 +39,18 @@ function loadPdf(url, invoice_number) {
             // pdf.line(3, 20, 200, 20);
             
             if(table_invoice_lines.children().children("tr").length > 1) {
+
+                console.log("prueba")
                 
                 var rows = Array();
 
                 for(let i = 1; i < table_invoice_lines.children().children("tr").length; i++) {
-                    var colums = [table_invoice_lines.children().children("tr").eq(i).children("td").eq(1).text(), 
-                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(2).text(), 
+                    var colums = [
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(0).text(), 
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(1).text(), 
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(2).text(),
                     table_invoice_lines.children().children("tr").eq(i).children("td").eq(3).text(),
-                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(4).text(),
-                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(5).text()];
+                    table_invoice_lines.children().children("tr").eq(i).children("td").eq(4).text()];
                     rows.push(colums);
                 }
 
@@ -65,14 +68,15 @@ function loadPdf(url, invoice_number) {
             pdf.autoTable({
                 bodyStyles: { fontSize: 12 },
                 headStyles: { fillColor: [137, 186, 227], fontSize: 13 },
-                head: [['Nº de factura', 'Fecha', 'Descripción', 'I.V.A (%)', 'Importe total (€)']],
+                head: [['Nº de factura', 'Fecha', 'Descripción', 'Importe I.V.A. (€)', 'Importe sin I.V.A. (€)', 'Importe total (€)']],
                 margin: { top: top_margin },
                 body: [
                     [table_invoice.children("tbody").children("tr").children("td").eq(0).text(),
                     table_invoice.children("tbody").children("tr").children("td").eq(1).text(), 
                     table_invoice.children("tbody").children("tr").children("td").eq(2).text(), 
                     table_invoice.children("tbody").children("tr").children("td").eq(3).text(),
-                    table_invoice.children("tbody").children("tr").children("td").eq(4).text()],
+                    table_invoice.children("tbody").children("tr").children("td").eq(4).text(),
+                    table_invoice.children("tbody").children("tr").children("td").eq(5).text()],
                 ],
             });
         
