@@ -16,7 +16,7 @@ use App\Form\AddProductType;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/{id}/product", name="product")
+     * @Route("/{id}/productos", name="product")
      */
     public function index($id)
     {  
@@ -37,30 +37,28 @@ class ProductController extends AbstractController
                 return $this->render('product/index.html.twig', [
                     'controller_name' => 'ProductController',
                     'products' => $products,
-                    'id_company'=>$id
+                    'company_id'=>$id
     
                 ]);
             }
             return $this->render('product/search.html.twig', [
                 'controller_name' => 'ProductController',
                 'products' => $products,
-                'id_company'=>$id,
+                'company_id'=>$id,
                 'product'=>$product,
-                
-
             ]);
 
         }else{
             return $this->render('product/index.html.twig', [
                 'controller_name' => 'ProductController',
                 'products' => $products,
-                'id_company'=>$id
+                'company_id'=>$id
 
             ]);
         }
     }
     /**
-     * @Route("{id}/product/addProduct", name="addProduct")
+     * @Route("{id}/agregar-producto", name="addProduct")
      */
     public function addProduct($id, Request $request)
     {   
@@ -93,13 +91,13 @@ class ProductController extends AbstractController
         
         return $this->render('product/add.html.twig', [
             'controller_name' => 'ProductController',
-            'idCompany'=>$id,
+            'company_id'=>$id,
             'form'=>$form->createView()
             
         ]);
     }
     /**
-    * @Route("{id}/product/editProduct/{idProduct}", name="editProduct")
+    * @Route("{id}/editar-producto/{idProduct}", name="editProduct")
     */
     public function editProduct($idProduct,Request $request,$id)
     {   
@@ -120,7 +118,7 @@ class ProductController extends AbstractController
         }else{
             return $this->render('product/editProduct.html.twig', [
                 'controller_name' => 'ProductController',
-                'id_company'=>$id,
+                'company_id'=>$id,
                 'form'=>$form->createView()
                 
             ]);
@@ -129,7 +127,7 @@ class ProductController extends AbstractController
     }
 
     /**
-    * @Route("{id}/product/deleteProduct/{idProduct}", name="deleteProduct")
+    * @Route("{id}/borrar-producto/{idProduct}", name="deleteProduct")
     */
     public function deleteProduct($idProduct,$id)
     {   
@@ -150,7 +148,7 @@ class ProductController extends AbstractController
 
         return $this->render('product/index.html.twig', [
             'controller_name' => 'ProductController',
-            'id_company'=>$id,
+            'company_id'=>$id,
             'products'=>$products
             
         ]);

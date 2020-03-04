@@ -1,37 +1,84 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Mis Productos{% endblock %}
-{% block stylesheets %}
-        <style>
-            .todos-Productos{
-
-            }
-            ul{
-                list-style-type:none;
-            }
-
-        </style>
-{% endblock %}
 {% block body %}
-<div class="todos-Productos">
-    <form action="{{ path('product',{id:id_company}) }}" method="POST">
+{% include 'header.html.twig' %}
+{% include 'menu-user.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel panel-table">
+                            <div class="panel-heading">
+                             <h3>Facturas</h3>
+                                <a href="{{ path('addNewBill', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
+                            </div>
+                            <div class="panel-search">
+                                <form action="{{ path('product',{id:company_id}) }}" method="POST">
+                                    <p>Search Product: </p><input type="text" name="name" id="name">
+                                    <input type="submit" value="Submit">
+                                </form>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Producto</th>
+                                        <th width="75px" scope="col">Editar</th>
+                                        <th width="75px" scope="col">Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set counter = 0 %}
+
+                                    {% for p in products %}
+                                        {% set counter = counter + 1 %}
+                                        <tr>
+                                        <td>{{counter}}</td>
+                                        <td>{{p.name}} </td>
+                                         {% if counter < 2 %}
+                                                <td><a href="{{ path('editProduct',{idProduct:p.id,id:company_id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                                                <td><a href="{{ path('deleteProduct',{idProduct:p.id,id:company_id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                                            {% endif %}
+                                        </tr>
+
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{# <div class="todos-Productos">
+    <form action="{{ path('product',{id:company_id}) }}" method="POST">
         <p>Search Product: </p><input type="text" name="name" id="name">
         <input type="submit" value="Submit">
     </form>
 
     <br>
 
-    <h1 id="misProductos">My Products</h1>
+    <h1 id="misProductos">Mis productos</h1>
     <br>
     
-    <a href="{{ path('addProduct',{id:id_company}) }}"><button>Add New Product + </button></a>
+    <a href="{{ path('addProduct',{id:company_id}) }}"><button>Add New Product + </button></a>
     
     <ul>
        {% for p in products %}
        
-            <li>{{p.name}}  ------>  <a href="{{ path('editProduct',{idProduct:p.id,id:id_company}) }}"><button>Editar Producto</button></a> <a href="{{ path('deleteProduct',{idProduct:p.id,id:id_company}) }}"><button>Eliminar Producto</button></a></li>
+            <li>{{p.name}}  ------>  <a href="{{ path('editProduct',{idProduct:p.id,id:company_id}) }}"><button>Editar Producto</button></a> <a href="{{ path('deleteProduct',{idProduct:p.id,id:id_company}) }}"><button>Eliminar Producto</button></a></li>
 
        {% endfor %} 
     </ul>
-</div>
+</div> #}
+{% block footer_javascripts %}
+        
+        <script src="{{ asset("js/menu-company.js") }}"></script>
+
+{% endblock %}
 {% endblock %}

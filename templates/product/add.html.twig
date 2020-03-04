@@ -5,7 +5,21 @@
 
 {% endblock %}
 {% block body %}
-<h3>Add Product</h3>
+{% include 'header.html.twig' %}
+{% include 'menu-user.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
+
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel panel-table">
+                            <div class="panel-heading">
+                            
+
+<h3>Añadir nuevo producto</h3>
     {{form(form)}}
-<a href="{{ path('product',{id:idCompany}) }}">Back to products</a>
+<a href="{{ path('product',{id:company_id}) }}">Back to products</a>
 {% endblock %}
