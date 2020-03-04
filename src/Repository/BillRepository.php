@@ -66,7 +66,7 @@ class BillRepository extends ServiceEntityRepository
             ->andWhere('c.company = :val')
             ->andWhere('c.status = true')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
