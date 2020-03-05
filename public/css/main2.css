@@ -365,24 +365,24 @@
     height: calc(2.25rem + 2px);
 }
 
-#searchDate {
+#searchDate, #search {
     display: flex;
 }
 
-#searchDate label {
+#searchDate label, #search label {
     font-weight: bold;
 }
 
-#searchDate .form-actions {
+#searchDate .form-actions, #search .form-actions {
     display: flex;
     align-items: center;
 }
 
-#searchDate .form-actions > button {
+#searchDate .form-actions > button, #search .form-actions {
     margin-top: 9px;
 }
 
-#searchDate div {
+#searchDate div, #search div {
     margin-right: 6px;
 }
 

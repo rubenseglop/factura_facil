@@ -1,15 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Facturas{% endblock %}
-
-{% block javascripts %}
-
-    {{ parent() }}
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-    <script type="text/javascript" src="{{ asset("js/ClientInfo.js") }}"></script>
-    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
-
-{% endblock %}
+{% block title %}Nuevo Cliente{% endblock %}
 
 {% block body %}
 
@@ -24,39 +15,80 @@
                 <div class="container main-container">
                     <div class="row flex-xl-nowrap">
                         <div class="panel panel-table">
-                            <div class="panel-heading">
-                                
-
-     <section id="sectionRegister">
-        <h1>Añadir Nuevo Cliente</h1>
-        <div id="Register">
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.name) }}
-            {{ form_row(registrationForm.fiscalAdress) }}
-            {{ form_row(registrationForm.NIF) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.phone) }}
-            {{ form_row(registrationForm.web) }}
-            {{ form_row(registrationForm.bossName) }}
-            {{ form_row(registrationForm.bossPhone) }}
-        {{ form_end(registrationForm) }}
+                            <div class="card-header">
+                                <h3>Añadir Nuevo Cliente</h3>
+                            </div>
+                            <div class="panel-form invoice-form">
+                                {{ form_start(registrationForm, {'method': 'post', 'attr': {'class': 'form'}}) }}
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_name" class="control-label">Nombre</label>
+                                                    {{ form_widget(registrationForm.name, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_email" class="control-label">Email</label>
+                                                    {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_phone" class="control-label">Teléfono</label>
+                                                    {{ form_widget(registrationForm.phone, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_fiscalAdress" class="control-label">Dirección Fiscal</label>
+                                                    {{ form_widget(registrationForm.fiscalAdress, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_NIF" class="control-label">NIF</label>
+                                                    {{ form_widget(registrationForm.NIF, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_web" class="control-label">Web</label>
+                                                    {{ form_widget(registrationForm.web, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_bossName" class="control-label">Nombre del Responsable</label>
+                                                    {{ form_widget(registrationForm.bossName, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="add_new_client_bossPhone" class="control-label">Teléfono del Responsable</label>
+                                                    {{ form_widget(registrationForm.bossPhone, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" style="visibility: hidden">
+                                                {{ form_rest(registrationForm) }}
+                                            </div>
+                                            
+                                            <div class="col-sm-12">
+                                                <div class="form-actions">
+                                                    <input class="btn btn-secundary" type="button" onclick="history.back()" name="Back" value="Volver" id="backE">
+                                                    <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-right">Crear cliente</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{ form_end(registrationForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
- 
-    <input type="button" onclick="history.back()" name="Back" value="Back" id="backR">
-
-    {% block footer_javascripts %}
-        
-        <script src="https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js"></script>
-        <script src="https://unpkg.com/jspdf-autotable@3.2.13/dist/jspdf.plugin.autotable.js"></script>
-        <script src="{{ asset("js/invoice.js") }}"></script>
-        <script src="{{ asset("js/menu-company.js") }}"></script>
-
-    {% endblock %}
+    </div>
 
 {% endblock %}
-
-
-
-
-

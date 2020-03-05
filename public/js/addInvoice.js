@@ -87,7 +87,6 @@ $(function() {
         $("#add_new_bill_amountWithoutIVA").val($(this).val());
     });
 
-
     $(".table-bordered").on("change", "select", function () {
         var select = $(this);
 
