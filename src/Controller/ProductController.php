@@ -19,7 +19,7 @@ class ProductController extends AbstractController
      * @Route("/{id}/productos", name="product")
      */
     public function index($id)
-    {  
+    {
         $em=$this->getDoctrine()->getManager();
         $user=$this->getUser();
         //Compañía
