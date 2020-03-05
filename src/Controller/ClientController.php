@@ -61,7 +61,7 @@ class ClientController extends AbstractController
             
             $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirect('/'.$client->getCompany()->getId().'/cliente/');
+            return $this->redirect('/'.$client->getCompany()->getId().'/clientes/');
         }
         return $this->render('form/addnewclient.html.twig', [
              'registrationForm' =>$form->createView(),
@@ -118,7 +118,7 @@ class ClientController extends AbstractController
 
             $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirect('/'.$client->getCompany()->getId().'/cliente/');
+            return $this->redirect('/'.$client->getCompany()->getId().'/clientes/');
         }
         return $this->render('form/editclient.html.twig', [ 'registrationForm' =>$form->createView() ]);
     }
@@ -177,7 +177,7 @@ class ClientController extends AbstractController
         $client->setStatus(false);
         $em->persist($client);
         $em->flush();
-        return $this->redirect('/'.$client->getCompany()->getId().'/cliente/'); 
+        return $this->redirect('/'.$client->getCompany()->getId().'/clientes/'); 
     }
 
 
