@@ -14,7 +14,7 @@ class ClientController extends AbstractController
 {
     /* Main View */
     /**
-     * @Route("/{id}/cliente", name="client")
+     * @Route("/{id}/clientes", name="client")
      */
     public function index($id)
     {   
@@ -37,7 +37,7 @@ class ClientController extends AbstractController
 
     //Formulario para añadir nuevo cliente
     /**
-     * @Route("{id}/cliente/agregar-nuevo-cliente", name="addNewClient")
+     * @Route("{id}/clientes/agregar-nuevo-cliente", name="addNewClient")
      */
     public function addNewClient($id, Request $request){
         if (!$this->getUser()) {
@@ -142,7 +142,7 @@ class ClientController extends AbstractController
 
     // Buscador
     /**
-     * @Route("/{id}/cliente/buscar", name="search")
+     * @Route("/{id}/clientes/buscar", name="search")
      */
     public function search( $id){
         if (!$this->getUser()) {
