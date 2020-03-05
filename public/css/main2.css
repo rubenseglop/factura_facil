@@ -153,20 +153,57 @@
 * Menu Company
 */
 
-@media(min-width: 768px) {
-    .menu-company {
-        max-width: 285px;
-        height: calc(100vh - 78px);
+@media(max-width: 768px) {
+    .fixed-menu-company {
+        position: relative;
+        margin-top: 78px;
     }
 }
 
+@media(min-width: 768px) {
+    .fixed-menu-company {
+        position: fixed;
+        top: 78px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        width: 100%;
+    }
+
+    .menu-company {
+        max-width: 285px;
+        width: 25%;
+        height: 100%;
+        z-index: 49;
+    }
+}
+
+@media(min-width: 992px) {
+    .fixed-menu-company {
+        position: fixed;
+        top: 78px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        width: 100%;
+    }
+
+    .menu-company {
+        max-width: 285px;
+        width: 16.666667%;
+        height: 100%;
+        z-index: 49;
+    }
+}
+
+.col-menu-company {
+    padding: 0px;
+}
+
 .menu-company {
+    padding: 4px 0px;
     border-top: 2.5px solid var(--main-color);
     background: var(--secundary-color);
-    width: 100%;
-    z-index: 49;
-    margin-top: 78px;
-    padding: 4px 0px;
     box-shadow: 0.1rem 0.2rem 0.7rem 0 rgba(0,0,0,.25);
 }
 
@@ -352,4 +389,8 @@
 .invoice-form .table-bordered {
     margin-top: 8px;
     margin-bottom: 16px;
+}
+
+.invoice-form .table-bordered select {
+    min-width: 142px;
 }

@@ -47,4 +47,13 @@ class BillLineRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByBill($value): array
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.bill = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

@@ -10,6 +10,8 @@ use App\Entity\Company;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddNewBillType;
+use App\Form\EditBillType;
+use Symfony\Component\HttpFoundation\Response;
 
 class BillController extends AbstractController
 {
@@ -27,6 +29,12 @@ class BillController extends AbstractController
         
         if(isset($_POST['start-date']) && isset($_POST['end-date'])) {
             $bills = $billRepository->findByDateBill($_POST['start-date'], $_POST['end-date'], $id);
+        }else if(isset($_POST['numberBill'])) {
+            $bills = $billRepository->findByNumberBill($_POST['numberBill'],$id);
+        }else if(isset($_POST['description'])){
+            $bills = $billRepository->findByDescription($_POST['description'],$id);
+        }else if(isset($_POST['client'])){
+            $bills = $billRepository->findByClient($_POST['client'],$id);
         }else {
             $bills = $billRepository->findByIdCompany($id);
         }
@@ -85,6 +93,46 @@ class BillController extends AbstractController
         ]);
     }
 
+    // Formulario para editar los datos de una factura
+    /**
+     * @Route("{id}/editBill", name="editBill")
+     */
+    public function edit($id, Request $request){
+        $bill2 = new bill();
+        $billLine2 = new billLine();
+        $form = $this->createForm(EditBillType::class, $bill2);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $billRepository = $this->getDoctrine()->getRepository(Bill::class);
+        $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
+        $companyRepository = $this->getDoctrine()->getRepository(Company::class);
+        $bill = $billRepository->findOneById($id);
+        $billLine = $billLineRepository->findByBill($bill->getId());
+
+        $form->handleRequest($request);
+
+        if( $form->isSubmitted() && $form->isValid() ){
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $bill2 = $form->getData();
+
+            if($bill2->getDescriptionBill() != $bill->getDescriptionBill() || $bill2->getDescriptionBill() != ""){
+                $bill->setDescriptionBill($bill2->getDescriptionBill());
+            }
+            if($bill2->getClient() != $bill->getClient() || $bill2->getClient() != ""){
+                $bill->setClient($bill2->getClient());
+            }
+            $entityManager->persist($bill);
+            $entityManager->flush();
+            return $this->redirect('/'.$bill->getCompany()->getId().'/facturas/');
+        }
+        return $this->render('form/editBill.html.twig', [ 
+            'invoiceForm' =>$form->createView(),
+            'bill' => $bill,
+            'company_id' => $id, 
+        ]);
+    }
+
     //Función para cambiar el status de una factura de activo a inactivo
     /**
      * @Route("/borrar-factura/{id}", name="deleteBill")
@@ -125,6 +173,34 @@ class BillController extends AbstractController
         return $this->render('bill/pdf_bill.html.twig',[
             'bill' => $bill
         ]);
+    }
+
+    /**
+     * 
+     * @Route("{id}/nueva-factura/linea-producto/{id_product}", name="getProductLine")
+     */
+    public function getProductLine($id, $id_product) {
+
+        $companyRepository = $this->getDoctrine()->getRepository(Company::class);
+        $productRepository=$this->getDoctrine()->getRepository(Product::class);
+
+        $company = $companyRepository->findOneBy(['id'=>$id,'User'=>$this->getUser()]);
+        $products = $productRepository->findBy(['company'=>$company,'status'=>true]);
+
+        foreach($products as $product) {
+            if($product->getId() == $id_product) {
+                $response = new Response();
+                $response->setContent(json_encode(array(
+                    'id' => $product->getId(),
+                    'name' => $product->getName(),
+                    'iva' => $product->getProductIVA(),
+                    'price' => $product->getPrice(),
+                )));
+            }
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
 }

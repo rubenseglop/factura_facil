@@ -27,6 +27,33 @@
                                 <a href="{{ path('addNewBill', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
                             </div>
                             <div class="panel-search">
+                                <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchNumberBill">
+                                    <div class="form-group">
+                                        <label class="control-label" for="numberBill">Número de Factura</label>
+                                        <input class="form-control" type="text" name="numberBill" id="numberBill">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
+                                </form>
+                                <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDescription">
+                                    <div class="form-group">
+                                        <label class="control-label" for="description">Descripción de la Factura</label>
+                                        <input class="form-control" type="text" name="description" id="description">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
+                                </form>
+                                <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchClient">
+                                    <div class="form-group">
+                                        <label class="control-label" for="client">Cliente de la Factura</label>
+                                        <input class="form-control" type="text" name="client" id="client">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </div>
+                                </form>
                                 <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDate">
                                     <div class="form-group">
                                         <label class="control-label" for="start-date">Fecha Inicio</label>
@@ -69,7 +96,7 @@
                                             <td>{{ bill.totalInvoiceAmount }}€</td>
                                             <td><a href="{{ path('showPdfBill', {id: bill.id}) }}" target="_blank" class="show-pdf"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
                                             {% if counter < 2 %}
-                                                <td><a href="#"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
+                                                <td><a href="{{ path('editBill', {id: bill.id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
                                                 <td><a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
                                             {% endif %}
                                         </tr>
