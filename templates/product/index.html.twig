@@ -42,7 +42,7 @@
                                         <td><a href="{{ path('editProduct',{idProduct:p.id,id:company_id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
                                         <td><a href="{{ path('deleteProduct',{idProduct:p.id,id:company_id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
                                         </tr>
-
+                                        
                                     {% endfor %} 
                                 </tbody>
                             </table>
@@ -78,5 +78,5 @@
         
         <script src="{{ asset("js/menu-company.js") }}"></script>
 
-    {% endblock %}
+{% endblock %}
 {% endblock %}
