@@ -9,7 +9,7 @@ function loadPdf(url, invoice_number) {
 
         if(table_invoice_lines.children().children("tr").length > 1) {
             for(let i = 1; i < table_invoice_lines.children().children("tr").length; i++) {
-                console.log(table_invoice_lines.children().children("tr").eq(i).children("td").eq(0).text());
+                table_invoice_lines.children().children("tr").eq(i).children("td").eq(0).text();
             }
         }
 
