@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Bill;
 use App\Entity\BillLine;
+use App\Entity\Client;
 use App\Entity\Company;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +32,9 @@ class BillController extends AbstractController
             $bills = $billRepository->findByDateBill($_POST['start-date'], $_POST['end-date'], $id);
         }else if(isset($_POST['numberBill'])) {
             $bills = $billRepository->findByNumberBill($_POST['numberBill'],$id);
-        }else if(isset($_POST['description'])){
+        }else if(isset($_POST['description'])) {
             $bills = $billRepository->findByDescription($_POST['description'],$id);
-        }else if(isset($_POST['client'])){
+        }else if(isset($_POST['client'])) {
             $bills = $billRepository->findByClient($_POST['client'],$id);
         }else {
             $bills = $billRepository->findByIdCompany($id);
@@ -61,12 +62,12 @@ class BillController extends AbstractController
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);
         $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
         $companyRepository = $this->getDoctrine()->getRepository(Company::class);
+        $repositoryClient= $this->getDoctrine()->getRepository(Client::class);
         $productRepository=$this->getDoctrine()->getRepository(Product::class);
 
-        $company = $companyRepository->findOneBy(['id'=>$id,'User'=>$this->getUser()]);
-        $products = $productRepository->findBy(['company'=>$company,'status'=>true]);
-
-        $company = $companyRepository->findOneById($id);
+        $company = $companyRepository->findOneBy(['id'=>$id, 'User'=>$this->getUser()]);
+        $products = $productRepository->findBy(['company'=>$company, 'status'=>true]);
+        $clients = $repositoryClient->findBy(['company'=>$company, 'status'=>true]);
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ){
@@ -89,7 +90,8 @@ class BillController extends AbstractController
              'invoiceForm' =>$form->createView(),
              'bill' => $bill,
              'company_id' => $id,
-             'products' => $products
+             'products' => $products,
+             'clients' => $clients
         ]);
     }
 

@@ -322,6 +322,21 @@
     font-size: 18px;
 }
 
+.edit-delete {
+    margin: -6px 0px -6px;
+}
+
+.edit-lit {
+    margin-bottom: 4px;
+}
+
+.edit-lit, .delete-lit {
+    border-radius: 3px;
+    padding: 1px 6px;
+    color: #fff;
+    font-size: 15px;
+}
+
 .delete-little, .add-little {
     border-radius: 3px;
     padding: 4px 8px;
@@ -334,18 +349,26 @@
     border: 1px solid #707cd2;
 }
 
-.edit{
+.edit, .edit-lit {
     background: #ffc36d;
     border: 1px solid #ffc36d;
 }
 
-.delete, .delete-little {
+.delete, .delete-little, .delete-lit {
     background: #ff7676;
     border: 1px solid #ff7676;
 }
 
 .add-little:hover {
     cursor: pointer;
+}
+
+.th-lit {
+    font-size: 0.9rem;
+}
+
+.th-lit div {
+    margin: -8px 0px -8px;
 }
 
 
