@@ -72,7 +72,7 @@ class Company
     /**
      * @ORM\Column(type="integer")
      */
-    private $nextInvoiceNumber;
+    private $invoiceNumber;
 
     public function __construct()
     {
@@ -288,14 +288,14 @@ class Company
         return $this->name;
     }
 
-    public function getNextInvoiceNumber(): ?int
+    public function getInvoiceNumber(): ?int
     {
-        return $this->nextInvoiceNumber;
+        return $this->invoiceNumber;
     }
 
-    public function setNextInvoiceNumber(int $nextInvoiceNumber): self
+    public function setInvoiceNumber(int $invoiceNumber): self
     {
-        $this->nextInvoiceNumber = $nextInvoiceNumber;
+        $this->invoiceNumber = $invoiceNumber;
 
         return $this;
     }

@@ -198,6 +198,7 @@ class CompanyController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $newCompany->setStatus(true);
             $newCompany->setUser($this->getUser());
+            $newCompany->setInvoiceNumber(0);
             $entityManager->persist($newCompany);
             $entityManager->flush();
             return $this->redirectToRoute('companies');

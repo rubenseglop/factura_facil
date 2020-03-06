@@ -55,8 +55,8 @@ class BillController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $bill = new Bill();
-        $form = $this->createForm(AddNewBillType::class, $bill);
+        $invoice = new Bill();
+        $form = $this->createForm(AddNewBillType::class, $invoice);
         
         $entityManager = $this->getDoctrine()->getManager();
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);
@@ -73,22 +73,24 @@ class BillController extends AbstractController
         if( $form->isSubmitted() && $form->isValid() ){
 
             $entityManager = $this->getDoctrine()->getManager();
-            $bill = $form->getData();
-            $bill->setStatus(true);
-            $bill->setCompany($company);
-            $bill->setNumberBill(1221);
+            $invoice = $form->getData();
 
-            foreach($bill->getBillLines() as $billLine) {
-                $billLine->setBill($bill);
+            $invoice->setStatus(true);
+            $invoice->setCompany($company);
+            $invoice->setNumberBill($company->getInvoiceNumber() + 1);
+            $company->setInvoiceNumber($company->getInvoiceNumber() + 1);
+
+            foreach($invoice->getBillLines() as $billLine) {
+                $billLine->setBill($invoice);
             }
             
-            $entityManager->persist($bill);
+            $entityManager->persist($company);
+            $entityManager->persist($invoice);
             $entityManager->flush();
-            return $this->redirect('/'.$bill->getCompany()->getId().'/facturas/');
+            return $this->redirect('/'.$invoice->getCompany()->getId().'/facturas/');
         }
         return $this->render('form/addNewBill.html.twig', [
              'invoiceForm' =>$form->createView(),
-             'bill' => $bill,
              'company_id' => $id,
              'products' => $products,
              'clients' => $clients
