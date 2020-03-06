@@ -69,6 +69,11 @@ class Company
      */
     private $bills;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $invoiceNumber;
+
     public function __construct()
     {
         $this->socialNetWorks = new ArrayCollection();
@@ -281,6 +286,18 @@ class Company
 
     public function __toString(){
         return $this->name;
+    }
+
+    public function getInvoiceNumber(): ?int
+    {
+        return $this->invoiceNumber;
+    }
+
+    public function setInvoiceNumber(int $invoiceNumber): self
+    {
+        $this->invoiceNumber = $invoiceNumber;
+
+        return $this;
     }
 
 }

@@ -4,13 +4,13 @@
 function activeElement() {
     let url = window.location.pathname;
     let sections = document.getElementsByClassName("menu-company-elements")[0].getElementsByTagName("li");
-    var element = "option-invoice";
+    var element = "";
 
     if(url.includes("facturas") || url.includes("factura")) {
         element = "option-invoice";
-    }else if(url.includes("clientes")) {
+    }else if(url.includes("clientes") || url.includes("cliente")) {
         element = "option-clients";
-    }else if(url.includes("productos")) {
+    }else if(url.includes("productos") || url.includes("producto")) {
         element = "option-products";
     }else if(url.includes("empresa")) {
         element = "option-company";
@@ -26,7 +26,5 @@ function activeElement() {
 }
 
 window.onload = function() {
-
     activeElement();
-
 }

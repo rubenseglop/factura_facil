@@ -23,16 +23,16 @@
                                 <h3>Añadir Nueva Factura</h3>
                             </div>
                             <div class="panel-form invoice-form">
-                                {{ form_start(invoiceForm, {'method': 'post', 'attr': {'class': 'form'}}) }}
+                                {{ form_start(invoiceForm, {'method': 'post', 'attr': {'class': 'form', 'id': 'add_new_bill'}}) }}
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-sm-6 col-md-7 col-lg-8">
                                                 <div class="form-group">
                                                     <label for="add_new_bill_descriptionBill" class="control-label">Descripción</label>
                                                     {{ form_widget(invoiceForm.descriptionBill, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Descripción', 'rows':'4'} }) }}
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
                                                 <div class="form-group">
                                                     <label for="add_new_bill_dateBill" class="control-label">Fecha</label>
                                                     <div class="select-date-form">
@@ -43,7 +43,13 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="add_new_bill_client" class="control-label">Cliente</label>
-                                                    {{ form_widget(invoiceForm.client, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Cliente'} }) }}
+                                                    {{ form_widget(invoiceForm.client, { 'attr': {'class': 'form-control form-control-lg rounded-sm select-client-delete', 'placeholder':'Cliente', 'style': 'display: none'} }) }}
+                                                    <select id="add_new_bill_client" name="add_new_bill[client]" class="form-control form-control-lg rounded-sm search-select" placeholder="Cliente">
+                                                        <option value="null">----------</option>
+                                                        {% for client in clients %}
+                                                            <option value="{{ client.id }}">{{ client.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -65,7 +71,7 @@
                                                             <th scope="row">1</th>
                                                             <td>
                                                                 <select id="add_new_bill_billLines_1_product" name="add_new_bill[billLines][1][product]" class="form-control rounded-sm">
-                                                                    <option value="null">-------</option>
+                                                                    <option value="null">----------</option>
                                                                     {% for product in products %}
                                                                         <option value="{{ product.id }}">{{ product.name }}</option>
                                                                     {% endfor %}
@@ -73,42 +79,39 @@
                                                             </td>
                                                             <td><input id="add_new_bill_billLines_1_description" name="add_new_bill[billLines][1][description]" type="text" class="form-control rounded-sm" required></td>
                                                             <td><input min="1" id="add_new_bill_billLines_1_quantity" name="add_new_bill[billLines][1][quantity]" type="number" class="form-control rounded-sm invoice-quantity" required></td>
-                                                            <td><input min="0" id="add_new_bill_billLines_1_price" name="add_new_bill[billLines][1][price]" type="number" class="form-control rounded-sm invoice-price" required></td>
-                                                            <td><input min="0" id="add_new_bill_billLines_1_billLineIva" name="add_new_bill[billLines][1][billLineIva]" type="number" class="form-control rounded-sm" required></td>
-                                                            <td><input min="0" id="add_new_bill_billLines_1_subTotal" name="add_new_bill[billLines][1][subTotal]" type="number" class="form-control rounded-sm invoice-subtotal" disabled></td>
+                                                            <td><input min="0" id="add_new_bill_billLines_1_price" name="add_new_bill[billLines][1][price]" type="number" step=".01" class="form-control rounded-sm invoice-price" required></td>
+                                                            <td><input min="0" id="add_new_bill_billLines_1_billLineIva" name="add_new_bill[billLines][1][billLineIva]" step=".01" type="number" class="form-control rounded-sm invoice-iva" required></td>
+                                                            <td><input min="0" id="add_new_bill_billLines_1_subTotal" name="add_new_bill[billLines][1][subTotal]" type="number" step=".01" class="form-control rounded-sm invoice-subtotal" readonly></td>
                                                             <td><div class="delete-little"><i class="far fa-trash-alt"></i></div></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="col-sm-12">
-                                                
-                                            </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="add_new_bill_amountIVA" class="control-label">Importe I.V.A. (€)</label>
-                                                    {{ form_widget(invoiceForm.amountIVA, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'I.V.A total', 'disabled': 'true'} }) }}
+                                                    {{ form_widget(invoiceForm.amountIVA, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'I.V.A. total', 'readonly': 'true'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="add_new_bill_amountWithoutIVA" class="control-label">Importe sin I.V.A. (€)</label>
-                                                    {{ form_widget(invoiceForm.amountWithoutIVA, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Importe total', 'disabled': 'true'} }) }}
+                                                    {{ form_widget(invoiceForm.amountWithoutIVA, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Total sin I.V.A.', 'readonly': 'true'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="add_new_bill_totalInvoiceAmount" class="control-label">Importe total (€)</label>
-                                                    {{ form_widget(invoiceForm.totalInvoiceAmount, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Importe total', 'disabled': 'true'} }) }}
+                                                    {{ form_widget(invoiceForm.totalInvoiceAmount, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Total', 'readonly': 'true'} }) }}
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12" style="visibility: hidden">
+                                            <div class="col-sm-12" style="display: none">
                                                 {{ form_rest(invoiceForm) }}
                                             </div>
-                                            
                                             <div class="col-sm-12">
-                                                <div class="form-actions">
-                                                    <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-left">Crear factura</button>
+                                                <div class="form-actions" style="margin: 16px 0px 8px">
+                                                    <input class="btn btn-secundary" type="button" onclick="history.back()" name="back" value="Volver a facturas" id="back">
+                                                    <button type="submit" id="invoice_save" name="profile[save]" class="btn btn-primary float-right">Crear factura</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,8 +127,7 @@
 
     {% block javascripts %}
         {{ parent() }}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+        <script src="{{ asset("js/menu-company.js") }}"></script>
         <script src="{{ asset('js/addInvoice.js') }}"></script>
     {% endblock %}
 

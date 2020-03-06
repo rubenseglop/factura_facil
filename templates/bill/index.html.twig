@@ -79,8 +79,7 @@
                                         <th scope="col">Importe sin I.V.A.</th>
                                         <th scope="col">Importe Total</th>
                                         <th width="75px" scope="col">PDF</th>
-                                        <th width="75px" scope="col">Editar</th>
-                                        <th width="75px" scope="col">Eliminar</th>
+                                        <th class="th-lit" width="75px" scope="col"><div>Editar/ Eliminar</div></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,8 +95,12 @@
                                             <td>{{ bill.totalInvoiceAmount }}€</td>
                                             <td><a href="{{ path('showPdfBill', {id: bill.id}) }}" target="_blank" class="show-pdf"><button name="show" class="show"><i class="fas fa-file-pdf"></i></button></a></td>
                                             {% if counter < 2 %}
-                                                <td><a href="{{ path('editBill', {id: bill.id}) }}"><button name="edit" class="edit"><i class="fas fa-edit"></i></button></a></td>
-                                                <td><a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete"><i class="far fa-trash-alt"></i></button></a></td>
+                                                <td>
+                                                    <div class="edit-delete">
+                                                        <a href="{{ path('editBill', {id: bill.id}) }}"><button name="edit" class="edit-lit">Editar</button></a>
+                                                        <a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete-lit">Eliminar</button></a>
+                                                    </div>
+                                                </td>
                                             {% endif %}
                                         </tr>
                                     {% endfor %}

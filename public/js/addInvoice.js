@@ -2,6 +2,33 @@
 
 $(function() {
 
+    var amount_iva = 0;
+    var amount_without_iva = 0;
+    
+    function calculateAmountIva() {
+        amount_iva = amount_iva * 0;
+        $(".invoice-iva").each(function(element) {
+            if($(this).parent().parent().children("td").eq(5).children("input").val() != "") {
+                amount_iva = Number(amount_iva) + Number(parseFloat($(this).parent().parent().children("td").eq(5).children("input").val() * parseFloat($(this).val() / 100)).toFixed(2));
+            }
+        });
+        $("#add_new_bill_amountIVA").val(parseFloat(Number(amount_iva)).toFixed(2));
+        calculateTotalAmount();
+    }
+
+    function calculateAmountWhitoutIva() {
+        amount_without_iva = 0;
+        $(".invoice-subtotal").each(function(element) {
+            amount_without_iva = Number(amount_without_iva) + Number($(this).val());
+        });
+        $("#add_new_bill_amountWithoutIVA").val(parseFloat(Number(amount_without_iva)).toFixed(2));
+    }
+
+    function calculateTotalAmount() {
+        $("#add_new_bill_totalInvoiceAmount").val(parseFloat(Number(amount_iva) + Number(amount_without_iva)).toFixed(2));
+    }
+
+
     var lines = 1;
 
     $(".add-little").off().on("click", function() {
@@ -9,9 +36,9 @@ $(function() {
         var row =  '<tr>'+
             '<td><input id="add_new_bill_billLines_' +lines +'_description" name="add_new_bill[billLines][' +lines +'][description]" type="text" class="form-control rounded-sm" required></td>'+
             '<td><input min="1" id="add_new_bill_billLines_' +lines +'_quantity" name="add_new_bill[billLines][' +lines +'][quantity]" type="number" class="form-control rounded-sm invoice-quantity" required></td>'+
-            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_price" name="add_new_bill[billLines][' +lines +'][price]" type="number" class="form-control rounded-sm invoice-price" required></td>'+
-            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_billLineIva" name="add_new_bill[billLines][' +lines +'][billLineIva]" type="number" class="form-control rounded-sm" required></td>'+
-            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_subTotal" name="add_new_bill[billLines][' +lines +'][subTotal]" type="number" class="form-control rounded-sm invoice-subtotal" disabled></td>'+
+            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_price" name="add_new_bill[billLines][' +lines +'][price]" type="number" step=".01" class="form-control rounded-sm invoice-price" required></td>'+
+            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_billLineIva" name="add_new_bill[billLines][' +lines +'][billLineIva]" type="number" step=".01" class="form-control rounded-sm invoice-iva" required></td>'+
+            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_subTotal" name="add_new_bill[billLines][' +lines +'][subTotal]" type="number" step=".01" class="form-control rounded-sm invoice-subtotal" readonly></td>'+
             '<td><div class="delete-little"><i class="far fa-trash-alt"></i></div></td>'+
         '</tr>';
 
@@ -69,22 +96,30 @@ $(function() {
 
     $(".table-bordered").on("propertychange change click keyup input paste", ".invoice-price", function() {
         if($(this).parent().parent().children("td").eq(2).children("input").val() == "" ) {
-            $(this).parent().parent().children("td").eq(5).children("input").val($(this).val()).change();
+            $(this).parent().parent().children("td").eq(5).children("input").val(parseFloat(Number($(this).val()))).change();
         }else {
             var total = $(this).val() * $(this).parent().parent().children("td").eq(2).children("input").val();
-            $(this).parent().parent().children("td").eq(5).children("input").val(total).change();
+            $(this).parent().parent().children("td").eq(5).children("input").val(parseFloat(Number(total)).toFixed(2)).change();
         }
     });
 
     $(".table-bordered").on("propertychange change click keyup input paste", ".invoice-quantity", function() {
         if($(this).parent().parent().children("td").eq(3).children("input").val() != "" ) {
-            var total = $(this).val() * $(this).parent().parent().children("td").eq(3).children("input").val();
-            $(this).parent().parent().children("td").eq(5).children("input").val(total).change();
+            var total = parseFloat(Number($(this).val())).toFixed(2) * parseFloat(Number($(this).parent().parent().children("td").eq(3).children("input").val())).toFixed(2);
+            $(this).parent().parent().children("td").eq(5).children("input").val(parseFloat(Number(total)).toFixed(2)).change();
+        }
+    });
+
+    $(".table-bordered").on("propertychange change click keyup input paste", ".invoice-iva", function() {
+        if($(this).parent().parent().children("td").eq(5).children("input").val() != "" ) {
+            calculateAmountIva();
         }
     });
 
     $(".table-bordered").on("change", ".invoice-subtotal", function() {
-        $("#add_new_bill_amountWithoutIVA").val($(this).val());
+        calculateAmountWhitoutIva();
+        calculateAmountIva();
+        calculateTotalAmount();
     });
 
     $(".table-bordered").on("change", "select", function () {
@@ -107,10 +142,18 @@ $(function() {
         }
     });
 
+    $(".select-client-delete").remove();
+
+    $("#add_new_bill").off().on("submit", function(event) {
+        
+        var today = new Date();
+        var format_date = $("#add_new_bill_dateBill_month").val() +"/" +$("#add_new_bill_dateBill_day").val() +"/" +$("#add_new_bill_dateBill_year").val();
+        var form_date = new Date(format_date);
+
+        if(form_date > today) {
+            alert("La fecha introducida no puede ser mayor a la del día actual");
+            event.preventDefault();
+        }
+    });
     
 });
-
-function addBill() {
-
-}
-

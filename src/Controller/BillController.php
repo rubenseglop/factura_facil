@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Bill;
 use App\Entity\BillLine;
+use App\Entity\Client;
 use App\Entity\Company;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +32,9 @@ class BillController extends AbstractController
             $bills = $billRepository->findByDateBill($_POST['start-date'], $_POST['end-date'], $id);
         }else if(isset($_POST['numberBill'])) {
             $bills = $billRepository->findByNumberBill($_POST['numberBill'],$id);
-        }else if(isset($_POST['description'])){
+        }else if(isset($_POST['description'])) {
             $bills = $billRepository->findByDescription($_POST['description'],$id);
-        }else if(isset($_POST['client'])){
+        }else if(isset($_POST['client'])) {
             $bills = $billRepository->findByClient($_POST['client'],$id);
         }else {
             $bills = $billRepository->findByIdCompany($id);
@@ -54,42 +55,45 @@ class BillController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $bill = new Bill();
-        $form = $this->createForm(AddNewBillType::class, $bill);
+        $invoice = new Bill();
+        $form = $this->createForm(AddNewBillType::class, $invoice);
         
         $entityManager = $this->getDoctrine()->getManager();
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);
         $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
         $companyRepository = $this->getDoctrine()->getRepository(Company::class);
+        $repositoryClient= $this->getDoctrine()->getRepository(Client::class);
         $productRepository=$this->getDoctrine()->getRepository(Product::class);
 
-        $company = $companyRepository->findOneBy(['id'=>$id,'User'=>$this->getUser()]);
-        $products = $productRepository->findBy(['company'=>$company,'status'=>true]);
-
-        $company = $companyRepository->findOneById($id);
+        $company = $companyRepository->findOneBy(['id'=>$id, 'User'=>$this->getUser()]);
+        $products = $productRepository->findBy(['company'=>$company, 'status'=>true]);
+        $clients = $repositoryClient->findBy(['company'=>$company, 'status'=>true]);
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ){
 
             $entityManager = $this->getDoctrine()->getManager();
-            $bill = $form->getData();
-            $bill->setStatus(true);
-            $bill->setCompany($company);
-            $bill->setNumberBill(1221);
+            $invoice = $form->getData();
 
-            foreach($bill->getBillLines() as $billLine) {
-                $billLine->setBill($bill);
+            $invoice->setStatus(true);
+            $invoice->setCompany($company);
+            $invoice->setNumberBill($company->getInvoiceNumber() + 1);
+            $company->setInvoiceNumber($company->getInvoiceNumber() + 1);
+
+            foreach($invoice->getBillLines() as $billLine) {
+                $billLine->setBill($invoice);
             }
             
-            $entityManager->persist($bill);
+            $entityManager->persist($company);
+            $entityManager->persist($invoice);
             $entityManager->flush();
-            return $this->redirect('/'.$bill->getCompany()->getId().'/facturas/');
+            return $this->redirect('/'.$invoice->getCompany()->getId().'/facturas/');
         }
         return $this->render('form/addNewBill.html.twig', [
              'invoiceForm' =>$form->createView(),
-             'bill' => $bill,
              'company_id' => $id,
-             'products' => $products
+             'products' => $products,
+             'clients' => $clients
         ]);
     }
 

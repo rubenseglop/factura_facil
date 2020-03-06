@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\BillLine;
+use Doctrine\DBAL\Types\FloatType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AddNewBillLineType extends AbstractType
 {
@@ -15,7 +16,7 @@ class AddNewBillLineType extends AbstractType
         $builder
             ->add('description')
             ->add('quantity')
-            ->add('price')
+            ->add('price', NumberType::class)
             ->add('billLineIva')
             ->add('subTotal')
             ->add('product')

@@ -30,7 +30,7 @@ class ClientController extends AbstractController
                 'controller_name' => 'ClientController',
                 'client' => $client, 
                 'company_id'=> $id
-        ]);
+            ]);
         }
     }
 
@@ -77,7 +77,7 @@ class ClientController extends AbstractController
     /**
      * @Route("{id}/editar-cliente/{id_client}", name="editar")
      */
-    public function edit($id, Request $request, $id_client){
+    public function edit($id, Request $request, $id_client) {
         $client2 = new Client();
         $form = $this->createForm(EditClientType::class, $client2);
 

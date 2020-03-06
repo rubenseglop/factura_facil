@@ -91,4 +91,9 @@
         </div>
     </div>
 
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset("js/menu-company.js") }}"></script>
+    {% endblock %}
+
 {% endblock %}
