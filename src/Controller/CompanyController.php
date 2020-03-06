@@ -57,8 +57,7 @@ class CompanyController extends AbstractController
                 //$company->setNIF($company->getNIF());
                 $entityManager->persist($socialnetwork);
                 $entityManager->flush();
-                return $this->redirectToRoute('companies');
-
+                return $this->redirect('editar-empresa?id='.$_GET['id']);
             }
             return $this->render('company/addSocialNetwork.html.twig', [
                 'addSocialNetwork_form' => $formSocial->createView(),
@@ -84,7 +83,7 @@ class CompanyController extends AbstractController
             $entityManager->persist($company);
             $entityManager->persist($social);
             $entityManager->flush();
-            return $this->redirectToRoute('companies');
+            return $this->redirect('editar-empresa?id='.$_GET['idC']);
             //return $this->redirectToRoute('showCompany',['id' => $_GET['idC']]);
         }
     }
