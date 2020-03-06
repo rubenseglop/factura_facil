@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200306115636 extends AbstractMigration
+final class Version20200306121607 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,6 +24,7 @@ final class Version20200306115636 extends AbstractMigration
 
         $this->addSql('ALTER TABLE bill CHANGE client_id client_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE bill_line CHANGE product_id product_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE company ADD invoice_number INT NOT NULL');
         $this->addSql('ALTER TABLE extra_user_data CHANGE dni dni VARCHAR(255) DEFAULT NULL, CHANGE birth_date birth_date DATE DEFAULT NULL, CHANGE phone_number phone_number VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE user CHANGE roles roles JSON NOT NULL');
     }
@@ -35,6 +36,7 @@ final class Version20200306115636 extends AbstractMigration
 
         $this->addSql('ALTER TABLE bill CHANGE client_id client_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE bill_line CHANGE product_id product_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE company DROP invoice_number');
         $this->addSql('ALTER TABLE extra_user_data CHANGE dni dni VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE birth_date birth_date DATE DEFAULT \'NULL\', CHANGE phone_number phone_number VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE user CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
