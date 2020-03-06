@@ -9,6 +9,7 @@ use App\Entity\Company;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddClientType;
 use App\Form\EditClientType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ClientController extends AbstractController
 {
@@ -74,15 +75,15 @@ class ClientController extends AbstractController
     
     // Formulario para editar los datos del cliente
     /**
-     * @Route("{id}/editar", name="editar")
+     * @Route("{id}/editar-cliente/{id_client}", name="editar")
      */
-    public function edit($id, Request $request){
+    public function edit($id, Request $request, $id_client){
         $client2 = new Client();
         $form = $this->createForm(EditClientType::class, $client2);
 
         $entityManager = $this->getDoctrine()->getManager();
         $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
-        $client = $repositoryClient->findOneById($id);
+        $client = $repositoryClient->findOneById($id_client);
 
         $form->handleRequest($request);
 
@@ -120,7 +121,10 @@ class ClientController extends AbstractController
             $entityManager->flush();
             return $this->redirect('/'.$client->getCompany()->getId().'/clientes/');
         }
-        return $this->render('form/editclient.html.twig', [ 'registrationForm' =>$form->createView() ]);
+        return $this->render('form/editclient.html.twig', [ 
+            'registrationForm' => $form->createView(),
+            'company_id' => $id
+        ]);
     }
     
 

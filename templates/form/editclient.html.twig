@@ -1,56 +1,100 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
-    {% block stylesheets %}
-        {{ parent() }}
-        <link rel="stylesheet" href="{{ asset("css/main.css") }}">
-    {% endblock %}
+{% block title %}Editar Cliente{% endblock %}
+
 {% block body %}
-   
 
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
 
-<main>
-    
-    <header>
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
 
-        <div id="cabecera">
-            <img src="{{asset("img/logo1.png")}}" alt="Logo" id="logo">
-            <h1>Factura Fácil</h1>
-                <a href="#"><img src="{{asset("img/avatar.png")}}" alt="Avatar"/></a>
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel panel-table">
+                            <div class="card-header">
+                                <h3>Editar Cliente</h3>
+                            </div>
+                            <div class="panel-form invoice-form">
+                                {{ form_start(registrationForm, {'method': 'post', 'attr': {'class': 'form'}}) }}
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="edit_client_name" class="control-label">Nombre</label>
+                                                    {{ form_widget(registrationForm.name, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="edit_client_email" class="control-label">Email</label>
+                                                    {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="edit_client_phone" class="control-label">Teléfono</label>
+                                                    {{ form_widget(registrationForm.phone, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="edit_client_fiscalAdress" class="control-label">Dirección Fiscal</label>
+                                                    {{ form_widget(registrationForm.fiscalAdress, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="edit_client_NIF" class="control-label">NIF</label>
+                                                    {{ form_widget(registrationForm.NIF, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="edit_client_web" class="control-label">Web</label>
+                                                    {{ form_widget(registrationForm.web, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="edit_client_bossName" class="control-label">Nombre del Responsable</label>
+                                                    {{ form_widget(registrationForm.bossName, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="edit_client_bossPhone" class="control-label">Teléfono del Responsable</label>
+                                                    {{ form_widget(registrationForm.bossPhone, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" style="visibility: hidden">
+                                                {{ form_rest(registrationForm) }}
+                                            </div>
+                                            
+                                            <div class="col-sm-12">
+                                                <div class="form-actions">
+                                                    <input class="btn btn-secundary" type="button" onclick="history.back()" name="Back" value="Volver" id="backE">
+                                                    <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-right">Crear cliente</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{ form_end(registrationForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-    </header>
+    {% block footer_javascripts %}
+        
+        <script src="{{ asset("js/ClientValidator.js") }}"></script>
 
-    
-    <section id="sectionEdit">
-        <h1>Editar Datos Cliente</h1>
-        <div id="Edit">
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.name) }}
-            {{ form_row(registrationForm.fiscalAdress) }}
-            {{ form_row(registrationForm.NIF) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.phone) }}
-            {{ form_row(registrationForm.web) }}
-            {{ form_row(registrationForm.bossName) }}
-            {{ form_row(registrationForm.bossPhone) }}
-        {{ form_end(registrationForm) }}
-        </div>
-    </section>
+    {% endblock %}
 
-    
-
-    <aside id="menu">
-        <a href="#"><h2>Mi Empresa</h2></a>
-        <a href="#"><h2>Productos</h2></a>
-        <a href="#"><h2>Facturas</h2></a>
-        <a href="#"><h2>Clientes</h2></a>
-        <a href="#"><h2>Mi Perfil</h2></a>
-    </aside>
-    
-    
-</main>
-
-<!--Botón para volver a la última página visitada-->
-<input type="button" onclick="history.back()" name="Back" value="Back" id="backE">
 {% endblock %}
