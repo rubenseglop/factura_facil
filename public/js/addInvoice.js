@@ -145,15 +145,14 @@ $(function() {
     $(".select-client-delete").remove();
 
     $("#add_new_bill").off().on("submit", function(event) {
-        event.preventDefault();
+        
         var today = new Date();
         var format_date = $("#add_new_bill_dateBill_month").val() +"/" +$("#add_new_bill_dateBill_day").val() +"/" +$("#add_new_bill_dateBill_year").val();
         var form_date = new Date(format_date);
 
         if(form_date > today) {
             alert("La fecha introducida no puede ser mayor a la del día actual");
-        }else {
-            alert("Fecha correcta");
+            event.preventDefault();
         }
     });
     
