@@ -24,49 +24,49 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_name" class="control-label">Nombre</label>
+                                                    <label for="edit_client_name" class="control-label">Nombre</label>
                                                     {{ form_widget(registrationForm.name, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_email" class="control-label">Email</label>
+                                                    <label for="edit_client_email" class="control-label">Email</label>
                                                     {{ form_widget(registrationForm.email, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_phone" class="control-label">Teléfono</label>
+                                                    <label for="edit_client_phone" class="control-label">Teléfono</label>
                                                     {{ form_widget(registrationForm.phone, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_fiscalAdress" class="control-label">Dirección Fiscal</label>
+                                                    <label for="edit_client_fiscalAdress" class="control-label">Dirección Fiscal</label>
                                                     {{ form_widget(registrationForm.fiscalAdress, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_NIF" class="control-label">NIF</label>
+                                                    <label for="edit_client_NIF" class="control-label">NIF</label>
                                                     {{ form_widget(registrationForm.NIF, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_web" class="control-label">Web</label>
+                                                    <label for="edit_client_web" class="control-label">Web</label>
                                                     {{ form_widget(registrationForm.web, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_bossName" class="control-label">Nombre del Responsable</label>
+                                                    <label for="edit_client_bossName" class="control-label">Nombre del Responsable</label>
                                                     {{ form_widget(registrationForm.bossName, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="add_new_client_bossPhone" class="control-label">Teléfono del Responsable</label>
+                                                    <label for="edit_client_bossPhone" class="control-label">Teléfono del Responsable</label>
                                                     {{ form_widget(registrationForm.bossPhone, { 'attr': {'class': 'form-control form-control-lg rounded-sm'} }) }}
                                                 </div>
                                             </div>
@@ -91,9 +91,10 @@
         </div>
     </div>
 
-    {% block javascripts %}
-        {{ parent() }}
-        <script src="{{ asset("js/menu-company.js") }}"></script>
+    {% block footer_javascripts %}
+        
+        <script src="{{ asset("js/ClientValidator.js") }}"></script>
+
     {% endblock %}
 
 {% endblock %}
