@@ -66,6 +66,7 @@ class Bill
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client")
+     * * @ORM\JoinColumn(nullable=true)
      */
     private $client;
 

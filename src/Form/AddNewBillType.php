@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Bill;
+use App\Entity\Client;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -20,7 +22,11 @@ class AddNewBillType extends AbstractType
             ->add('amountIVA')
             ->add('amountWithoutIVA')
             ->add('totalInvoiceAmount')
-            ->add('client')
+            ->add('client', EntityType::class, [
+                'class' => Client::class,
+                'required' => false,
+                'empty_data' => null,
+            ])
             ->add('billLines', CollectionType::class, [
                   'entry_type' => AddNewBillLineType::class,
                   'entry_options' => ['label' => false],

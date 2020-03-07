@@ -11,7 +11,6 @@ use App\Entity\Company;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddNewBillType;
-use App\Form\EditBillType;
 use Symfony\Component\HttpFoundation\Response;
 
 class BillController extends AbstractController
@@ -89,51 +88,68 @@ class BillController extends AbstractController
             $entityManager->flush();
             return $this->redirect('/'.$invoice->getCompany()->getId().'/facturas/');
         }
-        return $this->render('form/addNewBill.html.twig', [
+        return $this->render('form/invoice_form.html.twig', [
              'invoiceForm' =>$form->createView(),
              'company_id' => $id,
              'products' => $products,
-             'clients' => $clients
+             'clients' => $clients,
+             'title' => "Añadir Nueva Factura",
+             'send' => "Crear factura"
         ]);
     }
 
     // Formulario para editar los datos de una factura
     /**
-     * @Route("{id}/editBill", name="editBill")
+     * @Route("{id}/editar-factura/{invoice_id}", name="editBill")
      */
-    public function edit($id, Request $request){
-        $bill2 = new bill();
-        $billLine2 = new billLine();
-        $form = $this->createForm(EditBillType::class, $bill2);
+    public function edit($id, Request $request, $invoice_id){
 
-        $entityManager = $this->getDoctrine()->getManager();
         $billRepository = $this->getDoctrine()->getRepository(Bill::class);
-        $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
         $companyRepository = $this->getDoctrine()->getRepository(Company::class);
-        $bill = $billRepository->findOneById($id);
-        $billLine = $billLineRepository->findByBill($bill->getId());
+        $repositoryClient = $this->getDoctrine()->getRepository(Client::class);
+        $productRepository = $this->getDoctrine()->getRepository(Product::class);
+        $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
+        
+        $company = $companyRepository->findOneBy(['id'=>$id,'User'=>$this->getUser()]);
+        $products = $productRepository->findBy(['company'=>$company,'status'=>true]);
+        $clients = $repositoryClient->findBy(['company'=>$company, 'status'=>true]);
+        $invoice = $billRepository->findOneById($invoice_id);
+        $invoice_lines = $billLineRepository->findBy(['bill' => $invoice]);
+        
+        $form = $this->createForm(AddNewBillType::class, $invoice);
 
         $form->handleRequest($request);
 
         if( $form->isSubmitted() && $form->isValid() ){
-            
-            $entityManager = $this->getDoctrine()->getManager();
-            $bill2 = $form->getData();
 
-            if($bill2->getDescriptionBill() != $bill->getDescriptionBill() || $bill2->getDescriptionBill() != ""){
-                $bill->setDescriptionBill($bill2->getDescriptionBill());
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $invoice = $form->getData();
+
+            foreach($invoice->getBillLines() as $billLine) {
+                if($billLine->getId() == null) {
+                    $billLine->setBill($invoice);
+                }
             }
-            if($bill2->getClient() != $bill->getClient() || $bill2->getClient() != ""){
-                $bill->setClient($bill2->getClient());
-            }
-            $entityManager->persist($bill);
+
+            $entityManager->persist($invoice);
             $entityManager->flush();
-            return $this->redirect('/'.$bill->getCompany()->getId().'/facturas/');
+            return $this->redirect('/'.$invoice->getCompany()->getId().'/facturas/');
         }
-        return $this->render('form/editBill.html.twig', [ 
+
+        foreach($invoice->getBillLines() as $billLine) {
+            $invoice->removeBillLine($billLine);
+        }
+
+        return $this->render('form/invoice_form.html.twig', [ 
             'invoiceForm' =>$form->createView(),
-            'bill' => $bill,
-            'company_id' => $id, 
+            'company_id' => $id,
+            'products' => $products,
+            'clients' => $clients,
+            'invoice' => $invoice,
+            'invoice_lines' => $invoice_lines,
+            'title' => "Editar Factura - Nº ".$invoice->getNumberBill(),
+            'send' => "Actualizar"
         ]);
     }
 
@@ -201,6 +217,65 @@ class BillController extends AbstractController
                     'price' => $product->getPrice(),
                 )));
             }
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * 
+     * @Route("{id}/editar-factura/{invoice_id}/linea-producto/{id_product}", name="getProductLine2")
+     */
+    public function getProductLine2($id, $id_product) {
+
+        $companyRepository = $this->getDoctrine()->getRepository(Company::class);
+        $productRepository=$this->getDoctrine()->getRepository(Product::class);
+
+        $company = $companyRepository->findOneBy(['id'=>$id,'User'=>$this->getUser()]);
+        $products = $productRepository->findBy(['company'=>$company,'status'=>true]);
+
+        foreach($products as $product) {
+            if($product->getId() == $id_product) {
+                $response = new Response();
+                $response->setContent(json_encode(array(
+                    'id' => $product->getId(),
+                    'name' => $product->getName(),
+                    'iva' => $product->getProductIVA(),
+                    'price' => $product->getPrice(),
+                )));
+            }
+        }
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * 
+     * @Route("{id}/editar-factura/{invoice_id}/borrar-linea-producto/{id_invoice_line}", name="removeInvoiceLine")
+     */
+    public function removeInvoiceLine($id_invoice_line, $invoice_id) {
+
+        $billLineRepository = $this->getDoctrine()->getRepository(BillLine::class);
+        
+        $invoice_line = $billLineRepository->findById($id_invoice_line);
+
+        $response = new Response();
+
+        if($invoice_line != null) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($invoice_line);
+            $entityManager->flush();
+           
+            $response->setContent(json_encode(array(
+                'result' => 'ok'
+            )));
+        }else {
+            $response->setContent(json_encode(array(
+                'result' => 'error'
+            )));
         }
 
         $response->headers->set('Content-Type', 'application/json');

@@ -17,7 +17,7 @@ class BillLine
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=600)
      */
     private $description;
 

@@ -1,0 +1,218 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nueva Factura{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
+
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel panel-table">
+                            <div class="card-header">
+                                <h3>{{ title }}</h3>
+                            </div>
+                            <div class="panel-form invoice-form">
+                                {{ form_start(invoiceForm, {'method': 'post', 'attr': {'class': 'form', 'id': 'add_new_bill'}}) }}
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-7 col-lg-8">
+                                                <div class="form-group">
+                                                    <label for="add_new_bill_descriptionBill" class="control-label">Descripción</label>
+                                                    {{ form_widget(invoiceForm.descriptionBill, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Descripción', 'rows':'4'} }) }}
+                                                    <div>
+                                                        {% for errorItem in invoiceForm.descriptionBill.vars.errors %}
+                                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="add_new_bill_dateBill" class="control-label">Fecha</label>
+                                                    <div class="select-date-form">
+                                                        {{ form_widget(invoiceForm.dateBill.day, { 'attr': {'class': 'form-control'}, 'empty_data': '1' }) }}
+                                                        {{ form_widget(invoiceForm.dateBill.month, { 'attr': {'class': 'form-control'} }) }}
+                                                        {{ form_widget(invoiceForm.dateBill.year, { 'attr': {'class': 'form-control'} }) }}
+                                                    </div>
+                                                    <div>
+                                                        {% for errorItem in invoiceForm.dateBill.vars.errors %}
+                                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="add_new_bill_client" class="control-label">Cliente</label>
+                                                    {{ form_widget(invoiceForm.client, { 'attr': {'class': 'form-control form-control-lg rounded-sm select-client-delete', 'placeholder':'Cliente', 'style': 'display: none'} }) }}
+                                                    <select id="add_new_bill_client" name="add_new_bill[client]" class="form-control form-control-lg rounded-sm search-select" placeholder="Cliente">
+                                                        {% if invoice.client is defined and invoice.client != null %}
+                                                            <option value="{{ invoice.client.id }}">{{ invoice.client.name }}</option>
+                                                            <option value>----------</option>
+                                                        {% else %}
+                                                            <option value>----------</option>
+                                                        {% endif %}
+                                                        
+                                                        {% for client in clients %}
+                                                            {% if invoice.client is defined and invoice.client != null %}
+                                                                {% if invoice.client.id != client.id %}
+                                                                    <option value="{{ client.id }}">{{ client.name }}</option>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <option value="{{ client.id }}">{{ client.name }}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div>
+                                                        {% for errorItem in invoiceForm.client.vars.errors %}
+                                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Producto</th>
+                                                            <th scope="col">Concepto</th>
+                                                            <th scope="col">Cantidad</th>
+                                                            <th scope="col">Precio(€)</th>
+                                                            <th scope="col">I.V.A.(%)</th>
+                                                            <th scope="col"> Total Línea(€)</th>
+                                                            <th><div class="add-little"><i class="fas fa-plus"></i></div></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% if invoice_lines is defined and invoice_lines|length > 0 %}
+                                                            {% set counter = 0 %}
+                                                            {% for line  in invoice_lines %}
+                                                                <tr>
+                                                                    <th scope="row">{{ counter + 1 }}</th>
+                                                                    <td>
+                                                                        <select id="add_new_bill_billLines_{{ counter }}_product" name="add_new_bill[billLines][{{ counter }}][product]" class="form-control rounded-sm" readonly>
+                                                                            {% if line.product is defined and line.product != null %}
+                                                                                <option value="{{ line.product.id }}">{{ line.product.name }}</option>
+                                                                                <option value>----------</option>
+                                                                            {% else %}
+                                                                                <option value>----------</option>
+                                                                            {% endif %}
+
+                                                                            {% for product in products %}
+                                                                                {% if line.product is defined and line.product != null %}
+                                                                                    {% if line.product.id != product.id %}
+                                                                                        <option value="{{ product.id }}">{{ product.name }}</option>
+                                                                                    {% endif %}
+                                                                                {% else %}
+                                                                                    <option value="{{ product.id }}">{{ product.name }}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><input value="{{ line.description }}" id="add_new_bill_billLines_{{ counter }}_description" name="add_new_bill[billLines][{{ counter }}][description]" type="text" class="form-control rounded-sm" readonly></td>
+                                                                    <td><input value="{{ line.quantity }}" min="1" id="add_new_bill_billLines_{{ counter }}_quantity" name="add_new_bill[billLines][{{ counter }}][quantity]" type="number" class="form-control rounded-sm invoice-quantity" readonly></td>
+                                                                    <td><input value="{{ line.price }}" min="0" id="add_new_bill_billLines_{{ counter }}_price" name="add_new_bill[billLines][{{ counter }}][price]" type="number" step=".01" class="form-control rounded-sm invoice-price" readonly></td>
+                                                                    <td><input value="{{ line.billLineIva }}" min="0" id="add_new_bill_billLines_{{ counter }}_billLineIva" name="add_new_bill[billLines][{{ counter }}][billLineIva]" step=".01" type="number" class="form-control rounded-sm invoice-iva" readonly></td>
+                                                                    <td><input value="{{ line.subTotal }}" min="0" id="add_new_bill_billLines_{{ counter }}_subTotal" name="add_new_bill[billLines][{{ counter }}][subTotal]" type="number" step=".01" class="form-control rounded-sm invoice-subtotal" readonly></td>
+                                                                    <td><div class="delete-little"><i class="far fa-trash-alt"></i></div><input type="hidden" value="{{ line.id }}"></td>
+                                                                </tr>
+                                                                {% set counter = counter + 1 %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <tr>
+                                                                <th scope="row">0</th>
+                                                                <td>
+                                                                    <select id="add_new_bill_billLines_0_product" name="add_new_bill[billLines][0][product]" class="form-control rounded-sm">
+                                                                        <option value="null">----------</option>
+                                                                        {% for product in products %}
+                                                                            <option value="{{ product.id }}">{{ product.name }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </td>
+                                                                <td><input id="add_new_bill_billLines_0_description" name="add_new_bill[billLines][0][description]" type="text" class="form-control rounded-sm" required></td>
+                                                                <td><input min="1" id="add_new_bill_billLines_0_quantity" name="add_new_bill[billLines][0][quantity]" type="number" class="form-control rounded-sm invoice-quantity" required></td>
+                                                                <td><input min="0" id="add_new_bill_billLines_0_price" name="add_new_bill[billLines][0][price]" type="number" step=".01" class="form-control rounded-sm invoice-price" required></td>
+                                                                <td><input min="0" id="add_new_bill_billLines_0_billLineIva" name="add_new_bill[billLines][0][billLineIva]" step=".01" type="number" class="form-control rounded-sm invoice-iva" required></td>
+                                                                <td><input min="0" id="add_new_bill_billLines_0_subTotal" name="add_new_bill[billLines][0][subTotal]" type="number" step=".01" class="form-control rounded-sm invoice-subtotal" readonly></td>
+                                                                <td><div class="delete-little"><i class="far fa-trash-alt"></i></div><input type="hidden" value="-1"></td>
+                                                            </tr>
+                                                        {% endif %}
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <div>
+                                                    {% for errorItem in invoiceForm.billLines.vars.errors %}
+                                                        <span class="help-inline">{{ errorItem.message }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="add_new_bill_amountIVA" class="control-label">Importe I.V.A. (€)</label>
+                                                    {{ form_widget(invoiceForm.amountIVA, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'I.V.A. total', 'readonly': 'true'} }) }}
+                                                    <div>
+                                                        {% for errorItem in invoiceForm.amountIVA.vars.errors %}
+                                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="add_new_bill_amountWithoutIVA" class="control-label">Importe sin I.V.A. (€)</label>
+                                                    {{ form_widget(invoiceForm.amountWithoutIVA, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Total sin I.V.A.', 'readonly': 'true'} }) }}
+                                                    <div>
+                                                        {% for errorItem in invoiceForm.amountIVA.vars.errors %}
+                                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="add_new_bill_totalInvoiceAmount" class="control-label">Importe total (€)</label>
+                                                    {{ form_widget(invoiceForm.totalInvoiceAmount, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Total', 'readonly': 'true'} }) }}
+                                                    <div>
+                                                        {% for errorItem in invoiceForm.amountIVA.vars.errors %}
+                                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" style="display: none">
+                                                {{ form_rest(invoiceForm) }}
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-actions" style="margin: 16px 0px 8px">
+                                                    <input class="btn btn-secundary" type="button" onclick="history.back()" name="back" value="Volver a facturas" id="back">
+                                                    <button type="submit" id="invoice_save" name="profile[save]" class="btn btn-primary float-right">{{ send }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{ form_end(invoiceForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset("js/menu-company.js") }}"></script>
+        <script src="{{ asset('js/addInvoice.js') }}"></script>
+    {% endblock %}
+
+{% endblock %}

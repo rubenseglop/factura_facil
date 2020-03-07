@@ -4,6 +4,9 @@ $(function() {
 
     var amount_iva = 0;
     var amount_without_iva = 0;
+    var lines = 1;
+
+    lines = Number($("tbody").children('tr').last().children("th").eq(0).text());
     
     function calculateAmountIva() {
         amount_iva = amount_iva * 0;
@@ -28,37 +31,10 @@ $(function() {
         $("#add_new_bill_totalInvoiceAmount").val(parseFloat(Number(amount_iva) + Number(amount_without_iva)).toFixed(2));
     }
 
-
-    var lines = 1;
-
-    $(".add-little").off().on("click", function() {
-        lines += 1;
-        var row =  '<tr>'+
-            '<td><input id="add_new_bill_billLines_' +lines +'_description" name="add_new_bill[billLines][' +lines +'][description]" type="text" class="form-control rounded-sm" required></td>'+
-            '<td><input min="1" id="add_new_bill_billLines_' +lines +'_quantity" name="add_new_bill[billLines][' +lines +'][quantity]" type="number" class="form-control rounded-sm invoice-quantity" required></td>'+
-            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_price" name="add_new_bill[billLines][' +lines +'][price]" type="number" step=".01" class="form-control rounded-sm invoice-price" required></td>'+
-            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_billLineIva" name="add_new_bill[billLines][' +lines +'][billLineIva]" type="number" step=".01" class="form-control rounded-sm invoice-iva" required></td>'+
-            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_subTotal" name="add_new_bill[billLines][' +lines +'][subTotal]" type="number" step=".01" class="form-control rounded-sm invoice-subtotal" readonly></td>'+
-            '<td><div class="delete-little"><i class="far fa-trash-alt"></i></div></td>'+
-        '</tr>';
-
-        var counter = '<th scope="row">' +lines +'</th>';
-
-        var select = $("tbody").children('tr').first().children('td').first();
-        var name = "add_new_bill[billLines][" +lines +"][product]";
-        var id = "add_new_bill_billLines_" +lines +"_product";
-
-        $(this).parent().parent().parent().parent().children("tbody").append(row);
-        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().prepend("<td></td>");
-        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().children("td").first().prepend(select.html());
-        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().children('td').first().find("select").attr('name', name).attr('id', id);
-        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().prepend(counter);
-    });
-
-    $(".table-bordered").off().on("click", ".delete-little", function() {
+    function deleteLine(remove_bt) {
         if(lines > 1) {
             lines -= 1;
-            $(this).parent().parent().remove();
+            remove_bt.parent().parent().remove();
 
             for(let i = 0; i < $("tbody tr").length; i++) {
                 $("tbody tr:nth-child(" +(i+1) +")").children("th").eq(0).text((i+1));
@@ -92,6 +68,48 @@ $(function() {
                 }   
             }
         }
+    }
+
+    $(".add-little").off().on("click", function() {
+        lines += 1;
+        var row =  '<tr>'+
+            '<td><input id="add_new_bill_billLines_' +lines +'_description" name="add_new_bill[billLines][' +lines +'][description]" type="text" class="form-control rounded-sm" required></td>'+
+            '<td><input min="1" id="add_new_bill_billLines_' +lines +'_quantity" name="add_new_bill[billLines][' +lines +'][quantity]" type="number" class="form-control rounded-sm invoice-quantity" required></td>'+
+            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_price" name="add_new_bill[billLines][' +lines +'][price]" type="number" step=".01" class="form-control rounded-sm invoice-price" required></td>'+
+            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_billLineIva" name="add_new_bill[billLines][' +lines +'][billLineIva]" type="number" step=".01" class="form-control rounded-sm invoice-iva" required></td>'+
+            '<td><input min="0" id="add_new_bill_billLines_' +lines +'_subTotal" name="add_new_bill[billLines][' +lines +'][subTotal]" type="number" step=".01" class="form-control rounded-sm invoice-subtotal" readonly></td>'+
+            '<td><div class="delete-little"><i class="far fa-trash-alt"></i></div><input type="hidden" value="-1"></td>'+
+        '</tr>';
+
+        var counter = '<th scope="row">' +lines +'</th>';
+
+        var select = $("tbody").children('tr').first().children('td').first();
+        var name = "add_new_bill[billLines][" +lines +"][product]";
+        var id = "add_new_bill_billLines_" +lines +"_product";
+
+        $(this).parent().parent().parent().parent().children("tbody").append(row);
+        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().prepend("<td></td>");
+        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().children("td").first().prepend(select.html());
+        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().children('td').first().find("select").attr('name', name).attr('id', id);
+        $(this).parent().parent().parent().parent().children("tbody").children('tr').last().prepend(counter);
+    });
+
+    $(".table-bordered").off().on("click", ".delete-little", function() {
+        let line_id = $(this).parent().children("input").eq(0).val();
+        var remove_bt = $(this);
+
+        if(line_id != -1) {
+            var url = window.location.pathname +"/borrar-linea-producto/" +line_id;
+    
+            $.ajax(url).done(function(response) {
+                if(response.result == "ok") {
+                    deleteLine(remove_bt);
+                }
+            });
+        }else {
+            deleteLine(remove_bt);
+        }
+        
     });
 
     $(".table-bordered").on("propertychange change click keyup input paste", ".invoice-price", function() {

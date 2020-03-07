@@ -47,6 +47,17 @@ class BillLineRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findById($id): ?BillLine
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function findByBill($value): array
     {
         return $this->createQueryBuilder('b')
@@ -56,4 +67,6 @@ class BillLineRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+
 }

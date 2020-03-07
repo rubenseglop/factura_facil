@@ -27,7 +27,7 @@
                                 <a href="{{ path('addNewBill', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
                             </div>
                             <div class="panel-search">
-                                <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchNumberBill">
+                                {# <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchNumberBill">
                                     <div class="form-group">
                                         <label class="control-label" for="numberBill">Número de Factura</label>
                                         <input class="form-control" type="text" name="numberBill" id="numberBill">
@@ -53,7 +53,7 @@
                                     <div class="form-actions">
                                         <button class="btn btn-primary" type="submit">Buscar</button>
                                     </div>
-                                </form>
+                                </form> #}
                                 <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDate">
                                     <div class="form-group">
                                         <label class="control-label" for="start-date">Fecha Inicio</label>
@@ -74,7 +74,6 @@
                                     <tr>
                                         <th scope="col">Nº Factura</th>
                                         <th scope="col">Fecha</th>
-                                        <th scope="col">Descripción</th>
                                         <th scope="col">Importe I.V.A.</th>
                                         <th scope="col">Importe sin I.V.A.</th>
                                         <th scope="col">Importe Total</th>
@@ -89,7 +88,6 @@
                                         <tr>
                                             <td>{{ bill.numberBill }}</td>
                                             <td>{{ bill.dateBill|date("d/m/Y") }}</td>
-                                            <td>{{ bill.descriptionBill }}</td>
                                             <td>{{ bill.amountIVA }}€</td>
                                             <td>{{ bill.amountWithoutIVA }}€</td>
                                             <td>{{ bill.totalInvoiceAmount }}€</td>
@@ -97,7 +95,7 @@
                                             {% if counter < 2 %}
                                                 <td>
                                                     <div class="edit-delete">
-                                                        <a href="{{ path('editBill', {id: bill.id}) }}"><button name="edit" class="edit-lit">Editar</button></a>
+                                                        <a href="{{ path('editBill', {id: company_id, invoice_id: bill.id}) }}"><button name="edit" class="edit-lit">Editar</button></a>
                                                         <a href="{{ path('deleteBill', {id: bill.id}) }}"><button name="delete" class="delete-lit">Eliminar</button></a>
                                                     </div>
                                                 </td>
