@@ -34,7 +34,7 @@ class BillController extends AbstractController
             $total = true;
         }else if(isset($_POST['numberBill'])) {
             $bills = $billRepository->findByNumberBill($_POST['numberBill'],$id);
-            $total = true;
+            $total = false;
         }else if(isset($_POST['description'])) {
             $bills = $billRepository->findByDescription($_POST['description'],$id);
             $total = true;
