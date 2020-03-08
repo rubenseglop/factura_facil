@@ -176,10 +176,21 @@ $(function() {
         }
 
         if(form_date < last_date) {
-            alert("La fecha introducida no puede ser anterior a la de la última factura");
+            alert("La fecha introducida no puede ser anterior a la de la última factura o última fecha válida");
             event.preventDefault();
         }
 
     });
+
+    var date = new Date();
+    y = date.getFullYear();
+    m = Number( Number(date.getMonth()) + 1) - 3;
+    if(m <= 0) {
+        m = 1;
+    }
+    d = date.getDate();
+
+    $("#actual").text("Última fecha válida - " +d + "/" + m + "/" + y);
+    $(".actual-date").val(m + "/" + d + "/" + y);
     
 });

@@ -77,6 +77,12 @@ class BillController extends AbstractController
         $clients = $repositoryClient->findBy(['company'=>$company, 'status'=>true]);
         $last_invoice = $billRepository->findOneBy(['company' => $company, "numberBill" => $company->getInvoiceNumber()]);
 
+        if($last_invoice != null) {
+            $last_date = $last_invoice->getDateBill();
+        }else {
+            $last_date = null;
+        }
+
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ){
 
@@ -104,7 +110,7 @@ class BillController extends AbstractController
              'clients' => $clients,
              'title' => "Añadir Nueva Factura",
              'send' => "Crear factura",
-             'last_date' => $last_invoice->getDateBill()
+             'last_date' => $last_date
         ]);
     }
 
