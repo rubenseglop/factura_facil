@@ -21,50 +21,89 @@
                     {{ form_start(profileForm, {'method': 'post', 'attr': {'class': 'form'}}) }}
                         <div class="container">
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="profile_avatar" class="control-label">Imagen de perfil</label>
-                                        {{ form_widget(profileForm.avatar, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Imagen de perfil'} }) }}
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="form-group profile-select-img">
+                                        <div>
+                                            <div class="profile-img" style="background-image: url({{ asset('img/' ~ app.user.avatar) }});">
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        {{ form_widget(profileForm.avatar, { 'attr': {'class': 'custom-file-input', 'aria-describedby':'inputGroupFileAddon01'} }) }}
+                                                        <label class="custom-file-label" for="profile_avatar">Seleccionar Imagen</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {% for errorItem in profileForm.avatar.vars.errors %}
+                                            <span class="help-inline">{{ errorItem.message }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="profile_email" class="control-label">Email</label>
-                                        {{ form_widget(profileForm.email, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Email'} }) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Nombre</label>
-                                        {{ form_widget(profileForm.name, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Nombre'} }) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="profile_extraUserData_dni" class="control-label">DNI</label>
-                                        {{ form_widget(profileForm.extraUserData.dni, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'DNI'} }) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="profile_extraUserData_birthDate" class="control-label">Fecha de Nacimiento</label>
-                                        <div class="select-date-form">
-                                            {{ form_widget(profileForm.extraUserData.birthDate.day, { 'attr': {'class': 'form-control'}, 'empty_data': '1' }) }}
-                                            {{ form_widget(profileForm.extraUserData.birthDate.month, { 'attr': {'class': 'form-control'} }) }}
-                                            {{ form_widget(profileForm.extraUserData.birthDate.year, { 'attr': {'class': 'form-control'} }) }}
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="profile_email" class="control-label">Email</label>
+                                                    {{ form_widget(profileForm.email, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Email'} }) }}
+                                                </div>
+                                                <div>
+                                                    {% for errorItem in profileForm.email.vars.errors %}
+                                                        <span class="help-inline">{{ errorItem.message }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="profile_name" class="control-label">Nombre</label>
+                                                    {{ form_widget(profileForm.name, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Nombre'} }) }}
+                                                </div>
+                                                <div>
+                                                    {% for errorItem in profileForm.name.vars.errors %}
+                                                        <span class="help-inline">{{ errorItem.message }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="profile_extraUserData_dni" class="control-label">DNI</label>
+                                                    {{ form_widget(profileForm.extraUserData.dni, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'DNI'} }) }}
+                                                </div>
+                                                <div>
+                                                    {% for errorItem in profileForm.extraUserData.dni.vars.errors %}
+                                                        <span class="help-inline">{{ errorItem.message }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="profile_extraUserData_phoneNumber" class="control-label">Teléfono</label>
+                                                    {{ form_widget(profileForm.extraUserData.phoneNumber, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Número de teléfono'} }) }}
+                                                </div>
+                                                <div>
+                                                    {% for errorItem in profileForm.extraUserData.phoneNumber.vars.errors %}
+                                                        <span class="help-inline">{{ errorItem.message }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-9 col-md-9 col-lg-7">
+                                                <div class="form-group">
+                                                    <label for="profile_extraUserData_birthDate" class="control-label">Fecha de Nacimiento</label>
+                                                    <div class="select-date-form">
+                                                        {{ form_widget(profileForm.extraUserData.birthDate.day, { 'attr': {'class': 'form-control'}, 'empty_data': '1' }) }}
+                                                        {{ form_widget(profileForm.extraUserData.birthDate.month, { 'attr': {'class': 'form-control'} }) }}
+                                                        {{ form_widget(profileForm.extraUserData.birthDate.year, { 'attr': {'class': 'form-control'} }) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ form_rest(profileForm) }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="profile_extraUserData_phoneNumber" class="control-label">Teléfono</label>
-                                        {{ form_widget(profileForm.extraUserData.phoneNumber, { 'attr': {'class': 'form-control form-control-lg rounded-sm', 'placeholder':'Número de teléfono'} }) }}
-                                    </div>
-                                </div>
-                                {{ form_rest(profileForm) }}
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 update-profile">
                                     <div class="form-actions">
-                                        <button type="submit" id="profile_save" name="profile[save]" class="btn btn-primary float-left">Actualizar</button>
+                                        <button type="submit" class="btn btn-primary float-left">Actualizar</button>
                                     </div>
                                 </div>
                             </div>

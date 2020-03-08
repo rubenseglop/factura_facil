@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Form\ProfileType;
+use FontLib\EOT\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,16 +21,29 @@ class ProfileController extends AbstractController
         }
 
         $form = $this->createForm(ProfileType::class, $this->getUser());
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $profile = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
+            $profile = $form->getData();
+            $uploadedFile = $form['avatar']->getData();
+
+            if($uploadedFile != null) {
+                
+                $destination = $this->getParameter('kernel.project_dir').'/public/img';
+
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $destination,
+                    $newFilename
+                );
+                $profile->setAvatar($newFilename);
+            }
+            
             $entityManager->persist($profile);
             $entityManager->flush();
-
         }
         
         return $this->render('profile/profile.html.twig', [
