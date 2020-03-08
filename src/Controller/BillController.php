@@ -26,23 +26,31 @@ class BillController extends AbstractController
         }
         $entityManager = $this->getDoctrine()->getManager();
         $billRepository= $this->getDoctrine()->getRepository(Bill::class);
+
+        $total = false;
         
         if(isset($_POST['start-date']) && isset($_POST['end-date'])) {
             $bills = $billRepository->findByDateBill($_POST['start-date'], $_POST['end-date'], $id);
+            $total = true;
         }else if(isset($_POST['numberBill'])) {
             $bills = $billRepository->findByNumberBill($_POST['numberBill'],$id);
+            $total = true;
         }else if(isset($_POST['description'])) {
             $bills = $billRepository->findByDescription($_POST['description'],$id);
+            $total = true;
         }else if(isset($_POST['client'])) {
             $bills = $billRepository->findByClient($_POST['client'],$id);
+            $total = true;
         }else {
             $bills = $billRepository->findByIdCompany($id);
+            $total = false;
         }
 
         return $this->render('bill/index.html.twig', [
             'controller_name' => 'BillController',
             'bills' => $bills,
-            'company_id' => $id
+            'company_id' => $id,
+            'total' => $total
         ]);
     }
     //Formulario para añadir una nueva factura
@@ -67,6 +75,7 @@ class BillController extends AbstractController
         $company = $companyRepository->findOneBy(['id'=>$id, 'User'=>$this->getUser()]);
         $products = $productRepository->findBy(['company'=>$company, 'status'=>true]);
         $clients = $repositoryClient->findBy(['company'=>$company, 'status'=>true]);
+        $last_invoice = $billRepository->findOneBy(['company' => $company, "numberBill" => $company->getInvoiceNumber()]);
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ){
@@ -94,7 +103,8 @@ class BillController extends AbstractController
              'products' => $products,
              'clients' => $clients,
              'title' => "Añadir Nueva Factura",
-             'send' => "Crear factura"
+             'send' => "Crear factura",
+             'last_date' => $last_invoice->getDateBill()
         ]);
     }
 
@@ -193,6 +203,52 @@ class BillController extends AbstractController
         return $this->render('bill/pdf_bill.html.twig',[
             'bill' => $bill
         ]);
+    }
+
+    /**
+     * @Route("/pdf-factura/{id}/detalle-factura", name="getInvoiceDetail")
+     */
+    public function getInvoiceDetail($id) {
+        $billRepository = $this->getDoctrine()->getRepository(Bill::class);
+        $invoice = $billRepository->findOneById($id);
+
+        $company = $invoice->getCompany();
+        $client = $invoice->getClient();
+
+        if($client != null) {
+            $response = new Response();
+            $response->setContent(json_encode(array(
+                'invoice_number' => $invoice->getNumberBill(),
+                'invoice_date' => $invoice->getDateBill(),
+                'invoice_description' => $invoice->getDescriptionBill(),
+                'invoice_amount_iva' => $invoice->getAmountIVA(),
+                'invoice_amount_without_iva' => $invoice->getAmountWithoutIVA(),
+                'invoice_total_amount' => $invoice->getTotalInvoiceAmount(),
+                'company_name' => $company->getName(),
+                'company_fiscalAddress' => $company->getFiscalAddress(),
+                'company_email' => $company->getEmail(),
+                'company_nif' => $company->getNIF(),
+                'client_name' => $client->getName(),
+                'client_nif' => $client->getNIF(),
+                'client_email' => $client->getEmail(),
+                'client_phone' => $client->getPhone(),
+                'client_web' => $client->getWeb(),
+                'company_fiscal_adress' => $client->getFiscalAdress()
+            )));
+        }else {
+            $response = new Response();
+            $response->setContent(json_encode(array(
+                'invoice-date' => $invoice->getDateBill(),
+                'invoice-description' => $invoice->getDescriptionBill(),
+                'invoice-amount_iva' => $invoice->getAmountIVA(),
+                'invoice-amount_without_iva' => $invoice->getAmountWithoutIVA(),
+                'invoice-total_amount' => $invoice->getTotalInvoiceAmount(),
+            )));
+        }
+        
+
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

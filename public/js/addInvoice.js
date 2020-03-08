@@ -6,7 +6,7 @@ $(function() {
     var amount_without_iva = 0;
     var lines = 1;
 
-    lines = Number($("tbody").children('tr').last().children("th").eq(0).text());
+    lines = Number($("tbody").children('tr').last().children("th").eq(0).text()) - 1;
     
     function calculateAmountIva() {
         amount_iva = amount_iva * 0;
@@ -32,7 +32,7 @@ $(function() {
     }
 
     function deleteLine(remove_bt) {
-        if(lines > 1) {
+        if(lines > 0) {
             lines -= 1;
             remove_bt.parent().parent().remove();
 
@@ -81,7 +81,7 @@ $(function() {
             '<td><div class="delete-little"><i class="far fa-trash-alt"></i></div><input type="hidden" value="-1"></td>'+
         '</tr>';
 
-        var counter = '<th scope="row">' +lines +'</th>';
+        var counter = '<th scope="row">' +(lines + 1) +'</th>';
 
         var select = $("tbody").children('tr').first().children('td').first();
         var name = "add_new_bill[billLines][" +lines +"][product]";
@@ -165,13 +165,21 @@ $(function() {
     $("#add_new_bill").off().on("submit", function(event) {
         
         var today = new Date();
+        var last = $("#last-date").val();
         var format_date = $("#add_new_bill_dateBill_month").val() +"/" +$("#add_new_bill_dateBill_day").val() +"/" +$("#add_new_bill_dateBill_year").val();
+        var last_date = new Date(last);
         var form_date = new Date(format_date);
 
         if(form_date > today) {
-            alert("La fecha introducida no puede ser mayor a la del día actual");
+            alert("La fecha introducida no puede ser posterior a la del día actual");
             event.preventDefault();
         }
+
+        if(form_date < last_date) {
+            alert("La fecha introducida no puede ser anterior a la de la última factura");
+            event.preventDefault();
+        }
+
     });
     
 });
