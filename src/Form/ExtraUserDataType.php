@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ExtraUserData;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,7 @@ class ExtraUserDataType extends AbstractType
     {
         $builder
             ->add('dni')
-            ->add('birthDate')
+            ->add('birthDate', BirthdayType::class)
             ->add('phoneNumber')
         ;
     }

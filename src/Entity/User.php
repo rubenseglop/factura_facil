@@ -49,6 +49,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=500)
      * @Assert\File(mimeTypes={ "image/jpeg" , "image/png" , "image/tiff" , "image/svg+xml"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $avatar;
 
@@ -179,7 +180,7 @@ class User implements UserInterface
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): self
+    public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
 

@@ -20,6 +20,8 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $old_img = $this->getUser()->getAvatar();
+
         $form = $this->createForm(ProfileType::class, $this->getUser());
         $form->handleRequest($request);
 
@@ -30,7 +32,7 @@ class ProfileController extends AbstractController
             $uploadedFile = $form['avatar']->getData();
 
             if($uploadedFile != null) {
-                
+
                 $destination = $this->getParameter('kernel.project_dir').'/public/img';
 
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -40,6 +42,8 @@ class ProfileController extends AbstractController
                     $newFilename
                 );
                 $profile->setAvatar($newFilename);
+            }else {
+                $profile->setAvatar($old_img);
             }
             
             $entityManager->persist($profile);

@@ -114,4 +114,9 @@
         </div>
     </div>
 
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset("js/profile.js") }}"></script>
+    {% endblock %}
+
 {% endblock %}

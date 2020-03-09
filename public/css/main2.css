@@ -424,6 +424,7 @@
 }
 
 .search-forms .search-form {
+    min-width: 295px;
     display: none;
 }
 
