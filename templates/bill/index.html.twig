@@ -28,75 +28,65 @@
                                 <a href="{{ path('addNewBill', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
                             </div>
                             <div class="panel-search">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-sm-9 col-md-6 col-lg-5 col-xl-4">
-                                            <div class="search-forms">
-                                                <div class="search-form search-number-bill">
-                                                    <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchNumberBill">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="numberBill">Número de Factura</label>
-                                                            <input class="form-control" type="text" name="numberBill" id="numberBill">
-                                                        </div>
-                                                        <div class="form-actions">
-                                                            <button class="btn btn-primary" type="submit">Buscar</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="search-form search-description">
-                                                    <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDescription">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="description">Descripción de la Factura</label>
-                                                            <input class="form-control" type="text" name="description" id="description">
-                                                        </div>
-                                                        <div class="form-actions">
-                                                            <button class="btn btn-primary" type="submit">Buscar</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="search-form search-client">
-                                                    <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchClient">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="client">Cliente de la Factura</label>
-                                                            <input class="form-control" type="text" name="client" id="client">
-                                                        </div>
-                                                        <div class="form-actions">
-                                                            <button class="btn btn-primary" type="submit">Buscar</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="search-form search-date">
-                                                    <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDate">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="start-date">Fecha Inicio</label>
-                                                            <input class="form-control" type="Date" name="start-date" id="start-date">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="end-date">Fecha Fin</label>
-                                                            <input class="form-control" type="Date" name="end-date" id="end-date">
-                                                        </div>
-                                                        <div class="form-actions">
-                                                            <button class="btn btn-primary" type="submit">Buscar</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                <div class="search-forms">
+                                    <div class="search-form search-number-bill">
+                                        <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchNumberBill">
+                                            <div class="form-group">
+                                                <label class="control-label" for="numberBill">Número de Factura</label>
+                                                <input class="form-control" type="text" name="numberBill" id="numberBill">
                                             </div>
-                                        </div>
-                                        <div class="col-9 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                                            <div class="form-group select-search">
-                                                <label class="control-label" for="select-search">Buscar por</label>
-                                                <select class="form-control rounded-sm" id="select-search">
-                                                    <option value="1">Nº de factura</option>
-                                                    <option value="2">Descripción de la Factura</option>
-                                                    <option value="3">Cliente de la Factura</option>
-                                                    <option value="4">Fecha</option>
-                                                </select>
+                                            <div class="form-actions">
+                                                <button class="btn btn-primary" type="submit">Buscar</button>
                                             </div>
-                                        </div>
+                                        </form>
+                                    </div>
+                                    <div class="search-form search-description">
+                                        <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDescription">
+                                            <div class="form-group">
+                                                <label class="control-label" for="description">Descripción de la Factura</label>
+                                                <input class="form-control" type="text" name="description" id="description">
+                                            </div>
+                                            <div class="form-actions">
+                                                <button class="btn btn-primary" type="submit">Buscar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="search-form search-client">
+                                        <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchClient">
+                                            <div class="form-group">
+                                                <label class="control-label" for="client">Cliente de la Factura</label>
+                                                <input class="form-control" type="text" name="client" id="client">
+                                            </div>
+                                            <div class="form-actions">
+                                                <button class="btn btn-primary" type="submit">Buscar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="search-form search-date">
+                                        <form action="{{ path('bills', {id:company_id}) }}" method="POST" id="searchDate">
+                                            <div class="form-group">
+                                                <label class="control-label" for="start-date">Fecha Inicio</label>
+                                                <input class="form-control" type="Date" name="start-date" id="start-date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="end-date">Fecha Fin</label>
+                                                <input class="form-control" type="Date" name="end-date" id="end-date">
+                                            </div>
+                                            <div class="form-actions">
+                                                <button class="btn btn-primary" type="submit">Buscar</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                
-                                
+                                <div class="form-group select-search">
+                                    <label class="control-label" for="select-search">Buscar por</label>
+                                    <select class="form-control rounded-sm" id="select-search">
+                                        <option value="1">Nº de factura</option>
+                                        <option value="2">Descripción de la Factura</option>
+                                        <option value="3">Cliente de la Factura</option>
+                                        <option value="4">Fecha</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">

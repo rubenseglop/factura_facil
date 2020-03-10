@@ -314,6 +314,7 @@
 .panel-search{
     padding: 12px 8px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .show, .edit, .delete {
@@ -426,6 +427,10 @@
 .search-forms .search-form {
     min-width: 295px;
     display: none;
+}
+
+.select-search {
+    min-width: 250px;
 }
 
 

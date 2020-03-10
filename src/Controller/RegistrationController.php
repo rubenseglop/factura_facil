@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
                 $form->get('name')->getData()
             );
 
-            $roles[] = "ROL_USER";
+            $roles[] = "ROLE_USER";
             $user->setRoles($roles);
 
             $user->setCompanyLimit(0);

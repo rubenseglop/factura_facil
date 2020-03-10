@@ -69,6 +69,16 @@ class Client
      */
     private $status;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Budget", mappedBy="client")
+     */
+    private $budgets;
+
+    public function __construct()
+    {
+        $this->budgets = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -194,6 +204,37 @@ class Client
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Budget[]
+     */
+    public function getBudgets(): Collection
+    {
+        return $this->budgets;
+    }
+
+    public function addBudget(Budget $budget): self
+    {
+        if (!$this->budgets->contains($budget)) {
+            $this->budgets[] = $budget;
+            $budget->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBudget(Budget $budget): self
+    {
+        if ($this->budgets->contains($budget)) {
+            $this->budgets->removeElement($budget);
+            // set the owning side to null (unless already changed)
+            if ($budget->getClient() === $this) {
+                $budget->setClient(null);
+            }
+        }
 
         return $this;
     }

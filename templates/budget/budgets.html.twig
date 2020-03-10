@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Presupuestos{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body %}
+
+    {% include 'header.html.twig' %}
+    {% include 'menu-user.html.twig' %}
+    {% include 'modal.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'menu-company.html.twig' %}
+
+            <div class="col-md-9 col-lg-10">
+                <div class="container main-container">
+                    <div class="row flex-xl-nowrap">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3>Presupuestos</h3>
+                                <a href="{{ path('addBudget', {id:company_id}) }}"><button><i class="fas fa-plus"></i></button></a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nº Presupuesto</th>
+                                            <th scope="col">Validez</th>
+                                            <th scope="col">Enlace</th>
+                                            <th class="th-lit" width="75px" scope="col"><div>Editar/ Eliminar</div></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% set counter = 0 %}
+                                        {% for budget in budgets %}
+                                            {% set counter = counter + 1 %}
+                                            <tr>
+                                                <td>{{ budget.budgetNumber }}</td>
+                                                <td>{{ budget.startDate|date("d/m/Y") }} - {{ endDate.endDate|date("d/m/Y") }}</td>
+                                                <td></td>
+                                                {% if counter < 2 %}
+                                                    <td>
+                                                        <div class="edit-delete">
+                                                            <a href="{{ path('editBudget', {id: company_id, invoice_id: bill.id}) }}"><button name="edit" class="edit-lit">Editar</button></a>
+                                                            <a href="{{ path('deleteBudget', {id: bill.id}) }}"><button name="delete" class="delete-lit">Eliminar</button></a>
+                                                        </div>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block footer_javascripts %}
+        
+        <script src="{{ asset("js/menu-company.js") }}"></script>
+
+    {% endblock %}
+
+{% endblock %}
+
+

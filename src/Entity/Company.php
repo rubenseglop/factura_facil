@@ -74,12 +74,18 @@ class Company
      */
     private $invoiceNumber;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Budget", mappedBy="company", orphanRemoval=true)
+     */
+    private $budgets;
+
     public function __construct()
     {
         $this->socialNetWorks = new ArrayCollection();
         $this->clients = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->bills = new ArrayCollection();
+        $this->budgets = new ArrayCollection();
     }
 
 
@@ -296,6 +302,37 @@ class Company
     public function setInvoiceNumber(int $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Budget[]
+     */
+    public function getBudgets(): Collection
+    {
+        return $this->budgets;
+    }
+
+    public function addBudget(Budget $budget): self
+    {
+        if (!$this->budgets->contains($budget)) {
+            $this->budgets[] = $budget;
+            $budget->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBudget(Budget $budget): self
+    {
+        if ($this->budgets->contains($budget)) {
+            $this->budgets->removeElement($budget);
+            // set the owning side to null (unless already changed)
+            if ($budget->getCompany() === $this) {
+                $budget->setCompany(null);
+            }
+        }
 
         return $this;
     }

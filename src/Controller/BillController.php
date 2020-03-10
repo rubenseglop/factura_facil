@@ -24,9 +24,8 @@ class BillController extends AbstractController
     	if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-        $entityManager = $this->getDoctrine()->getManager();
-        $billRepository= $this->getDoctrine()->getRepository(Bill::class);
 
+        $billRepository= $this->getDoctrine()->getRepository(Bill::class);
         $total = false;
         
         if(isset($_POST['start-date']) && isset($_POST['end-date'])) {

@@ -33,3 +33,6 @@ easy_admin:
     BillLine:
       class: App\Entity\BillLine
       label: 'BillLine'
+    Budget:
+      class: App\Entity\Budget
+      label: 'Budget'

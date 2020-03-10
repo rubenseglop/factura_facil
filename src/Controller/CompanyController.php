@@ -19,6 +19,10 @@ class CompanyController extends AbstractController
      */
     public function companies()
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
         $user = $this->getUser();
         $idUser = $user->getId();
@@ -39,6 +43,10 @@ class CompanyController extends AbstractController
      */
     public function socialNetwork(Request $request)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if (isset($_GET['id'])) {
             $socialnetwork = new SocialNetworks();
             $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
@@ -73,6 +81,10 @@ class CompanyController extends AbstractController
      */
     public function delete()
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        
         if(isset($_GET['idS']) && isset($_GET['idC'])){
             $repositorySocialNetwork = $this->getDoctrine()->getRepository(SocialNetworks::class);
             $social = $repositorySocialNetwork->findOneSocialById($_GET['idS']);
@@ -94,6 +106,9 @@ class CompanyController extends AbstractController
      */
     public function showCompany($id)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         
         $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
         $user = $this->getUser();
@@ -111,6 +126,10 @@ class CompanyController extends AbstractController
      */
     public function edit(Request $request)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if (isset($_GET['id'])) {
             $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
             $company = $repositoryCompany->findOneCompanyById($_GET['id']);
@@ -151,6 +170,10 @@ class CompanyController extends AbstractController
      */
     public function deleteCompany()
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if(isset($_GET['id'])) {
             $repositoryCompany = $this->getDoctrine()->getRepository(Company::class);
             $entityManager = $this->getDoctrine()->getManager();
@@ -188,6 +211,10 @@ class CompanyController extends AbstractController
      */
     public function addNewCompany(Request $request)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
         $newCompany = new Company();
         $form = $this->createForm(AddCompanyType::class, $newCompany);
